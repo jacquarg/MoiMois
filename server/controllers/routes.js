@@ -1,11 +1,12 @@
 /* 
 * Set the routes of your app here.
 */ 
-
+Badges = require('./badges')
 // Test
-TestModel = require('../models/receiptdetail');
+TestModel = require('../models/geolocationlog');
 test = function(req, res) {
-    TestModel.test(function(err, instances) {
+    //TestModel.test(function(err, instances) {
+    TestModel.distanceStats(function(err, instances) {
         if(err != null) {
             res.send(500, "An error has occurred -- " + err);
         }
@@ -18,6 +19,10 @@ test = function(req, res) {
 
 
 module.exports = {
+  'badges': {
+      get: Badges.all
+  
+  },
   'test': {
     get: test
   },
