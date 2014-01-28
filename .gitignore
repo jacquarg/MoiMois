@@ -1,0 +1,11 @@
+
+test/.DS_Store
+
+server/.DS_Store
+
+.DS_Store
+
+node_modules
+test/npm-debug.log
+
+*.swp
