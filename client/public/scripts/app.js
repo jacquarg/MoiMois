@@ -166,13 +166,12 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="badge"><div class="score">');
+buf.push('<div class="mmbadge col-lg-6"><div class="absolute"><img');
+buf.push(attrs({ 'title':(""), 'src':('img/' + (badge.type) + '_badge.png') }, {"title":true,"src":true}));
+buf.push('/><div class="score">');
 var __val__ = badge.label
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div><div class="type">');
-var __val__ = badge.type
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div></div>');
+buf.push('</div></div></div>');
 }
 return buf.join("");
 };

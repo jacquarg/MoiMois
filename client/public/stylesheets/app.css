@@ -5998,6 +5998,29 @@ td.visible-print {
     display: none !important;
   }
 }
+.absolute {
+  position: absolute;
+}
+.mmbadge {
+  position: relative;
+  height: 150px;
+  text-align: center;
+}
+.mmbadge .absolute {
+  height: 150px;
+  width: 200px;
+}
+.mmbadge .absolute img {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+}
+.mmbadge .absolute .score {
+  position: absolute;
+  bottom: 45px;
+  width: 100%;
+  text-align: center;
+}
 
 
 /*# sourceMappingURL=app.css.map*/

@@ -1,3 +1,29 @@
 @import "bootstrap/bootstrap.less";
 
+.absolute {
+   position: relative;
+   display: inline-block;
+}
 
+.mmbadge {
+
+    height: 150px;
+    text-align: center;
+    .absolute {
+        height: 150px;
+        width: 200px;
+        
+        img {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+        }
+
+        .score {
+            position: absolute;
+            bottom: 34px;
+            width: 100%;
+            text-align: center;
+        }
+    }
+}
