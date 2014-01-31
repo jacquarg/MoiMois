@@ -3,10 +3,10 @@
 */ 
 Badges = require('./badges')
 // Test
-TestModel = require('../models/geolocationlog');
+TestModel = require('../models/phonecommunicationlog');
 test = function(req, res) {
     //TestModel.test(function(err, instances) {
-    TestModel.distanceStats(function(err, instances) {
+    TestModel.totals(function(err, instances) {
         if(err != null) {
             res.send(500, "An error has occurred -- " + err);
         }

@@ -5999,10 +5999,10 @@ td.visible-print {
   }
 }
 .absolute {
-  position: absolute;
+  position: relative;
+  display: inline-block;
 }
 .mmbadge {
-  position: relative;
   height: 150px;
   text-align: center;
 }
@@ -6017,7 +6017,7 @@ td.visible-print {
 }
 .mmbadge .absolute .score {
   position: absolute;
-  bottom: 45px;
+  bottom: 34px;
   width: 100%;
   text-align: center;
 }

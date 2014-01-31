@@ -167,7 +167,7 @@ var buf = [];
 with (locals || {}) {
 var interp;
 buf.push('<div class="mmbadge col-lg-6"><div class="absolute"><img');
-buf.push(attrs({ 'title':(""), 'src':('img/' + (badge.type) + '_badge.png') }, {"title":true,"src":true}));
+buf.push(attrs({ 'title':(""), 'src':('img/badges/' + (badge.type) + '_badge.png') }, {"title":true,"src":true}));
 buf.push('/><div class="score">');
 var __val__ = badge.label
 buf.push(escape(null == __val__ ? "" : __val__));

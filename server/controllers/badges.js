@@ -1,4 +1,5 @@
 GeolocationLog = require('../models/geolocationlog');
+PhoneCommunicationLog = require('../models/phonecommunicationlog');
 async = require('async');
 
 
@@ -26,6 +27,41 @@ module.exports.all = function(req, res) {
                     badges.push({
                         type: "traveled_distance",
                         label: h + '00 km',
+                    });
+                }
+                
+                callback(null, badges);
+            });
+        },
+        function(callback) {
+            PhoneCommunicationLog.totals(function(err, data) {
+                var badges = [];
+                
+                // Data
+                //var tens = Math.floor(data.callsDuration / (5 * 1000000000)); //(5 GB) TODO
+                var tens = Math.floor(data.data / (100000000)); //(100 MB)
+                for (var h=1;h<=tens;h++) {
+                    badges.push({
+                        type: "data",
+                        label: h + '00 Mo',
+                    });
+                }
+
+                // Calls duration.
+                var tens = Math.floor(data.callsDuration / (5 * 60 * 60)); //(5 hours)
+                for (var h=1;h<=tens;h++) {
+                    badges.push({
+                        type: "calls_duration",
+                        label: h + ' H',
+                    });
+                }
+
+                // Contacts called/received.
+                var tens = Math.floor(data.callsContactsCount / 10);
+                for (var h=1;h<=tens;h++) {
+                    badges.push({
+                        type: "contacts_count",
+                        label: h + '0',
                     });
                 }
                 
