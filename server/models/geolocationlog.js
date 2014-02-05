@@ -47,18 +47,75 @@ GeolocationLog.computeDistance = function(loc1, loc2) {
 
 };
 
+GeolocationLog._computeDistances = function(err, locs, callback) {
+    res = {
+        topDistance: 0,
+        topSpeed: 0,
+        totalDistance: 0,
+    }
+    if (err) {
+        callback(err, res);
+
+    } else if (locs.length <= 1) {
+        callback("Only one points", res);
+    } else {
+        var loc1 = locs[0];
+        for (var i=1; i<locs.length; i++) {
+            var loc2 = locs[i];
+
+            // 15' betwen the two points ? (+- 10%)
+
+            var timeDelta = loc2.timestamp.getTime() - loc1.timestamp.getTime();
+
+            areSuccessivePoints = 
+                15 * 60 * 1000 * (1 - 0.1) < timeDelta 
+                && 
+                15 * 60 * 1000 * (1 + 0.1) > timeDelta ;
+            // Compute distance between points.
+            d = GeolocationLog.computeDistance(loc1, loc2);
+            if (isNaN(d)) {
+                console.log(d);
+                console.log(loc1);
+                console.log(loc2);
+            }
+            res.totalDistance += d ;
+
+            if (areSuccessivePoints) {
+                if (res.topDistance < d) {
+                    res.topDistance = d;
+
+                    res.topSpeed = d * 4 ; //  km/(1/4h) --> km/h .
+                }
+            }
+
+            loc1 = loc2;
+        }
+        callback(null, res);
+    }
+};
+
+GeolocationLog.monthDistanceStats = function(month, callback) {
+    GeolocationLog.request(
+        "deviceStateIsOn",
+        {
+          startkey: [month, null],
+          endkey: [month, {}]
+        },
+        function(err, locs) {
+            GeolocationLog._computeDistances(err, locs, callback);
+        }
+    );
+};
+
 GeolocationLog.distanceStats = function(callback) {
     GeolocationLog.request(
         "deviceStateIsOn",
         {},
-        function(err, locs) {
+/*        function(err, locs) {
             res = {
                 topDistance: 0,
-                topDistanceLabel: '',
                 topSpeed: 0,
-                topSpeedLabel: '',
                 totalDistance: 0,
-                totalDistanceLabel: ''
             }
             if (err) {
                 callback(err, res);
@@ -99,5 +156,9 @@ GeolocationLog.distanceStats = function(callback) {
                 }
                 callback(null, res);
             }
-        });
+        }*/
+        function(err, locs) {
+            GeolocationLog._computeDistances(err, locs, callback);
+            }
+        );
 };

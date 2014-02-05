@@ -10,7 +10,13 @@ module.exports = {
                 if (!doc.deviceState 
                     && !isNaN(doc.latitude)
                     && !isNaN(doc.longitude)) {
-                    emit(doc.timestamp, doc);
+
+                    emit(
+                    [doc.timestamp.slice(0, 7), 
+                        doc.timestamp.slice(8,10), 
+                        doc.timestamp.slice(11, -1)]
+//                        doc.timestamp
+                        , doc);
                 }
             }
     },
@@ -19,17 +25,24 @@ module.exports = {
         totals: {
             map: function(doc) {
                 var sums = {
-                    //calls: 0,
+                    calls: 0,
+                    callsOutgoing: 0,
+                    callsIncoming: 0,
                     callsContacts : {},
                     //contactsCount: 0,
                     callsDuration: 0,
-                    //sms : 0,
+                    sms : 0,
                     data : 0,
 
                 };
 
                 if (doc.type == 'VOICE') {
                     sums.calls += 1;
+                    if (doc.direction == 'INCOMING') {
+                        sums.callsIncoming += 1;
+                    } else {
+                        sums.callsOutgoing += 1;
+                    }
                     sums.callsDuration += doc.chipCount;
                     sums.callsContacts[doc.correspondantNumber] = doc.chipCount ;
                 } else if (doc.type == 'SMS-C') {
@@ -40,25 +53,29 @@ module.exports = {
 
                 emit([doc.timestamp.slice(0, 7), 
                         doc.timestamp.slice(8,10), 
-                        doc.timestamp.slice(12, -1)], sums);
+                        doc.timestamp.slice(11, -1)], sums);
             },
 
             reduce: function(key, values, rereduce) {
                 var sums = {
-                    //calls: 0,
+                    calls: 0,
+                    callsOutgoing: 0,
+                    callsIncoming: 0,
                     callsContacts : {},
                     //contactsCount: 0,
                     callsDuration: 0,
-                    //sms : 0,
+                    sms : 0,
                     data : 0,
                 };
 
                 for (var j=0; j<values.length; j++) {
                     v = values[j];
-                    //sums.calls += v.calls;
+                    sums.calls += v.calls;
+                    sums.callsIncoming += v.callsIncoming;
+                    sums.callsOutgoing += v.callsOutgoing;
 
                     sums.callsDuration += v.callsDuration;
-                    //sums.sms += v.sms;
+                    sums.sms += v.sms;
                     sums.data += v.data;
 
                     for (key in v.callsContacts) {
