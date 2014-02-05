@@ -110,6 +110,15 @@ module.exports = Badges = Backbone.Collection.extend({
 
 });
 
+;require.register("collections/numbers", function(exports, require, module) {
+
+module.exports = Numbers = Backbone.Collection.extend({
+    model: require('../models/numberviz'),
+    url: 'numbers'
+});
+
+});
+
 ;require.register("initialize", function(exports, require, module) {
 // The function called from index.html
 $(document).ready(function() {
@@ -123,6 +132,12 @@ $(document).ready(function() {
 module.exports = Badge = Backbone.Model.extend({
 
 })
+
+});
+
+;require.register("models/numberviz", function(exports, require, module) {
+module.exports = NumberViz = Backbone.Model.extend({
+});
 
 });
 
@@ -166,7 +181,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="mmbadge col-lg-6"><div class="absolute"><img');
+buf.push('<div class="mmbadge col-lg-6"><div class="frame"><img');
 buf.push(attrs({ 'title':(""), 'src':('img/badges/' + (badge.type) + '_badge.png') }, {"title":true,"src":true}));
 buf.push('/><div class="score">');
 var __val__ = badge.label
@@ -187,6 +202,121 @@ buf.push('<div class="container"><div id="allbadges"></div></div>');
 }
 return buf.join("");
 };
+});
+
+;require.register("templates/numberviz", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<div class="mmnumber col-lg-6"><div class="frame"><div class="lab">');
+var __val__ = numberViz.label
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div><hr/>');
+ if (numberViz.type == "vc")
+{
+buf.push('<div class="vcCount">');
+var __val__ = numberViz.count
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div>');
+}
+ else if (numberViz.type == "vvc")
+{
+buf.push('<div class="vvcCount">');
+var __val__ = numberViz.count
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div><div class="vvcCount2">');
+var __val__ = numberViz.count2
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div>');
+}
+ else if (numberViz.type == "v")
+{
+buf.push('<div class="vCount">');
+var __val__ = numberViz.count
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div>');
+}
+ else if (numberViz.type == "vv")
+{
+buf.push('<div class="vvCount">');
+var __val__ = numberViz.count
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div><div class="vvCount2">');
+var __val__ = numberViz.count2
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div>');
+}
+ if (numberViz.type.indexOf('c') != -1)
+{
+buf.push('<hr/><div class="labcompare">');
+var __val__ = numberViz.compareLabel
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div>');
+}
+buf.push('</div></div>');
+}
+return buf.join("");
+};
+});
+
+;require.register("views/all_things", function(exports, require, module) {
+BadgesCollection = require('../collections/badges');
+NumbersCollection = require('../collections/numbers');
+Badge = require('./badge');
+NumberViz = require('./numberviz');
+
+module.exports = AllTHingsView = Backbone.View.extend({
+    //el : $( "#allbadges" ),
+    collection : new BadgesCollection(),
+    collectionN : new NumbersCollection(),
+    //modelView : require('./badge'),
+    template : require('../templates/allbadges'),
+
+//    appendView: (view) ->
+//        @$el.append view.el
+
+//    tagName: 'div',
+//    events: {
+        //"click .toggle": "toggleSectionsNoDefault"    
+//    },
+
+    initialize: function() {
+//        this.collection = new SectionCollection([], { receiptId: this.model.attributes.receiptId });
+        //this.listenTo(this.collection, "add", this.onItemAdded);
+        //this.collection.fetch();
+        this.listenTo(this.collectionN, "add", this.onNumberVizAdded);
+        this.collectionN.fetch();
+    },
+
+//    render: function() {
+//        this.$el.html(this.template({
+//            receipt: this.model.toJSON()
+//        }));
+//    },
+    
+    onItemAdded: function(instance) {
+        // render the specific element
+        //badgeView = new this.modelView({
+        var badgeView = new Badge({
+            model: instance
+        });
+        badgeView.render();
+        this.$el.append(badgeView.$el);
+    },
+    
+    onNumberVizAdded: function(instance) {
+        // render the specific element
+        var itemView = new NumberViz({
+            model: instance
+        });
+        itemView.render();
+        this.$el.append(itemView.$el);
+    },
+});
+
+
 });
 
 ;require.register("views/allbadges", function(exports, require, module) {
@@ -233,7 +363,7 @@ module.exports = AllBadgesView = Backbone.View.extend({
 });
 
 ;require.register("views/app_view", function(exports, require, module) {
-var AllBadgesView = require('./allbadges');
+var AllThingsView = require('./all_things');
 
 module.exports = AppView = Backbone.View.extend({
 
@@ -252,7 +382,7 @@ module.exports = AppView = Backbone.View.extend({
         // we render the template
         this.$el.html(this.template());
 
-        allbadgesView = new AllBadgesView();
+        allbadgesView = new AllThingsView();
         allbadgesView.render();
         this.$el.find('#allbadges').append(allbadgesView.$el);
 //        var personView = new PersonView();
@@ -274,6 +404,22 @@ module.exports = Badge = Backbone.View.extend({
     render: function() {
         this.$el.html(this.template({
             badge: this.model.toJSON()
+        }));
+    },
+
+});
+
+});
+
+;require.register("views/numberviz", function(exports, require, module) {
+module.exports = NumberViz = Backbone.View.extend({
+
+//    tagName: 'div',
+    template: require('../templates/numberviz'),
+
+    render: function() {
+        this.$el.html(this.template({
+            numberViz: this.model.toJSON()
         }));
     },
 

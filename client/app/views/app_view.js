@@ -1,4 +1,4 @@
-var AllBadgesView = require('./allbadges');
+var AllThingsView = require('./all_things');
 
 module.exports = AppView = Backbone.View.extend({
 
@@ -17,7 +17,7 @@ module.exports = AppView = Backbone.View.extend({
         // we render the template
         this.$el.html(this.template());
 
-        allbadgesView = new AllBadgesView();
+        allbadgesView = new AllThingsView();
         allbadgesView.render();
         this.$el.find('#allbadges').append(allbadgesView.$el);
 //        var personView = new PersonView();

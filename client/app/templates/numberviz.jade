@@ -1,0 +1,21 @@
+.mmnumber.col-lg-6
+    .frame
+        .lab= numberViz.label
+        hr
+        - if (numberViz.type == "vc")
+            .vcCount= numberViz.count
+
+        - else if (numberViz.type == "vvc")
+            .vvcCount= numberViz.count
+            .vvcCount2= numberViz.count2
+
+        - else if (numberViz.type == "v")
+            .vCount= numberViz.count
+
+        - else if (numberViz.type == "vv")
+            .vvCount= numberViz.count
+            .vvCount2= numberViz.count2
+
+        - if (numberViz.type.indexOf('c') != -1)
+            hr
+            .labcompare= numberViz.compareLabel

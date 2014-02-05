@@ -5998,7 +5998,7 @@ td.visible-print {
     display: none !important;
   }
 }
-.absolute {
+.frame {
   position: relative;
   display: inline-block;
 }
@@ -6006,20 +6006,59 @@ td.visible-print {
   height: 150px;
   text-align: center;
 }
-.mmbadge .absolute {
+.mmbadge .frame {
   height: 150px;
   width: 200px;
 }
-.mmbadge .absolute img {
+.mmbadge .frame img {
   position: absolute;
   bottom: 5px;
   left: 5px;
 }
-.mmbadge .absolute .score {
+.mmbadge .frame .score {
   position: absolute;
   bottom: 34px;
   width: 100%;
   text-align: center;
+}
+.mmnumber {
+  text-align: center;
+}
+.mmnumber .frame {
+  width: 300px;
+}
+.mmnumber .frame .lab {
+  text-transform: capitalize;
+}
+.mmnumber .frame .vcCount {
+  color: #F15048;
+  text-size: 42px;
+  text-transform: capitalize;
+}
+.mmnumber .frame .vvcCount {
+  color: #F15048;
+  text-size: 20px;
+  text-transform: capitalize;
+}
+.mmnumber .frame .vvcCount2 {
+  color: #F68470;
+  text-size: 42px;
+  text-transform: capitalize;
+}
+.mmnumber .frame .vCount {
+  color: #2F6878;
+  text-size: 42px;
+  text-transform: capitalize;
+}
+.mmnumber .frame .vvCount {
+  color: #2F6878;
+  text-size: 42px;
+  text-transform: capitalize;
+}
+.mmnumber .frame .vvCount2 {
+  color: #5AC8CC;
+  text-size: 42px;
+  text-transform: capitalize;
 }
 
 
