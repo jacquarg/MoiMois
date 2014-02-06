@@ -50,3 +50,21 @@ module.exports.formatPhoneNumber = function(rawNum) {
 
     return rawNum;
 };
+
+// Return amortized value of 
+// right / left -> [0, 2] (0 -> 100)
+// with right = left => 1.
+// left and right in [0, +infinity[ .
+module.exports.balance = function(left, right) {
+//TODO find better function ! it is bad...
+    //var tanh = function(arg) {
+    //// sinh(number)/cosh(number)
+    //    return (Math.exp(arg) - Math.exp(-arg)) / (Math.exp(arg) + Math.exp(-arg));
+    //};
+
+    var rawBal = right / left;
+    //var value = (rawBal <= 1) ? Math.sqrt(rawBal) : tanh(rawBal) + 1 ;
+    var value = (rawBal <= 1) ? Math.sqrt(rawBal) :  (2 - 1 / rawBal) ;
+    
+    return value * 50;
+}

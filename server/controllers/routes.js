@@ -3,6 +3,7 @@
 */ 
 Badges = require('./badges');
 Numbers = require('./numbers');
+Cursors = require('./cursors');
 
 // Test
 TestModel = require('../models/geolocationlog');
@@ -29,6 +30,11 @@ module.exports = {
   'numbers': {
     get: Numbers.all        
   },
+
+  'cursors': {
+    get: Cursors.all        
+  },
+
   'test': {
     get: test
   },
