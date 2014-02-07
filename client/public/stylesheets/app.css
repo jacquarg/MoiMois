@@ -6002,6 +6002,9 @@ td.visible-print {
   position: relative;
   display: inline-block;
 }
+.vizframe {
+  width: 300px;
+}
 .mmbadge {
   height: 150px;
   text-align: center;
@@ -6059,6 +6062,41 @@ td.visible-print {
   color: #5AC8CC;
   text-size: 42px;
   text-transform: capitalize;
+}
+.mmcursor {
+  text-align: center;
+}
+.mmcursor .frame {
+  width: 300px;
+  height: 240px;
+}
+.mmcursor .frame .title {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+}
+.mmcursor .frame .mmLabel {
+  position: absolute;
+  width: 80px;
+  bottom: 30px;
+}
+.mmcursor .frame .minLabel {
+  position: absolute;
+  width: 80px;
+  bottom: 30px;
+  left: 5px;
+}
+.mmcursor .frame .maxLabel {
+  position: absolute;
+  width: 80px;
+  bottom: 30px;
+  right: 5px;
+}
+.mmcursor .frame .svg {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  bottom: 0px;
 }
 
 
