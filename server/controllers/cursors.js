@@ -10,6 +10,7 @@ module.exports.all = function(req, res) {
     //    minLabel,
     //    maxLabel,
     //    balance, (%)
+    //    color,
     // }
 
     async.parallel([
@@ -25,6 +26,7 @@ module.exports.all = function(req, res) {
                     minLabel: "muet",
                     maxLabel: "pipelette",
                     balance: value,
+                    color: "Red",
                 });
                 
                 // Direction balance
@@ -32,6 +34,7 @@ module.exports.all = function(req, res) {
                     minLabel: "récepteur",
                     maxLabel: "émetteur",
                     balance: utils.balance(data.callsIncoming, data.callsOutgoing),
+                    color: "Blue",
                 });
 
                 // SMS / calls balance ...
@@ -39,6 +42,7 @@ module.exports.all = function(req, res) {
                     minLabel: "scribe",
                     maxLabel: "Orateur",
                     balance: utils.balance(data.sms, data.calls),
+                    color: "Blue",
                 });
 
                 callback(null, cursors);
@@ -56,6 +60,7 @@ module.exports.all = function(req, res) {
                     minLabel: "casanier",
                     maxLabel: "globetrotter",
                     balance: value,
+                    color: "Blue",
                 });
 
                 // Speed
@@ -65,6 +70,7 @@ module.exports.all = function(req, res) {
                     minLabel: "tortue",
                     maxLabel: "lièvre",
                     balance: value,
+                    color: "Red",
                 });
         
                 //TODO
