@@ -1,15 +1,18 @@
 BadgesCollection = require('../collections/badges');
 NumbersCollection = require('../collections/numbers');
 CursorsCollection = require('../collections/cursors');
+BargraphsCollection = require('../collections/bargraphs');
 Badge = require('./badge');
 NumberViz = require('./numberviz');
 Cursor = require('./cursor');
+Bargraph = require('./bargraph');
 
-module.exports = AllTHingsView = Backbone.View.extend({
+module.exports = AllThingsView = Backbone.View.extend({
     //el : $( "#allbadges" ),
     collection : new BadgesCollection(),
     collectionN : new NumbersCollection(),
     collectionC : new CursorsCollection(),
+    collectionB : new BargraphsCollection(),
     //modelView : require('./badge'),
     template : require('../templates/allbadges'),
 
@@ -28,8 +31,10 @@ module.exports = AllTHingsView = Backbone.View.extend({
         //this.listenTo(this.collectionN, "add", this.onNumberVizAdded);
         //this.collectionN.fetch();
 
-        this.listenTo(this.collectionC, "add", this.onCursorAdded);
-        this.collectionC.fetch();
+//        this.listenTo(this.collectionC, "add", this.onCursorAdded);
+//        this.collectionC.fetch();
+        this.listenTo(this.collectionB, "add", this.onBargraphAdded);
+        this.collectionB.fetch();
     },
 
 //    render: function() {
@@ -60,6 +65,15 @@ module.exports = AllTHingsView = Backbone.View.extend({
     onCursorAdded: function(instance) {
         // render the specific element
         var itemView = new Cursor({
+            model: instance
+        });
+        itemView.render();
+        this.$el.append(itemView.$el);
+    },
+
+    onBargraphAdded: function(instance) {
+        // render the specific element
+        var itemView = new Bargraph({
             model: instance
         });
         itemView.render();

@@ -4,12 +4,13 @@
 Badges = require('./badges');
 Numbers = require('./numbers');
 Cursors = require('./cursors');
+Bargraphs = require('./bargraphs');
 
 // Test
 TestModel = require('../models/geolocationlog');
 test = function(req, res) {
     //TestModel.test(function(err, instances) {
-    TestModel.monthDistanceStats("2013-09", function(err, instances) {
+    TestModel.monthDistanceSlices("2014-01", function(err, instances) {
         if(err != null) {
             res.send(500, "An error has occurred -- " + err);
         }
@@ -34,6 +35,12 @@ module.exports = {
   'cursors': {
     get: Cursors.all        
   },
+
+  'bargraphs': {
+    get: Bargraphs.all        
+  },
+
+
 
   'test': {
     get: test

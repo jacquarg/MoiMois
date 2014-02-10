@@ -107,6 +107,73 @@ GeolocationLog.monthDistanceStats = function(month, callback) {
     );
 };
 
+GeolocationLog.monthDistanceSlices = function(month, callback) {
+    GeolocationLog.request(
+        "deviceStateIsOn",
+        {
+          startkey: [month, null],
+          endkey: [month, {}]
+        },
+function(err, locs) {
+    res = {
+    //    topDistance: 0,
+    //    topSpeed: 0,
+    //    totalDistance: 0,
+   
+    }
+    if (err) {
+        callback(err, res);
+
+    } else if (locs.length <= 1) {
+        callback("Only one points", res);
+
+    } else {
+        var loc1 = locs[0];
+        var slices = [];
+        for (var i = 0; i < 12; i++) slices[i] = 0;
+
+        for (var i=1; i<locs.length; i++) {
+            var loc2 = locs[i];
+
+            // 15' betwen the two points ? (+- 10%)
+
+            var timeDelta = loc2.timestamp.getTime() - loc1.timestamp.getTime();
+
+            areSuccessivePoints = 
+                15 * 60 * 1000 * (1 - 0.1) < timeDelta 
+                && 
+                15 * 60 * 1000 * (1 + 0.1) > timeDelta ;
+            
+            if (areSuccessivePoints) {
+                //slice by pair hours.
+                var hIdx = Math.floor(parseInt(loc1.timestamp.toISOString().slice(11, 13)) / 2) ;
+                d = GeolocationLog.computeDistance(loc1, loc2);
+                
+                slices[hIdx] += d;
+            }
+
+            loc1 = loc2;
+        }
+        //console.log(slices);
+        res =  [
+            { rangeLabel: "8h-10h", sum: slices[4],  },
+            { rangeLabel: "10h-12h", sum: slices[5],  },
+            { rangeLabel: "12h-14h", sum: slices[6],  },
+            { rangeLabel: "14h-16h", sum: slices[7],  },
+            { rangeLabel: "16h-18h", sum: slices[8],  },
+            { rangeLabel: "18h-20h", sum: slices[9],  },
+            { rangeLabel: "20h-22h", sum: slices[10],  },
+            { rangeLabel: "22h-2h", sum: slices[11] + slices[0],  },
+            { rangeLabel: "6h-8h", sum: slices[2] + slices[3],  },
+            
+        ]
+
+        callback(null, res);
+    }
+        }
+    );
+};
+
 GeolocationLog.distanceStats = function(callback) {
     GeolocationLog.request(
         "deviceStateIsOn",

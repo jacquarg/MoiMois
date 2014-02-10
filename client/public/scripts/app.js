@@ -110,6 +110,14 @@ module.exports = Badges = Backbone.Collection.extend({
 
 });
 
+;require.register("collections/bargraphs", function(exports, require, module) {
+module.exports = Bargraphs = Backbone.Collection.extend({
+    model: require('../models/bargraph'),
+    url: 'bargraphs'
+});
+
+});
+
 ;require.register("collections/cursors", function(exports, require, module) {
 
 module.exports = Cursors = Backbone.Collection.extend({
@@ -141,6 +149,12 @@ $(document).ready(function() {
 module.exports = Badge = Backbone.Model.extend({
 
 })
+
+});
+
+;require.register("models/bargraph", function(exports, require, module) {
+module.exports = Bargraph = Backbone.Model.extend({
+});
 
 });
 
@@ -202,6 +216,21 @@ buf.push('/><div class="score">');
 var __val__ = badge.label
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div></div></div>');
+}
+return buf.join("");
+};
+});
+
+;require.register("templates/bargraphdays", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<div class="mmcursor col-lg-6"><div class="frame"><div class="title">');
+var __val__ = bargraph.title
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div><div class="svg"><?xml version="1.0" encoding="UTF-8" standalone="no"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n\n<svg\n   xmlns:dc="http://purl.org/dc/elements/1.1/"\n   xmlns:cc="http://creativecommons.org/ns#"\n   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"\n   xmlns:svg="http://www.w3.org/2000/svg"\n   xmlns="http://www.w3.org/2000/svg"\n   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"\n   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"\n   width="300"\n   height="350"\n   id="svg3582"\n   version="1.1"\n   inkscape:version="0.48.4 r9939"\n   sodipodi:docname="barres.svg">\n  <defs\n     id="defs3584">\n    <clipPath\n       clipPathUnits="userSpaceOnUse"\n       id="clipPath226">\n      <path\n         inkscape:connector-curvature="0"\n         d="m 0,841.89 595.28,0 L 595.28,0 0,0 0,841.89 z"\n         id="path228" />\n    </clipPath>\n    <clipPath\n       clipPathUnits="userSpaceOnUse"\n       id="clipPath226-9">\n      <path\n         inkscape:connector-curvature="0"\n         d="m 0,841.89 595.28,0 L 595.28,0 0,0 0,841.89 z"\n         id="path228-5" />\n    </clipPath>\n  </defs>\n  <sodipodi:namedview\n     id="base"\n     pagecolor="#ffffff"\n     bordercolor="#666666"\n     borderopacity="1.0"\n     inkscape:pageopacity="0.0"\n     inkscape:pageshadow="2"\n     inkscape:zoom="0.7"\n     inkscape:cx="188.24219"\n     inkscape:cy="60.504537"\n     inkscape:document-units="px"\n     inkscape:current-layer="layer1"\n     showgrid="false"\n     inkscape:window-width="1024"\n     inkscape:window-height="744"\n     inkscape:window-x="0"\n     inkscape:window-y="0"\n     inkscape:window-maximized="1" />\n  <metadata\n     id="metadata3587">\n    <rdf:RDF>\n      <cc:Work\n         rdf:about="">\n        <dc:format>image/svg+xml</dc:format>\n        <dc:type\n           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />\n        <dc:title />\n      </cc:Work>\n    </rdf:RDF>\n  </metadata>\n  <g\n     inkscape:label="Calque 1"\n     inkscape:groupmode="layer"\n     id="layer1">\n    <g\n       id="g4476"\n       class="d1">\n      <rect\n         y="84.750282"\n         x="30.000406"\n         height="193.57141"\n         width="15.7"\n         id="rect3105-24"\n         style="fill:#ec6652;fill-opacity:1" />\n      <text\n         sodipodi:linespacing="125%"\n         id="text3946-0"\n         y="73.295998"\n         x="18.563999"\n         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:middle;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ec6652;fill-opacity:1;stroke:none;font-family:LuxSansBookItalic;-inkscape-font-specification:LuxSansBookItalic Medium"\n         xml:space="preserve">45</text>\n    </g>\n    <text\n       xml:space="preserve"\n       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="-317.44095"\n       y="42.556408"\n       id="text4003"\n       sodipodi:linespacing="125%"\n       transform="matrix(0,-1,1,0,0,0)"><tspan\n         sodipodi:role="line"\n         id="tspan4005"\n         x="-317.44095"\n         y="42.556408">Lundi</tspan></text>\n    <g\n       id="g4484"\n       class="d2">\n      <rect\n         y="84.750282"\n         x="70.850471"\n         height="193.57141"\n         width="15.7"\n         id="rect3105-24-4"\n         style="fill:#f49c82;fill-opacity:1" />\n      <text\n         sodipodi:linespacing="125%"\n         id="text3946-0-0"\n         y="73.295998"\n         x="55.253979"\n         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#f49c82;fill-opacity:1;stroke:none;font-family:LuxSansBookItalic;-inkscape-font-specification:LuxSansBookItalic Medium"\n         xml:space="preserve"><tspan\n           y="73.295998"\n           x="55.253979"\n           id="tspan3948-6-7"\n           sodipodi:role="line">45 min</tspan></text>\n    </g>\n    <text\n       xml:space="preserve"\n       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="-319.49753"\n       y="83.406471"\n       id="text4003-2"\n       sodipodi:linespacing="125%"\n       transform="matrix(0,-1,1,0,0,0)"><tspan\n         sodipodi:role="line"\n         id="tspan4005-6"\n         x="-319.49753"\n         y="83.406471">Mardi</tspan></text>\n    <g\n       id="g4492"\n       class="d3">\n      <rect\n         y="84.750282"\n         x="107.54045"\n         height="193.57141"\n         width="15.7"\n         id="rect3105-24-0"\n         style="fill:#2f6f7f;fill-opacity:1" />\n      <text\n         sodipodi:linespacing="125%"\n         id="text3946-0-3"\n         y="73.295998"\n         x="91.943962"\n         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#2f6f7f;fill-opacity:1;stroke:none;font-family:LuxSansBookItalic;-inkscape-font-specification:LuxSansBookItalic Medium"\n         xml:space="preserve"><tspan\n           y="73.295998"\n           x="91.943962"\n           id="tspan3948-6-3"\n           sodipodi:role="line">45 min</tspan></text>\n    </g>\n    <text\n       xml:space="preserve"\n       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="-336.71237"\n       y="120.09645"\n       id="text4003-20"\n       sodipodi:linespacing="125%"\n       transform="matrix(0,-1,1,0,0,0)"><tspan\n         sodipodi:role="line"\n         id="tspan4005-2"\n         x="-336.71237"\n         y="120.09645">Mercredi</tspan></text>\n    <g\n       id="g4500"\n       class="d4">\n      <rect\n         y="84.750282"\n         x="144.23047"\n         height="193.57141"\n         width="15.7"\n         id="rect3105-24-1"\n         style="fill:#51bfcd;fill-opacity:1" />\n      <text\n         sodipodi:linespacing="125%"\n         id="text3946-0-1"\n         y="73.295998"\n         x="128.63397"\n         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#51bfcd;fill-opacity:1;stroke:none;font-family:LuxSansBookItalic;-inkscape-font-specification:LuxSansBookItalic Medium"\n         xml:space="preserve"><tspan\n           y="73.295998"\n           x="128.63397"\n           id="tspan3948-6-4"\n           sodipodi:role="line">45 min</tspan></text>\n    </g>\n    <text\n       xml:space="preserve"\n       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="-313.96231"\n       y="156.78647"\n       id="text4003-5"\n       sodipodi:linespacing="125%"\n       transform="matrix(0,-1,1,0,0,0)"><tspan\n         sodipodi:role="line"\n         id="tspan4005-8"\n         x="-313.96231"\n         y="156.78647">Jeudi</tspan></text>\n    <g\n       id="g4508"\n       class="d5">\n      <rect\n         y="84.750282"\n         x="180.92043"\n         height="193.57141"\n         width="15.7"\n         id="rect3105-24-5"\n         style="fill:#cae6e4;fill-opacity:1" />\n      <text\n         sodipodi:linespacing="125%"\n         id="text3946-0-5"\n         y="73.295998"\n         x="165.32393"\n         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#cae6e4;fill-opacity:1;stroke:none;font-family:LuxSansBookItalic;-inkscape-font-specification:LuxSansBookItalic Medium"\n         xml:space="preserve"><tspan\n           y="73.295998"\n           x="165.32393"\n           id="tspan3948-6-1"\n           sodipodi:role="line">45 min</tspan></text>\n    </g>\n    <text\n       xml:space="preserve"\n       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="-336.02682"\n       y="193.47643"\n       id="text4003-8"\n       sodipodi:linespacing="125%"\n       transform="matrix(0,-1,1,0,0,0)"><tspan\n         sodipodi:role="line"\n         id="tspan4005-1"\n         x="-336.02682"\n         y="193.47643">Vendredi</tspan></text>\n    <g\n       id="g4516"\n       class="d6">\n      <rect\n         y="84.750282"\n         x="217.61044"\n         height="193.57141"\n         width="15.7"\n         id="rect3105-24-15"\n         style="fill:#6eaaa6;fill-opacity:1" />\n      <text\n         sodipodi:linespacing="125%"\n         id="text3946-0-9"\n         y="73.295998"\n         x="202.01393"\n         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#6eaaa6;fill-opacity:1;stroke:none;font-family:LuxSansBookItalic;-inkscape-font-specification:LuxSansBookItalic Medium"\n         xml:space="preserve"><tspan\n           y="73.295998"\n           x="202.01393"\n           id="tspan3948-6-8"\n           sodipodi:role="line">45 min</tspan></text>\n    </g>\n    <text\n       xml:space="preserve"\n       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="-327.54636"\n       y="230.16644"\n       id="text4003-1"\n       sodipodi:linespacing="125%"\n       transform="matrix(0,-1,1,0,0,0)"><tspan\n         sodipodi:role="line"\n         id="tspan4005-60"\n         x="-327.54636"\n         y="230.16644">Samedi</tspan></text>\n    <g\n       id="g4524"\n       class="d0">\n      <rect\n         y="84.750282"\n         x="254.30042"\n         height="193.57141"\n         width="15.7"\n         id="rect3105-24-8"\n         style="fill:#268365;fill-opacity:1" />\n      <text\n         sodipodi:linespacing="125%"\n         id="text3946-0-8"\n         y="73.295998"\n         x="238.70392"\n         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#268365;fill-opacity:1;stroke:none;font-family:LuxSansBookItalic;-inkscape-font-specification:LuxSansBookItalic Medium"\n         xml:space="preserve"><tspan\n           y="73.295998"\n           x="238.70392"\n           id="tspan3948-6-9"\n           sodipodi:role="line">45 min</tspan></text>\n    </g>\n    <text\n       xml:space="preserve"\n       style="font-size:13px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="-342.827"\n       y="266.84991"\n       id="text4003-9"\n       sodipodi:linespacing="125%"\n       transform="matrix(0,-1,1,0,0,0)"><tspan\n         sodipodi:role="line"\n         id="tspan4005-15"\n         x="-342.827"\n         y="266.84991">Dimanche</tspan></text>\n  </g>\n</svg>\n</div></div></div>');
 }
 return buf.join("");
 };
@@ -298,15 +327,18 @@ return buf.join("");
 BadgesCollection = require('../collections/badges');
 NumbersCollection = require('../collections/numbers');
 CursorsCollection = require('../collections/cursors');
+BargraphsCollection = require('../collections/bargraphs');
 Badge = require('./badge');
 NumberViz = require('./numberviz');
 Cursor = require('./cursor');
+Bargraph = require('./bargraph');
 
-module.exports = AllTHingsView = Backbone.View.extend({
+module.exports = AllThingsView = Backbone.View.extend({
     //el : $( "#allbadges" ),
     collection : new BadgesCollection(),
     collectionN : new NumbersCollection(),
     collectionC : new CursorsCollection(),
+    collectionB : new BargraphsCollection(),
     //modelView : require('./badge'),
     template : require('../templates/allbadges'),
 
@@ -325,8 +357,10 @@ module.exports = AllTHingsView = Backbone.View.extend({
         //this.listenTo(this.collectionN, "add", this.onNumberVizAdded);
         //this.collectionN.fetch();
 
-        this.listenTo(this.collectionC, "add", this.onCursorAdded);
-        this.collectionC.fetch();
+//        this.listenTo(this.collectionC, "add", this.onCursorAdded);
+//        this.collectionC.fetch();
+        this.listenTo(this.collectionB, "add", this.onBargraphAdded);
+        this.collectionB.fetch();
     },
 
 //    render: function() {
@@ -357,6 +391,15 @@ module.exports = AllTHingsView = Backbone.View.extend({
     onCursorAdded: function(instance) {
         // render the specific element
         var itemView = new Cursor({
+            model: instance
+        });
+        itemView.render();
+        this.$el.append(itemView.$el);
+    },
+
+    onBargraphAdded: function(instance) {
+        // render the specific element
+        var itemView = new Bargraph({
             model: instance
         });
         itemView.render();
@@ -453,6 +496,37 @@ module.exports = Badge = Backbone.View.extend({
         this.$el.html(this.template({
             badge: this.model.toJSON()
         }));
+    },
+
+});
+
+});
+
+;require.register("views/bargraph", function(exports, require, module) {
+module.exports = Bargraph = Backbone.View.extend({
+
+
+//    tagName: 'div',
+    template: require('../templates/bargraphdays'),
+
+    render: function() {
+        
+        this.$el.html(this.template({
+            bargraph: this.model.toJSON()
+        }));
+        
+        for (var i=0;i<7;i++) {
+            var bar = this.model.attributes.bars[i] ;
+
+            var g = this.$el.find(".d" + i);
+            g.children("rect")
+                .attr("height", 2 * bar.percent)
+                .attr("y", 78.32 + 200 - 2 * bar.percent);
+
+            g.children("text")
+                .attr("y", 65 + 200 - 2 * bar.percent);
+        }
+
     },
 
 });

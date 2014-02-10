@@ -68,3 +68,25 @@ module.exports.balance = function(left, right) {
     
     return value * 50;
 }
+
+module.exports.barsToPercent = function(data) {
+    if (data.length <= 1) {
+        console.log("To short");
+        return data;
+    }
+    // Get max
+    var max = data[0].sum;
+    for (var i=1;i<data.length;i++) {
+        if (data[i].sum > max) {
+            max = data[i].sum ;
+        }
+    }
+        
+    console.log(max);
+    var res = data.map(function(item) {
+        item["percent"] = item.sum / max * 100 ;
+        return item;
+    });
+
+    return res;
+};
