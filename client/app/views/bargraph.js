@@ -18,8 +18,10 @@ module.exports = Bargraph = Backbone.View.extend({
                 .attr("height", 2 * bar.percent)
                 .attr("y", 78.32 + 200 - 2 * bar.percent);
 
-            g.children("text")
-                .attr("y", 65 + 200 - 2 * bar.percent);
+            var txt = g.children("text");
+            txt.attr("y", 70 + 200 - 2 * bar.percent);
+            console.log(txt);
+            txt[0].textContent = bar.label;
         }
 
     },

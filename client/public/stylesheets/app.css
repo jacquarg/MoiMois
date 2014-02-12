@@ -6098,6 +6098,24 @@ td.visible-print {
   height: 200px;
   bottom: 0px;
 }
+.mmbargraph {
+  text-align: center;
+}
+.mmbargraph .frame {
+  width: 300px;
+  height: 380px;
+}
+.mmbargraph .frame .title {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+}
+.mmbargraph .frame .svg {
+  position: absolute;
+  width: 300px;
+  height: 350px;
+  bottom: 0px;
+}
 
 
 /*# sourceMappingURL=app.css.map*/

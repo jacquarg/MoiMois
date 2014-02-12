@@ -21,7 +21,7 @@ module.exports.all = function(req, res) {
 
                 bargraphs.push({
                     title: "Répartition de vos temps d'appel cumulés sur les jours de la semaine",
-                    bars : utils.barsToPercent(data),
+                    bars : utils.barsToPercent(data, function(sum) { return Math.round(sum / 60) + " min"}),
                 });
 
                 callback(null, bargraphs);
@@ -34,7 +34,7 @@ module.exports.all = function(req, res) {
                 //Distance by week hours slices.
                 bargraphs.push({
                     title: "Moyenne des km parcourus en fonction des heures de la journée",
-                    bars : utils.barsToPercent(data),
+                    bars : utils.barsToPercent(data, function(sum) { return sum.toFixed(1) + " km"}),
                 });
 
 
