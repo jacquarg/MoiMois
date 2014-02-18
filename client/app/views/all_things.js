@@ -6,6 +6,7 @@ Badge = require('./badge');
 NumberViz = require('./numberviz');
 Cursor = require('./cursor');
 Bargraph = require('./bargraph');
+Spider = require('./spider');
 
 module.exports = AllThingsView = Backbone.View.extend({
     //el : $( "#allbadges" ),
@@ -73,7 +74,9 @@ module.exports = AllThingsView = Backbone.View.extend({
 
     onBargraphAdded: function(instance) {
         // render the specific element
-        var itemView = new Bargraph({
+        //TODO
+        //var itemView = new Bargraph({
+        var itemView = new Spider({
             model: instance
         });
         itemView.render();

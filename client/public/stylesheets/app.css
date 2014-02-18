@@ -6116,6 +6116,24 @@ td.visible-print {
   height: 350px;
   bottom: 0px;
 }
+.mmspider {
+  text-align: center;
+}
+.mmspider .frame {
+  width: 630px;
+  height: 480px;
+}
+.mmspider .title {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+}
+.mmspider .svg {
+  position: absolute;
+  width: 600px;
+  height: 400px;
+  bottom: 0px;
+}
 
 
 /*# sourceMappingURL=app.css.map*/
