@@ -13,12 +13,11 @@ module.exports.all = function(req, res) {
 
     async.parallel([
         function(callback) {
-            PhoneCommunicationLog.weekDayStats("2013-09", function(err, data) {
+            PhoneCommunicationLog.weekDayStats("2013-10", function(err, data) {
 
                 var bargraphs = [];
                 
                 // Week Day call durations
-
                 bargraphs.push({
                     title: "Répartition de vos temps d'appel cumulés sur les jours de la semaine",
                     bars : utils.barsToPercent(data, function(sum) { return Math.round(sum / 60) + " min"}),
@@ -28,7 +27,7 @@ module.exports.all = function(req, res) {
             });
         },
         function(callback) {
-            GeolocationLog.monthDistanceSlices("2014-01", function(err, data) {
+            GeolocationLog.monthDistanceSlices("2014-03", function(err, data) {
                 var bargraphs = [];
 
                 //Distance by week hours slices.

@@ -338,6 +338,21 @@ return buf.join("");
 };
 });
 
+;require.register("templates/top3", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<div class="mmbargraph col-lg-6"><div class="frame"><div class="title">');
+var __val__ = top3.title
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div><div class="svg"><?xml version="1.0" encoding="UTF-8" standalone="no"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n\n<svg\n   xmlns:dc="http://purl.org/dc/elements/1.1/"\n   xmlns:cc="http://creativecommons.org/ns#"\n   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"\n   xmlns:svg="http://www.w3.org/2000/svg"\n   xmlns="http://www.w3.org/2000/svg"\n   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"\n   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"\n   width="300"\n   height="350"\n   id="svg7967"\n   version="1.1"\n   inkscape:version="0.48.4 r9939"\n   sodipodi:docname="top_3_2.svg">\n  <defs\n     id="defs7969">\n    <clipPath\n       clipPathUnits="userSpaceOnUse"\n       id="clipPath4628">\n      <path\n         inkscape:connector-curvature="0"\n         d="m 0,841.89 595.28,0 L 595.28,0 0,0 0,841.89 z"\n         id="path4630" />\n    </clipPath>\n    <clipPath\n       clipPathUnits="userSpaceOnUse"\n       id="clipPath4600">\n      <path\n         inkscape:connector-curvature="0"\n         d="m 0,841.89 595.28,0 L 595.28,0 0,0 0,841.89 z"\n         id="path4602" />\n    </clipPath>\n    <clipPath\n       clipPathUnits="userSpaceOnUse"\n       id="clipPath196">\n      <path\n         inkscape:connector-curvature="0"\n         d="m 0,841.89 595.28,0 L 595.28,0 0,0 0,841.89 z"\n         id="path198" />\n    </clipPath>\n  </defs>\n  <sodipodi:namedview\n     id="base"\n     pagecolor="#ffffff"\n     bordercolor="#666666"\n     borderopacity="1.0"\n     inkscape:pageopacity="0.0"\n     inkscape:pageshadow="2"\n     inkscape:zoom="1.5494505"\n     inkscape:cx="103.55396"\n     inkscape:cy="170.80949"\n     inkscape:current-layer="layer1"\n     inkscape:document-units="px"\n     showgrid="false"\n     inkscape:window-width="1027"\n     inkscape:window-height="1038"\n     inkscape:window-x="728"\n     inkscape:window-y="16"\n     inkscape:window-maximized="0" />\n  <metadata\n     id="metadata7972">\n    <rdf:RDF>\n      <cc:Work\n         rdf:about="">\n        <dc:format>image/svg+xml</dc:format>\n        <dc:type\n           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />\n        <dc:title />\n      </cc:Work>\n    </rdf:RDF>\n  </metadata>\n  <g\n     id="layer1"\n     inkscape:label="Layer 1"\n     inkscape:groupmode="layer">\n    <path\n       id="path4634"\n       style="fill:none;stroke:#2f6f7f;stroke-width:1.01465511;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none"\n       d="m 226.19213,148.98219 0,73.94058"\n       inkscape:connector-curvature="0" />\n    <path\n       id="path4638"\n       style="fill:none;stroke:#f49c82;stroke-width:1.01465511;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none"\n       d="m 249.59218,148.98219 0,104.1871"\n       inkscape:connector-curvature="0" />\n    <path\n       id="path4642"\n       style="fill:none;stroke:#ec6652;stroke-width:1.01465511;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none"\n       d="m 273.0322,148.98219 0,139.61981"\n       inkscape:connector-curvature="0" />\n    <path\n       id="path4646"\n       style="fill:#cae6e4;fill-opacity:1;fill-rule:nonzero;stroke:none"\n       d="m 209.82008,149.07073 c 0,32.93692 -26.69895,59.63884 -59.63736,59.63884 -32.93246,0 -59.632896,-26.70192 -59.632896,-59.63884 0,-32.93247 26.700436,-59.635871 59.632896,-59.635871 32.93841,0 59.63736,26.703401 59.63736,59.635871"\n       inkscape:connector-curvature="0" />\n    <text\n       style="font-size:17.82703018px"\n       y="147.06148"\n       x="107.95167"\n       id="text4684">\n      <tspan\n         style="font-size:22.19435501px;font-variant:normal;font-weight:500;font-stretch:normal;writing-mode:lr-tb;fill:#2b2b2a;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Ostrich Sans;-inkscape-font-specification:OstrichSans-Medium"\n         x="107.95167 116.85159 124.7528 132.29887 136.95969 143.68457 148.3454 156.06905 162.79393 167.45474 176.35469 184.25587 191.97951"\n         y="147.06148"\n         sodipodi:role="line"\n         id="tspan4686">top 3 de vos</tspan>\n      <tspan\n         style="font-size:22.19435501px;font-variant:normal;font-weight:500;font-stretch:normal;writing-mode:lr-tb;fill:#2b2b2a;fill-opacity:1;fill-rule:nonzero;stroke:none;font-family:Ostrich Sans;-inkscape-font-specification:OstrichSans-Medium"\n         x="123.37674 131.01161 138.9128 146.63643 154.36009 162.08371 168.80859"\n         y="165.32745"\n         sodipodi:role="line"\n         id="tspan4688">courses</tspan>\n    </text>\n    <path\n       sodipodi:type="arc"\n       style="color:#000000;fill:none;stroke:#f49c82;stroke-width:12;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"\n       id="arc_1"\n       class="arc_1"\n       sodipodi:cx="150"\n       sodipodi:cy="150"\n       sodipodi:rx="100"\n       sodipodi:ry="100"\n       d="M 63.397459,200 A 100,100 0 1 1 250,150"\n       sodipodi:start="2.6179939"\n       sodipodi:end="6.2831853"\n       sodipodi:open="true" />\n    <path\n       sodipodi:type="arc"\n       style="color:#000000;fill:none;stroke:#ec6652;stroke-width:12;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"\n       id="arc_0"\n       class="arc_0"\n       sodipodi:cx="150"\n       sodipodi:cy="150"\n       sodipodi:rx="124"\n       sodipodi:ry="124"\n       d="M 117.90644,269.7748 A 124,124 0 1 1 274,150"\n       sodipodi:start="1.8325957"\n       sodipodi:end="6.2831853"\n       sodipodi:open="true" />\n    <path\n       sodipodi:type="arc"\n       style="color:#000000;fill:none;stroke:#2f6f7f;stroke-width:12;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"\n       id="arc_2"\n       class="arc_2"\n       sodipodi:cx="150"\n       sodipodi:cy="150"\n       sodipodi:rx="76"\n       sodipodi:ry="76"\n       d="M 130.32975,223.41036 A 76,76 0 1 1 226,150"\n       sodipodi:start="1.8325957"\n       sodipodi:end="6.2831853"\n       sodipodi:open="true" />\n    <text\n       xml:space="preserve"\n       style="font-size:12.88040161px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="119.64558"\n       y="276.19843"\n       id="value_0"\n       class="value_0"\n       sodipodi:linespacing="125%">x0</text>\n    <text\n       xml:space="preserve"\n       style="font-size:12.88040161px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="67.08741"\n       y="213.15454"\n       id="value_1"\n       class="value_1"\n       sodipodi:linespacing="125%">x1</text>\n    <text\n       xml:space="preserve"\n       style="font-size:12.88040161px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="134.97595"\n       y="228.74121"\n       id="value_2"\n       class="value_2"\n       sodipodi:linespacing="125%">x2</text>\n    <text\n       xml:space="preserve"\n       style="font-size:9.66030121px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="222.40039"\n       y="-224.70543"\n       id="label_2"\n       class="label_2"\n       sodipodi:linespacing="125%"\n       transform="matrix(0,1,-1,0,0,0)">x2</text>\n    <text\n       xml:space="preserve"\n       style="font-size:9.66030121px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="252.56192"\n       y="-248.26764"\n       id="label_1"\n       class="label_1"\n       sodipodi:linespacing="125%"\n       transform="matrix(0,1,-1,0,0,0)">x1</text>\n    <text\n       xml:space="preserve"\n       style="font-size:9.66030121px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:LuxSansBook;-inkscape-font-specification:LuxSansBook Medium"\n       x="288.22897"\n       y="-271.64178"\n       id="label_0"\n       class="label_0"\n       sodipodi:linespacing="125%"\n       transform="matrix(0,1,-1,0,0,0)">Pastis</text>\n  </g>\n</svg>\n</div></div></div>');
+}
+return buf.join("");
+};
+});
+
 ;require.register("views/all_things", function(exports, require, module) {
 BadgesCollection = require('../collections/badges');
 NumbersCollection = require('../collections/numbers');
@@ -348,6 +363,7 @@ NumberViz = require('./numberviz');
 Cursor = require('./cursor');
 Bargraph = require('./bargraph');
 Spider = require('./spider');
+Top3 = require('./top3');
 
 module.exports = AllThingsView = Backbone.View.extend({
     //el : $( "#allbadges" ),
@@ -417,7 +433,8 @@ module.exports = AllThingsView = Backbone.View.extend({
         // render the specific element
         //TODO
         //var itemView = new Bargraph({
-        var itemView = new Spider({
+        //var itemView = new Spider({
+        var itemView = new Top3({
             model: instance
         });
         itemView.render();
@@ -653,6 +670,62 @@ module.exports = Bargraph = Backbone.View.extend({
             txt[0].textContent = bar.label;
         }*/
 
+    },
+
+});
+
+});
+
+;require.register("views/top3", function(exports, require, module) {
+module.exports = Top3 = Backbone.View.extend({
+
+
+//    tagName: 'div',
+    template: require('../templates/top3'),
+
+    render: function() {
+        this.$el.html(this.template({
+            top3: this.model.toJSON()
+        }));
+
+        var tInit = 1 * Math.PI; //rad.
+        // M 86.13915685039895,46.75715439829325 A 115.09995,115.09995 0 """0/1""" 1 268.89317,139.87497
+        var tMax = 3 / 2 * Math.PI ; // 3/4 de tours.
+        var data = [
+            //{percent : 20, valueLabel: "x8", label: "Pastiseu" },
+        ];
+
+        for (var i=0;i<3;i++) {
+            var data = this.model.attributes.bars[i] ;
+            var arc = this.$el.find(".arc_" + i);
+            var R = parseFloat(arc.attr('sodipodi:rx'));
+            var cx = parseFloat(arc.attr('sodipodi:cx'));
+            var cy = parseFloat(arc.attr('sodipodi:cy'));
+
+            var t = tInit + data.percent * (tMax - tInit) / 100 ;
+            // Polaire vers cartesiennes : 
+            // x = r * cos(t);
+            // y = r * sin(t);
+              
+            var x = R * Math.cos(t) + cx;
+            var y = R * Math.sin(-t) + cy; //repère indirect.
+            
+            var dStr = arc.attr('d');
+            dStr = dStr.slice(dStr.indexOf('A'));
+            dStr = "M " + x + ',' + y + ' ' + dStr;
+            arc.attr('d', dStr);
+
+            // value str.
+            var value = this.$el.find(".value_" + i);
+            var tv = t + 0.15 ;
+
+            value.attr('x', R * Math.cos(tv) + cx);
+            value.attr('y', R * Math.sin(-tv) + cy);
+
+            value[0].textContent = data.valueLabel;
+
+            this.$el.find('.label_' + i)[0].textContent = data.label ;
+        }
     },
 
 });
