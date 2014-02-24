@@ -6134,6 +6134,24 @@ td.visible-print {
   height: 400px;
   bottom: 0px;
 }
+.mmtopx {
+  text-align: center;
+}
+.mmtopx .frame {
+  width: 300px;
+  height: 410px;
+}
+.mmtopx .frame .title {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+}
+.mmtopx .frame .svg {
+  position: absolute;
+  width: 300px;
+  height: 350px;
+  bottom: 0px;
+}
 
 
 /*# sourceMappingURL=app.css.map*/

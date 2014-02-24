@@ -1,18 +1,12 @@
-module.exports = Top3 = Backbone.View.extend({
-    
-    // Model
-    // { title,
-    //   bars : [
-    //     {percent, valueLabel, label },    
-    //   ]
-    //
+module.exports = Top5 = Backbone.View.extend({
+
 
 //    tagName: 'div',
-    template: require('../templates/top3'),
+    template: require('../templates/top5'),
 
     render: function() {
         this.$el.html(this.template({
-            top3: this.model.toJSON()
+            top5: this.model.toJSON()
         }));
 
         var tInit = 1 * Math.PI; //rad.
@@ -22,7 +16,7 @@ module.exports = Top3 = Backbone.View.extend({
             //{percent : 20, valueLabel: "x8", label: "Pastiseu" },
         ];
 
-        for (var i=0;i<3;i++) {
+        for (var i=0;i<5;i++) {
             var data = this.model.attributes.bars[i] ;
             var arc = this.$el.find(".arc_" + i);
             var R = parseFloat(arc.attr('sodipodi:rx'));
