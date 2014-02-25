@@ -14,9 +14,27 @@ module.exports.all = function(req, res) {
     //    compareLabel 
     //    }
 
+    this.ofMonth("2013-09", function(err, numbers) {
+
+        if(err != null) {
+            res.send(500, "An error has occurred -- " + err);
+        }
+        else {
+            res.send(200, numbers);
+        }
+     });
+};
+
+module.exports.ofMonth = function(month, callback) {
     async.parallel([
         function(callback) {
-            PhoneCommunicationLog.monthStats("2013-09", function(err, data) {
+            PhoneCommunicationLog.monthStats(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
 
                 var numbers = [];
                 
@@ -59,7 +77,14 @@ module.exports.all = function(req, res) {
             });
         },
         function(callback) {
-            PhoneCommunicationLog.dayStats("2013-09", function(err, data) {
+            PhoneCommunicationLog.dayStats(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
+
                 var numbers = [];
                 
                 // Data
@@ -84,11 +109,6 @@ module.exports.all = function(req, res) {
             numbers = numbers.concat(results[i]);
         }
 
-        if(err != null) {
-            res.send(500, "An error has occurred -- " + err);
-        }
-        else {
-            res.send(200, numbers);
-        }
+        callback(null, numbers);
     });
 }

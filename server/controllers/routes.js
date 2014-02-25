@@ -1,16 +1,19 @@
 /* 
 * Set the routes of your app here.
 */ 
+Main = require('./main');
+
 Badges = require('./badges');
 Numbers = require('./numbers');
 Cursors = require('./cursors');
 Bargraphs = require('./bargraphs');
 
 // Test
-TestModel = require('../models/geolocationlog');
+//TestModel = require('../models/geolocationlog');
+TestModel = require('../models/phonecommunicationlog');
 test = function(req, res) {
     //TestModel.test(function(err, instances) {
-    TestModel.monthDistanceSlices("2014-01", function(err, instances) {
+    TestModel.monthStats("2014-02", function(err, instances) {
         if(err != null) {
             res.send(500, "An error has occurred -- " + err);
         }
@@ -23,6 +26,10 @@ test = function(req, res) {
 
 
 module.exports = {
+  'mms': {
+      get: Main.main
+  },
+
   'badges': {
       get: Badges.all
   

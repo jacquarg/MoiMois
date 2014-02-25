@@ -46,7 +46,9 @@ PhoneCommunicationLog.monthStats = function(month, callback) {
         function(err, kv) {
             if (err) {
                 callback(err, null);
-                //TODO defensive ?
+            } else if (kv.length == 0) {
+                callback("No phonecommunication this month.", null);
+
             } else {
                 var res = kv[0].value;
                 //Find biggest called time from callsContacts

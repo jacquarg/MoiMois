@@ -12,6 +12,24 @@ module.exports = GeolocationLog = americano.getModel('geolocationlog', {
     'snippet': String
 });
 
+/*
+GeolocationLog.hasDocs = function(callback) {
+    var params = {
+        limit: 1,
+        reduce: false
+    };
+
+    GeolocationLog.rawRequest("deviceStateIsOn", params, 
+        function(err, data) {
+            if (err || !data || data.length == 0) {
+                callback(null, false);
+            } else {
+                callback(null, true);
+            }
+        }
+    );
+}; */
+
 // TODO unit test.
 GeolocationLog.computeDistance = function(loc1, loc2) {
     // From http://integraledesmaths.free.fr/idm/PagePrincipale.htm#http://integraledesmaths.free.fr/idm/GeoAEDistSph.htm .
