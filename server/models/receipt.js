@@ -21,48 +21,24 @@ module.exports = Receipt = americano.getModel('receipt', {
     'snippet': String
 });
 
-//Receipt.afterInitialize = function() {
-//    this.receiptId = this.receiptId.slice(0, -1);
-//    return this;
-//};
-
-Receipt.touch = function() {
-    var cbGen = function(reqName) {
-        var startTime = Date.now();
-
-        return function() {
-            console.log("Touch " + reqName + " in " + (Date.now() - startTime) + "ms");
-        };
-    };
-
-    var params = { 
-        limit: 1,
-        reduce: false
-    };
-
-    Receipt.rawRequest("byTimestamp", params, cbGen("receipt/byTimestamp"));
-    Receipt.rawRequest("monthTotal", params, cbGen("receipt/monthTotal"));
-
-};
-
-Receipt.newest = function(callback) {
-    Receipt.request(
-        "byTimestamp", 
-        { descending: true },
-        function(err, instances) {
-            callback(null, instances);
-        }
-    );
-};
-
-Receipt.totalsByMonth = function(callback) {
+Receipt.totalsOfMonth = function(month, callback) {
    Receipt.rawRequest(
-        "monthTotal", 
-        {
-          descending: true,
-          group: true
+        "totals", 
+        { 
+          group_level: 1,
+          startkey: [month, null, null],
+          endkey: [month, {}, {}],
         },
-        callback
+        function(err, kv) {
+            if (err) {
+                callback(err, null);
+                //TODO defensive ?
+            } else if (kv.length == 0) {
+                callback("No receipts this month.", null);
+            } else {
+                callback(null, kv[0].value);    
+            }
+        }
     );
 };
 

@@ -103,7 +103,8 @@ ofMonth: function(month, callback) {
                 callback(null, cursors);
             });
         },
-        /*function(callback) {
+
+        function(callback) {
             ReceiptDetail.ofMonth(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
@@ -111,29 +112,67 @@ ofMonth: function(month, callback) {
                     callback(null, []);
                     return
                 }
-                
-                // FROMAGE
-                '200': 'BOUCHERIE',
-                '260': 'CHARCUTERIE',
-                '38' :'SURGELES',
-                '30' :'CREMERIE LS',
-                
-                '10' :'FROMAGE TRAD',
-                if (rdet.section == '10' && rdet.computedWeight) {
+                var cursors = [] ;
+                var meat = 0 ;
+                var vegetables = 0 ;
+                var totalWeight = 0 ;
+                data.forEach(function(rdet) {
+                    if (rdet.computedWeight) {
+                        totalWeight += rdet.computedWeight * rdet.amount;
+                    }
+                    // Viande
+                    if (['28', // ? saurisserie
+                        '22', '20', '26', '24', '2', '4', '6', '8'].indexOf(rdet.section) != -1
+                        && rdet.computedWeight) {
+                        meat += rdet.computedWeight * rdet.amount ;
+                    // Légumes
+                    } else if (['12', '10', '38', '30', '32', '34', 
+                    //'46', // ? liquides
+                    '40', '42'].indexOf(rdet.section) != -1
+                        && rdet.computedWeight) {
+                            vegetables += rdet.computedWeight * rdet.amount ;    
+                    }
+                });
 
-                        
-                }
-                // VIANDE
+                console.log(vegetables, meat);
 
-                // SURGELES
+                cursors.push({
+                    minLabel: "végétarien",
+                    maxLabel: "carnivore",
+                    balance: utils.balance(vegetables, meat),
+                    color: "Red",
+                });
 
-                // LAIT
+                cursors.push({
+                    minLabel: "célibataire",
+                    maxLabel: "famille nombreuse",
+                    balance: Math.min(totalWeight, 100),
+                    color: "Blue",
+                });
 
-                // VIN
-
-                // NOURRITURE
+                callback(null, cursors);
             });
-        }*/
+        },
+        function(callback) {
+            Receipt.totalsOfMonth(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
+                var cursors = [] ;
+
+                cursors.push({
+                    minLabel: "au jour le jour",
+                    maxLabel: "prévoyant",
+                    balance: Math.min(200 / data.receipts, 100),
+                    color: "Blue",
+                });
+
+                callback(null, cursors);
+            });
+        },
     ],
     function(err, results) {
         var cursors = [];

@@ -216,9 +216,10 @@ ofMonth : function(month, callback) {
                 count = 0;
 
                 data.forEach(function(rdet) {
-                    if (['12', '10', '38', '28', '30', '22', '32', '20', '34', '26', '24', '2', '46', '4', '6', '8', '40', '42'].indexOf(rdet.aggregatedSection) != -1
-                        && rdet.computedWeight) {
+                    if (['12', '10', '38', '28', '30', '22', '32', '20', '34', '26', '24', '2', '46', '4', '6', '8', '40', '42'].indexOf(rdet.aggregatedSection) != -1) {
+                        if (rdet.computedWeight) {
                         count += rdet.computedWeight * rdet.amount ;
+                        }
                     }
                 });
 

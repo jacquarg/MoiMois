@@ -97,4 +97,32 @@ module.exports = {
                 , doc);
         }
     },
+
+    receipt: {
+        totals : {
+            map: function(doc) {
+                emit(
+                   [doc.timestamp.slice(0, 7), 
+                    doc.timestamp.slice(8,10), 
+                    doc.timestamp.slice(11, -1)]
+                    , {
+                        receipts: 1, 
+                        total: doc.total,
+                    });
+            },
+            reduce : function(key, values, rereduce) {
+                var sums = {
+                    receipts: 0,
+                    total: 0,
+                };
+
+                for (var idx=0; idx<values.length; idx++) {
+                    sums.receipts += values[idx].receipts ;
+                    sums.total += values[idx].total ;
+                }
+                return sums;
+            }
+        },
+    },
+
 };

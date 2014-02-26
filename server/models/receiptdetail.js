@@ -142,6 +142,14 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
         rdet.name = rdet.label;
     }
     
+    // Vegetables !!
+    if (rdet.section == '34') {
+         rdet.computedWeight = rdet.price / 3.0 ; // prix moyen 3.0 E/kg.
+         rdet.computedVolume = rdet.computedWeight ; // Water density.
+
+    }
+
+    
     // Clean name look.
     // to lower.
     // points -> spaces.
