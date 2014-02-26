@@ -1,3 +1,5 @@
+//TODO
+
 GeolocationLog = require('../models/geolocationlog');
 PhoneCommunicationLog = require('../models/phonecommunicationlog');
 async = require('async');

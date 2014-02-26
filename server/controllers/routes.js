@@ -6,14 +6,14 @@ Main = require('./main');
 Badges = require('./badges');
 Numbers = require('./numbers');
 Cursors = require('./cursors');
-Bargraphs = require('./bargraphs');
+Viz = require('./viz');
 
 // Test
 //TestModel = require('../models/geolocationlog');
-TestModel = require('../models/phonecommunicationlog');
+TestModel = require('../models/receiptdetail');
 test = function(req, res) {
     //TestModel.test(function(err, instances) {
-    TestModel.monthStats("2014-02", function(err, instances) {
+    TestModel.ofMonth("2014-02", function(err, instances) {
         if(err != null) {
             res.send(500, "An error has occurred -- " + err);
         }
@@ -44,7 +44,7 @@ module.exports = {
   },
 
   'bargraphs': {
-    get: Bargraphs.all        
+    get: Viz.all        
   },
 
 

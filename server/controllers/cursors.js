@@ -1,9 +1,11 @@
 GeolocationLog = require('../models/geolocationlog');
 PhoneCommunicationLog = require('../models/phonecommunicationlog');
+ReceiptDetail = require('../models/receiptdetail');
 async = require('async');
 utils = require('../models/utils');
 
-module.exports.all = function(req, res) {
+module.exports = Cursors = {
+all: function(req, res) {
     // each function use différents part of the model, and create a cursors list.
     // cursor : 
     // {
@@ -12,11 +14,27 @@ module.exports.all = function(req, res) {
     //    balance, (%)
     //    color,
     // }
+    Cursors.ofMonth("2013-09", function(err, cursors) {
 
+        if(err != null) {
+            res.send(500, "An error has occurred -- " + err);
+        }
+        else {
+            res.send(200, cursors);
+        }
+     });
+},
+
+ofMonth: function(month, callback) {
     async.parallel([
         function(callback) {
-            PhoneCommunicationLog.monthStats("2013-09", function(err, data) {
-
+            PhoneCommunicationLog.monthStats(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
                 var cursors = [];
                 
                 //Total calls duration.
@@ -49,7 +67,14 @@ module.exports.all = function(req, res) {
             });
         },
         function(callback) {
-            GeolocationLog.monthDistanceStats("2013-09", function(err, data) {
+            GeolocationLog.monthDistanceStats(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
+                
                 var cursors = [];
 
                 //Total distance.
@@ -78,18 +103,45 @@ module.exports.all = function(req, res) {
                 callback(null, cursors);
             });
         },
+        /*function(callback) {
+            ReceiptDetail.ofMonth(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
+                
+                // FROMAGE
+                '200': 'BOUCHERIE',
+                '260': 'CHARCUTERIE',
+                '38' :'SURGELES',
+                '30' :'CREMERIE LS',
+                
+                '10' :'FROMAGE TRAD',
+                if (rdet.section == '10' && rdet.computedWeight) {
+
+                        
+                }
+                // VIANDE
+
+                // SURGELES
+
+                // LAIT
+
+                // VIN
+
+                // NOURRITURE
+            });
+        }*/
     ],
     function(err, results) {
         var cursors = [];
         for (var i=0;i<results.length;i++) {
             cursors = cursors.concat(results[i]);
         }
-
-        if(err != null) {
-            res.send(500, "An error has occurred -- " + err);
-        }
-        else {
-            res.send(200, cursors);
-        }
+        callback(null, cursors);
     });
+},
+
 }

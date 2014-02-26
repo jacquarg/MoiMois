@@ -1,4 +1,7 @@
 var Numbers = require('./numbers');
+var Cursors = require('./cursors');
+var Viz = require('./viz');
+var Spiders = require('./spiders');
 
 module.exports.main = function(req, res) {
 //I. 1. checkDoctypes.
@@ -7,7 +10,7 @@ module.exports.main = function(req, res) {
 //II. For each month
     async.map(
     //var months = 
-    ['2014-01', '2014-02'],
+    ['2013-09', '2013-10', '2014-01', '2014-02'],
 
     //for (var i=0;i<months.length;i++) {
     //    var month = months[i];
@@ -17,11 +20,17 @@ module.exports.main = function(req, res) {
         async.parallel({
             // badges
             "numbers": fGen1P(month, Numbers.ofMonth),
+            "cursors": fGen1P(month, Cursors.ofMonth),
+            "viz": fGen1P(month, Viz.ofMonth),
+            //"spiders": fGen1P(month, Spiders.ofMonth),
         },
     //3. Select
         function(err, results) {
             mmData = {
                 "numbers": results.numbers.slice(0,5),
+                "cursors": results.cursors.slice(0,2),
+                "viz": results.viz.slice(0,2),
+                //"numbers": results.numbers.slice(0,5),
                 //
             }
             callback(null, mmData);
