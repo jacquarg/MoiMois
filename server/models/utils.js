@@ -75,18 +75,21 @@ module.exports.barsToPercent = function(data, labLambda) {
         return data;
     }
     // Get max
-    var max = data[0].sum;
+    var max = data[0].amount;
     //for (var i=1;i<data.length;i++) {
-    for (var i=1;i<7;i++) {
-        if (data[i].sum > max) {
-            max = data[i].sum ;
+    for (var i=1;i<data.length;i++) {
+        if (data[i].amount > max) {
+            max = data[i].amount;
         }
     }
         
     var res = data.map(function(item) {
-        item["percent"] = item.sum / max * 100 ;
-        item["label"] = labLambda(item.sum);
-        return item;
+        var resIt = {};
+        resIt["percent"] = item.amount / max * 100 ;
+        var labs = labLambda(item);
+        resIt["label"] = labs[0];
+        resIt["valueLabel"] = labs[1];
+        return resIt;
     });
 
     return res;

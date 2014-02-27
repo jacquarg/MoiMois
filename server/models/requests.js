@@ -95,6 +95,42 @@ module.exports = {
                 doc.timestamp.slice(8,10), 
                 doc.timestamp.slice(11, -1)]
                 , doc);
+        },
+        
+        totalsByMonthByProduct : {
+            map: function(doc) {
+                emit([doc.timestamp.substring(0,7), doc.barcode],
+                        doc
+                     //{
+                     //   count: doc.amount,
+                    //    total: doc.price,
+                    //    receiptDetail: doc
+                    //}
+                    );
+            },
+
+            reduce: function(key, values, rereduce) {
+                var sums = {
+                    amount: 0,
+                    price: 0,
+                };
+                
+                for (var idx=0; idx<values.length; idx++) {
+                    var val = values[idx];
+                    for (var k in val) {
+                        if (k == 'amount') {
+                            sums.amount += val.amount ;
+
+                        } else if (k == 'price') {
+                            sums.price += val.price ;
+                        } else {
+                            sums[k] = val[k];
+                        }
+                    }
+
+                }
+                return sums;
+            }
         }
     },
 

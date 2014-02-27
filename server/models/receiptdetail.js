@@ -278,6 +278,39 @@ ReceiptDetail.ofMonth = function(month, callback) {
     );
 };
 
+ReceiptDetail.mostBoughtProductsOfMonth = function(month, callback) {
+   ReceiptDetail.rawRequest(
+        "totalsByMonthByProduct", 
+        {
+         descending: false,
+         group: true,
+         startkey: [month, null],
+         endkey: [month, {}]
+        },
+        function(err, kvs) {
+            if (err) {
+                callback(err, null);
+            } else if (kvs.length == 0) {
+                callback("No receiptdetails", null);
+
+            } else {
+                var rdets = [];
+                // create ReceiptDetail instances ?
+                for (var idx=0; idx<kvs.length; idx++) {
+                    var val = kvs[idx].value
+                    val = new ReceiptDetail(val);
+                    rdets.push(val);
+                }
+
+                // order by descending count values.
+                rdets = rdets.sort(function(a, b) { return b.amount - a.amount });
+
+                callback(null, rdets);
+            }
+        });
+};
+
+
 /*ReceiptDetail.getOneByBarCode = function(barcode, callback) {
     ReceiptDetail.request(
         "byBarcode", 
@@ -311,32 +344,5 @@ ReceiptDetail.withReceiptId = function(receiptId, callback) {
 };
 
 
-ReceiptDetail.mostBoughtProductOfMonth = function(month, callback) {
-   ReceiptDetail.rawRequest(
-        "totalsByMonthByProduct", 
-        {
-         descending: false,
-         group: true,
-         startkey: [month, null],
-         endkey: [month, {}]
-        },
-        function(err, kvs) {
-            if (err) {
-                callback(err, null);
-            } else {
-                if (kvs.length == 0) {
-                    callback(null, null);
 
-                } else {
-                    var max = kvs[0];
-                    for (var idx=0; idx<kvs.length; idx++) {
-                        if (max.value.count < kvs[idx].value.count) {
-                            max = kvs[idx];
-                        }
-                    }
-                    callback(null, max);
-                }
-            }
-        });
-}
 */
