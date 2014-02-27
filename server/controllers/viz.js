@@ -41,7 +41,12 @@ ofMonth: function(month, callback) {
                 // Week Day call durations
                 bargraphs.push({
                     title: "Répartition de vos temps d'appel cumulés sur les jours de la semaine",
-                    bars : utils.barsToPercent(data, function(sum) { return Math.round(sum / 60) + " min"}),
+                    bars : utils.barsToPercent(data, 'sum', function(item) { 
+                        return [
+                            '',
+                            Math.round(item.sum / 60) + " min"
+                               ];
+                        }),
                 });
 
                 callback(null, bargraphs);
@@ -62,11 +67,11 @@ ofMonth: function(month, callback) {
                 //Distance by week hours slices.
                 bargraphs.push({
                     title: "Moyenne des km parcourus en fonction des heures de la journée",
-                    bars : utils.barsToPercent(data, function(item) {
+                    bars : utils.barsToPercent(data, 'sum', function(item) {
                         return [
                             '',
                             item.sum.toFixed(1) + " km",
-                                ]
+                                ];
                         }),
                 });
 
@@ -90,7 +95,7 @@ ofMonth: function(month, callback) {
                 if (data.length >= 3) {
                   viz.push({
                     title: "Top 3 de vos courses",
-                    bars : utils.barsToPercent(data.slice(0, 3), function(item) {
+                    bars : utils.barsToPercent(data.slice(0, 3), 'amount', function(item) {
                         return [
                             item.name,
                             "x" + item.amount,
@@ -104,7 +109,7 @@ ofMonth: function(month, callback) {
                 if (data.length >= 10) {
                   viz.push({
                     title: "Top 10 de vos courses",
-                    bars : utils.barsToPercent(data.slice(0, 10), function(item) {
+                    bars : utils.barsToPercent(data.slice(0, 10), 'amount', function(item) {
                         return [
                             item.name,
                             "x" + item.amount,

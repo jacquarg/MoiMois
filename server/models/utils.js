@@ -69,23 +69,23 @@ module.exports.balance = function(left, right) {
     return value * 50;
 }
 
-module.exports.barsToPercent = function(data, labLambda) {
+module.exports.barsToPercent = function(data, fieldName, labLambda) {
     if (data.length <= 1) {
         console.log("To short");
         return data;
     }
     // Get max
-    var max = data[0].amount;
+    var max = data[0][fieldName];
     //for (var i=1;i<data.length;i++) {
     for (var i=1;i<data.length;i++) {
-        if (data[i].amount > max) {
-            max = data[i].amount;
+        if (data[i][fieldName] > max) {
+            max = data[i][fieldName];
         }
     }
         
     var res = data.map(function(item) {
         var resIt = {};
-        resIt["percent"] = item.amount / max * 100 ;
+        resIt["percent"] = item[fieldName] / max * 100 ;
         var labs = labLambda(item);
         resIt["label"] = labs[0];
         resIt["valueLabel"] = labs[1];

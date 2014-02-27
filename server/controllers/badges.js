@@ -1,9 +1,11 @@
 GeolocationLog = require('../models/geolocationlog');
 PhoneCommunicationLog = require('../models/phonecommunicationlog');
+ReceiptDetail = require('../models/receiptdetail');
 async = require('async');
 
 
-module.exports.all = function(req, res) {
+module.exports = Badges = {
+all: function(req, res) {
     // each function use différents part of the model, and create a badges list.
     async.parallel([
         function(callback) {
@@ -68,6 +70,40 @@ module.exports.all = function(req, res) {
                 callback(null, badges);
             });
         },
+
+        function(callback) {
+            ReceiptDetail.sectionsTotals(['10', '30'], function(err, data) {
+                var badges = [];
+                // Top fromage count
+                badges.push({
+                    type: "top_fromage",
+                    label: Math.round(data) +  ' ème',
+                });
+                console.log(badges);
+                callback(null, badges);
+            });
+            
+        },
+        function(callback) {
+            Receipt.all(function(err, data) {
+                var badges = [];
+
+                // Get max articles count
+                var max = 0;
+                data.forEach(function(item) {
+                    max = Math.max(item.articlesCount, max);
+                });
+
+                // Top fromage count
+                badges.push({
+                    type: "top_articles_count",
+                    label: Math.round(max) +  ' articles',
+                });
+                console.log(badges);
+                callback(null, badges);
+            });
+            
+        },
     ],
     function(err, results) {
         var badges = [];
@@ -82,4 +118,6 @@ module.exports.all = function(req, res) {
             res.send(200, badges);
         }
     });
+},
+
 }

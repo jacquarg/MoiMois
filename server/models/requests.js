@@ -131,7 +131,37 @@ module.exports = {
                 }
                 return sums;
             }
-        }
+        },
+
+        totalsBySection : {
+            map: function(doc) {
+                var aggSectionMap = {
+                    '24': '200', '20': '200', '22': '200', '2': '200',
+                    '12': '120', '32': '120', '26': '260',
+                    '4': '260',
+                    '8': '280', '28': '280',
+                };
+
+                section = (doc.section in aggSectionMap) ? aggSectionMap[doc.section] : doc.section ;
+
+                emit(section,
+                    { count: doc.amount, total: doc.price }
+                    );
+            },
+            
+            reduce: function(key, values, rereduce) {
+                var sums = {
+                    count: 0,
+                    total: 0
+                };
+
+                for (var idx=0; idx<values.length; idx++) {
+                    sums.count += values[idx].count ;
+                    sums.total += values[idx].total ;
+                }
+                return sums;
+            }
+        },
     },
 
     receipt: {

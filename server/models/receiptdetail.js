@@ -310,6 +310,34 @@ ReceiptDetail.mostBoughtProductsOfMonth = function(month, callback) {
         });
 };
 
+ReceiptDetail.sectionsTotals = function(sections, callback) {
+    ReceiptDetail.rawRequest(
+        "totalsBySection",
+        {
+            group: true,
+            keys: sections,
+        },
+        function(err, kvs) {
+                console.log(err);
+
+             if (err) {
+                callback(err, null);
+            } else if (kvs.length == 0) {
+                callback("No receiptdetails", null);
+            } else {
+                console.log(kvs);
+                var count = kvs.reduce(function(acc, item) {
+                    return acc + item.value.count;
+                }, 0);
+
+                callback(null, count);
+
+            }
+
+        }
+    );
+
+};
 
 /*ReceiptDetail.getOneByBarCode = function(barcode, callback) {
     ReceiptDetail.request(
