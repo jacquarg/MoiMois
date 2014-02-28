@@ -94,3 +94,33 @@ module.exports.barsToPercent = function(data, fieldName, labLambda) {
 
     return res;
 };
+
+module.exports.groupByWeekDays = function(data, getDate, getValue) {
+    // week days calls durations.
+    var slices = [];
+    for (var i = 0; i < 7; i++) slices[i] = 0;
+                
+    //Most calledDuration day.
+    //var max = kv[0];
+    data.forEach(function(item) {
+        
+        var day = getDate(item).getDay();
+        var v = getValue(item);
+                    
+        slices[day] += v ;
+    });
+
+    // TODO : balance days. ?
+    res = [
+        { rangeLabel: "lundi", sum: slices[1], },
+        { rangeLabel: "mardi", sum: slices[2], },
+        { rangeLabel: "mercredi", sum: slices[3], },
+        { rangeLabel: "jeudi", sum: slices[4], },
+        { rangeLabel: "vendredi", sum: slices[5], },
+        { rangeLabel: "samedi", sum: slices[6], },
+        { rangeLabel: "dimanche", sum: slices[0], },
+    ] ; 
+
+    return res ;
+};
+

@@ -114,6 +114,12 @@ PhoneCommunicationLog.weekDayStats = function(month, callback) {
             }else if (kv.length == 0) {
                 callback("No phonecommunication this month.", null);
             } else {
+                var res = utils.groupByWeekDays(
+                    kv,
+                    function(item) { return new Date(item.key[0] + "-" + item.key[1]); },
+                    function(item) { return item.value.callsDuration ; }
+                );
+                /*
                 // week days calls durations.
                 var slices = [];
                 for (var i = 0; i < 7; i++) slices[i] = 0;
@@ -138,6 +144,7 @@ PhoneCommunicationLog.weekDayStats = function(month, callback) {
                     { rangeLabel: "samedi", sum: slices[6], },
                     { rangeLabel: "dimanche", sum: slices[0], },
                 ] ;
+                */
                 callback(null, res);
             }
         });

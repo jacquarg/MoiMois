@@ -121,6 +121,37 @@ ofMonth: function(month, callback) {
                 callback(null, viz);
             });
         },
+        function(callback) {
+            BankOperation.ofMonth(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
+
+                var viz = [];
+                ;
+                var weekData = utils.groupByWeekDays(
+                    data.filter(function(item) { return item.amount < 0 ; }),
+                    function(item) { return new Date(item.date); },
+                    function(item) { return  - item.amount ; }
+                    );
+                                var bargraphs = [];
+                
+                // Week Day call durations
+                viz.push({
+                    title: "Moyenne des dépenses par jour de la semaine.",
+                    bars : utils.barsToPercent(weekData, 'sum', function(item) { 
+                        return [
+                            item.rangeLabel,
+                            Math.round(item.sum) + " €"
+                               ];
+                        }),
+                });
+                callback(null, viz);
+            });
+        },
     ],
     function(err, results) {
         var bargraphs = [];
