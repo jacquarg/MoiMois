@@ -190,5 +190,14 @@ module.exports = {
             }
         },
     },
+    bankoperation: {
+        byDate: function(doc) {
+            emit(
+               [doc.date.slice(0, 7), 
+                doc.date.slice(8,10), 
+                doc.date.slice(11, -1)]
+                , doc);
+        },
+    },
 
 };

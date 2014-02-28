@@ -10,7 +10,7 @@ Viz = require('./viz');
 
 // Test
 //TestModel = require('../models/geolocationlog');
-TestModel = require('../models/receiptdetail');
+TestModel = require('../models/bankoperation');
 test = function(req, res) {
     //TestModel.test(function(err, instances) {
     TestModel.ofMonth("2014-02", function(err, instances) {

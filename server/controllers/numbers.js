@@ -1,4 +1,6 @@
 //GeolocationLog = require('../models/geolocationlog');
+Vehicle = require('../models/vehicle');
+BankOperation = require('../models/bankoperation');
 PhoneCommunicationLog = require('../models/phonecommunicationlog');
 ReceiptDetail = require('../models/receiptdetail');
 async = require('async');
@@ -125,7 +127,6 @@ ofMonth : function(month, callback) {
                     if ((rdet.section == '10' 
                         || rdet.section == '30')
                         && rdet.computedWeight) {
-                        console.log(rdet);
                         count += rdet.computedWeight * rdet.amount ;
                     }
                 });
@@ -230,10 +231,81 @@ ofMonth : function(month, callback) {
                     count: count.toFixed(2) + ' kg',
                     compareLabel: 'Équivalent à ' + eqCount + ' poulets',
                     });
-                console.log(numbers);
                 callback(null, numbers);
             });
-        }
+        },
+        function(callback) {
+            Vehicle.all(function(err, data) {
+                if (err || data.length == 0) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
+
+                var numbers = [];
+                
+                if (data[0].firstRegistrationDate) {
+                    var dtStr = data[0].firstRegistrationDate.toISOString();
+                } else if (data[0].registrationDate) {
+                    var dtStr = data[0].firstRegistrationDate.toISOString();
+                } else {
+                    callback(null, []);
+                    return
+                }
+                var years = parseInt(month.slice(0, 4)) - parseInt(dtStr.slice(0, 4));
+                var months = parseInt(month.slice(5, 7)) - parseInt(dtStr.slice(5, 7));
+
+                
+                numbers.push({
+                    type: "vv",
+                    label: "Age de votre voiture",
+                    count: years + ' ans',
+                    count2: months + ' mois',
+                    });
+                callback(null, numbers);
+            });
+        },
+        function(callback) {
+            BankOperation.ofMonth(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
+
+                var numbers = [];
+                
+                var counts = data.reduce(function(acc, bop) {
+                    if (bop.family == 'withdrawals') {
+                        acc.dab -= bop.amount;
+
+                    } else if (bop.family == 'card') {
+                        acc.cb -= bop.amount;
+                    }
+                    return acc;
+                }, 
+                { 'dab': 0, 'cb': 0 });
+
+                var compareCount = counts.dab * 0.03 ; // 1E <-> 0.03 g d'or.
+                numbers.push({
+                    type: "vc",
+                    label: "L'argent que vous avez retiré",
+                    count: counts.dab.toFixed(0),
+                    compareLabel: "Équivalent à " + compareCount.toFixed(1) + " g d'or",
+                    });
+
+                var compareCount = counts.dab * 0.03 ; // 1E <-> 0.03 g d'or.
+                numbers.push({
+                    type: "vc",
+                    label: "Vous avez dépensé",
+                    count: counts.cb.toFixed(0),
+                    compareLabel: "Équivalent à " + compareCount.toFixed(1) + " g d'or",
+                });
+                callback(null, numbers);
+            });
+        },
     ],
     function(err, results) {
         var numbers = [];

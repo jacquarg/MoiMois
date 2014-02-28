@@ -1,0 +1,27 @@
+americano = require('americano');
+
+module.exports = RiskHome = americano.getModel('riskhome', {
+    'origin': String,
+    'idMesInfos': String,
+    'contractId' : String,
+    'axaNBFRM': Number,
+    'axaMTCAPASS': Number,
+    'axaMTOBV': Number,
+    'roomCount': Number,
+    'axaIDAGR': Boolean,
+    'axaIDARB': Boolean,
+    'axaCDRAN': Boolean,
+    'axaCDJUR': Boolean,
+    'axaIDDELMRH': Boolean,
+    'axaCDQUALO': Boolean,
+    'building': String,
+    'residence': String,
+    'axaPKREC': Boolean,
+    'axaBDGET': Boolean,
+    'axaPACKJ': Boolean,
+    'axaPACKP': Boolean,
+    'axaPACKN': Boolean,
+    'axaPACKV': Boolean,
+    'axaPACKL': Boolean,
+    'axaPACKB': Boolean,
+});

@@ -1,4 +1,6 @@
 GeolocationLog = require('../models/geolocationlog');
+InsuranceClaim = require('../models/insuranceclaim');
+BankOperation = require('../models/bankoperation'); 
 PhoneCommunicationLog = require('../models/phonecommunicationlog');
 ReceiptDetail = require('../models/receiptdetail');
 async = require('async');
@@ -99,10 +101,105 @@ all: function(req, res) {
                     type: "top_articles_count",
                     label: Math.round(max) +  ' articles',
                 });
-                console.log(badges);
                 callback(null, badges);
             });
             
+        },
+        function(callback) {
+            InsuranceClaim.all(function(err, data) {
+                var badges = [];
+
+                // Get max articles count
+                var count = 0;
+                data.forEach(function(item) {
+                    for (var i=0;i<5;i++) {
+                        count += item['axaNBSIN' + i];
+                    }
+                });
+
+                // Top fromage count
+                badges.push({
+                    type: "top_sinistres",
+                    label: count,
+                });
+                callback(null, badges);
+            });
+        },
+        // TODO auto anniversary !
+
+        function(callback) {
+            BankOperation.all(function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
+
+                var badges = []
+                var counts = data.reduce(function(acc, bop) {
+                    if (bop.family == 'withdrawals') {
+                        if (acc.topDab > bop.amount) { // amount is < 0 .
+                            acc.topDab = bop.amount;
+                        }
+                        if (!(bop.title in acc.dabs)) {
+                            acc.dabs[bop.title] = { count: 0, amount: 0};
+                        }
+                        acc.dabs[bop.title].count ++ ;
+                        acc.dabs[bop.title].amount -= bop.amount ;
+
+
+                    } else if (bop.family == 'card' && acc.topCb > bop.amount) { // amount is < 0 .
+                        acc.topCb = bop.amount;
+                    }
+                    return acc;
+                }, 
+                { 'dabs': {}, 'topDab': 0, 'topCb': 0 });
+                
+                var topDabCount = 0;
+                var topDabCountTitle = '';
+                var topDabAmount = 0;
+                var topDabAmountTitle = '';
+
+                for (var k in counts.dabs) {
+                    
+                    if (counts.dabs[k].count > topDabCount) {
+                        topDabCount = counts.dabs[k].count;
+                        topDabCountTitle = k; 
+                    }
+                    if (counts.dabs[k].amount > topDabAmount) {
+                        topDabAmount = counts.dabs[k].amount;
+                        topDabAmountTitle = k; 
+                    }
+                }
+
+                if (topDabCount > 0) {
+                  badges.push({
+                    type: "top_dab_count",
+                    label: topDabCount,
+                  });
+                }
+                if (topDabAmount > 0) {
+                  badges.push({
+                    type: "top_dab_accrued_amount",
+                    label: topDabAmount,
+                  });
+                }
+                if (counts.topDab < 0) {
+                  badges.push({
+                    type: "top_dab_amount",
+                    label: - counts.topDab,
+                  });
+                }
+                if (counts.topCb < 0) {
+                  badges.push({
+                    type: "top_cb",
+                    label: - counts.topCb,
+                  });
+                }
+                callback(null, badges);
+            });
+
         },
     ],
     function(err, results) {

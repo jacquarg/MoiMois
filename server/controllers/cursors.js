@@ -1,4 +1,7 @@
 GeolocationLog = require('../models/geolocationlog');
+RiskVehicle = require('../models/riskvehicle');
+RiskHome = require('../models/riskhome');
+BankOperation = require('../models/bankoperation');
 PhoneCommunicationLog = require('../models/phonecommunicationlog');
 ReceiptDetail = require('../models/receiptdetail');
 async = require('async');
@@ -168,6 +171,93 @@ ofMonth: function(month, callback) {
                     maxLabel: "prévoyant",
                     balance: Math.min(200 / data.receipts, 100),
                     color: "Blue",
+                });
+
+                callback(null, cursors);
+            });
+        },
+        function(callback) {
+            RiskVehicle.all(function(err, data) {
+                if (err || data.length == 0) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
+
+                var cursors = [];
+                
+                var powerMap = {
+                    "Inc/ss permis/élec": 0,
+                    "Faible": 25,
+                    "Moyenne": 50,
+                    "Elevée": 75,
+                }
+                if (data[0].power in powerMap) {
+
+                  cursors.push({
+                    minLabel: "pot de yaourt",
+                    maxLabel: "batmobile",
+                    balance: powerMap[data[0].power],
+                    color: "Blue",
+                  });
+                }
+
+                cursors.push({
+                    minLabel: "conducteur à risque",
+                    maxLabel: "conducteur modèle",
+                    balance: data[0].axaTXBON,
+                    color: "Red",
+                });
+
+                callback(null, cursors);
+            });
+        },
+        function(callback) {
+            RiskHome.all(function(err, data) {
+                if (err || data.length == 0) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
+
+                var cursors = [];
+               
+
+                cursors.push({
+                    minLabel: "maison de poupée",
+                    maxLabel: "château",
+                    balance: 10 * data[0].roomCount,
+                    color: "Blue",
+                });
+                callback(null, cursors);
+            });
+        },
+        function(callback) {
+            BankOperation.ofMonth(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
+                var cursors = [];
+
+                var debcred = data.reduce(function(acc, bop) {
+                    if (bop.amount > 0) {
+                        acc.credits += bop.amount;
+                    } else {
+                        acc.debits -= bop.amount;
+                    }
+                    return acc;
+                },
+                { debits: 0, credits: 0 });
+                cursors.push({
+                    minLabel: "épargnant",
+                    maxLabel: "dépensier",
+                    balance: utils.balance(debcred.credits, debcred.debits),
+                    color: "Red",
                 });
 
                 callback(null, cursors);
