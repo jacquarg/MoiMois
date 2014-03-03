@@ -1,8 +1,30 @@
 @import "bootstrap/bootstrap.less";
 
+@font-face {
+  font-family: "Lux Sans Book";
+  src: url("/fonts/LuxSansBook.otf");
+}
+
+@font-face {
+  font-family: "Lux Sans Book Italic";
+  src: url("/fonts/LuxSansBookItalic.otf");
+}
+
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("/fonts/BebasNeue.otf");
+}
+
+.mmtitle {
+    font-size: 12px;
+    font-family: "Lux Sans Book";
+    text-transform: uppercase;
+}
+
 .frame {
    position: relative;
    display: inline-block;
+   background: white;
 }
 
 .vizframe {
@@ -10,7 +32,6 @@
 }
 
 .mmbadge {
-
     height: 150px;
     text-align: center;
     .frame {
@@ -37,44 +58,53 @@
     text-align: center;
     .frame {
         .vizframe;
-        
-        .lab {
-            text-transform: capitalize;
-        }
-        //hr
+        padding: 10px;
 
+        .mmtitle {
+//            margin-top: 10px;
+        }
+        .labcompare {
+            font-size: 12px;
+            font-family: "Lux Sans Book Italic";
+            
+        }
+        hr {
+            margin: 5px 60px;
+            border-color: black;
+        }
+        .count {
+            font-family: "Bebas Neue";
+            text-transform: uppercase;
+            font-size: 60px;
+            line-height: 0.9;
+        }
         .vcCount {
             color: #F15048;
-            text-size: 42px;
-            text-transform: capitalize;
+            .count;
         }
 
         .vvcCount {
             color: #F15048;
-            text-size: 20px;
-            text-transform: capitalize;
+            text-size: 25px;
+            .count;
         }
         .vvcCount2 {
             color: #F68470;
-            text-size: 42px;
-            text-transform: capitalize;
+            .count;
         }
 
         .vCount {
             color: #2F6878;
-            text-size: 42px;
-            text-transform: capitalize;
+            .count;
         }
 
         .vvCount {
             color: #2F6878;
-            text-size: 42px;
-            text-transform: capitalize;
+            .count;
         }
         .vvCount2 {
             color: #5AC8CC;
-            text-size: 42px;
-            text-transform: capitalize;
+            .count;
         }
 
     }
@@ -86,7 +116,7 @@
         .vizframe;
         height: 240px;
 
-        .title {
+        .mmtitle {
             position: absolute;
             top: 30px;
             width: 100%;
@@ -95,7 +125,10 @@
         .mmLabel {
             position: absolute;
             width: 80px;
-            bottom: 30px;
+            top: 190px;
+            font-family: "Lux Sans Book";
+            text-transform: capitalize;
+            font-size: 12px;
         }
         .minLabel {
             .mmLabel;
@@ -122,7 +155,7 @@
         .vizframe;
         height: 380px;
 
-        .title {
+        .mmtitle {
             position: absolute;
             top: 30px;
             width: 100%;
@@ -143,7 +176,7 @@
         width: 630px;
         height: 480px;
     }
-    .title {
+    .mmtitle {
         position: absolute;
         top: 30px;
         width: 100%;
@@ -162,17 +195,46 @@
         .vizframe;
         height: 410px;
 
-        .title {
+        .mmtitle {
             position: absolute;
-            top: 30px;
+            top: 20px;
             width: 100%;
         }
         .svg {
             position: absolute;
             width: 300px;
             height: 350px;
-            bottom: 0px;
+            bottom: 10px;
         }
     
     }
+}
+
+.mm {
+    background: #F4F4F4;
+    width: 640px;
+    padding: 5px;
+    
+    .mmcol {
+        float: left;
+        margin: 5px;
+    }
+    h2 {
+      text-align: center;
+      width: 100%;
+      color: #2F6878;
+
+    }
+    hr {
+      border-color: #F68470;
+    }
+
+    .mmbloc {
+        margin: 10px 0;
+    }
+
+    .spider {
+        clear: both; 
+    }
+
 }

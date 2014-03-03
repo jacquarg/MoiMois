@@ -12,7 +12,7 @@ module.exports = Top3 = Backbone.View.extend({
 
     render: function() {
         this.$el.html(this.template({
-            top3: this.model.toJSON()
+            top3: this.model
         }));
 
         var tInit = 1 * Math.PI; //rad.
@@ -23,7 +23,7 @@ module.exports = Top3 = Backbone.View.extend({
         ];
 
         for (var i=0;i<3;i++) {
-            var data = this.model.attributes.bars[i] ;
+            var data = this.model.bars[i] ;
             var arc = this.$el.find(".arc_" + i);
             var R = parseFloat(arc.attr('sodipodi:rx'));
             var cx = parseFloat(arc.attr('sodipodi:cx'));

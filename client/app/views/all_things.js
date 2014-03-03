@@ -2,6 +2,7 @@ BadgesCollection = require('../collections/badges');
 NumbersCollection = require('../collections/numbers');
 CursorsCollection = require('../collections/cursors');
 BargraphsCollection = require('../collections/bargraphs');
+MoiMoisCollection = require('../collections/moimois');
 Badge = require('./badge');
 NumberViz = require('./numberviz');
 Cursor = require('./cursor');
@@ -9,10 +10,12 @@ Bargraph = require('./bargraph');
 Spider = require('./spider');
 Top3 = require('./top3');
 Top5 = require('./top5');
+MoiMois = require('./moimois');
 
 module.exports = AllThingsView = Backbone.View.extend({
     //el : $( "#allbadges" ),
-    collection : new BadgesCollection(),
+    collection : new MoiMoisCollection(),
+    //collection : new BadgesCollection(),
     collectionN : new NumbersCollection(),
     collectionC : new CursorsCollection(),
     collectionB : new BargraphsCollection(),
@@ -29,15 +32,15 @@ module.exports = AllThingsView = Backbone.View.extend({
 
     initialize: function() {
 //        this.collection = new SectionCollection([], { receiptId: this.model.attributes.receiptId });
-        //this.listenTo(this.collection, "add", this.onItemAdded);
-        //this.collection.fetch();
+        this.listenTo(this.collection, "add", this.onItemAdded);
+        this.collection.fetch();
         //this.listenTo(this.collectionN, "add", this.onNumberVizAdded);
         //this.collectionN.fetch();
 
 //        this.listenTo(this.collectionC, "add", this.onCursorAdded);
 //        this.collectionC.fetch();
-        this.listenTo(this.collectionB, "add", this.onBargraphAdded);
-        this.collectionB.fetch();
+        //this.listenTo(this.collectionB, "add", this.onBargraphAdded);
+        //this.collectionB.fetch();
     },
 
 //    render: function() {
@@ -47,13 +50,11 @@ module.exports = AllThingsView = Backbone.View.extend({
 //    },
     
     onItemAdded: function(instance) {
-        // render the specific element
-        //badgeView = new this.modelView({
-        var badgeView = new Badge({
+        var moimoisView = new MoiMois({
             model: instance
         });
-        badgeView.render();
-        this.$el.append(badgeView.$el);
+        moimoisView.render();
+        this.$el.append(moimoisView.$el);
     },
     
     onNumberVizAdded: function(instance) {

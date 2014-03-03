@@ -10,7 +10,7 @@ module.exports.main = function(req, res) {
 //II. For each month
     async.map(
     //var months = 
-    ['2013-09', '2013-10', '2014-01', '2014-02'],
+    ['2013-09', '2013-10','2013-11', '2013-12', '2014-01', '2014-02'],
 
     //for (var i=0;i<months.length;i++) {
     //    var month = months[i];
@@ -27,6 +27,10 @@ module.exports.main = function(req, res) {
     //3. Select
         function(err, results) {
             mmData = {
+                "moimois": { 
+                    date : month,
+                    userName: "John Doe"
+                    },
                 "numbers": results.numbers.slice(0,5),
                 "cursors": results.cursors.slice(0,2),
                 "viz": results.viz.slice(0,2),

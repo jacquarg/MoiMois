@@ -40,6 +40,7 @@ ofMonth: function(month, callback) {
                 
                 // Week Day call durations
                 bargraphs.push({
+                    type: "viz_bargraph",
                     title: "Répartition de vos temps d'appel cumulés sur les jours de la semaine",
                     bars : utils.barsToPercent(data, 'sum', function(item) { 
                         return [
@@ -66,6 +67,7 @@ ofMonth: function(month, callback) {
 
                 //Distance by week hours slices.
                 bargraphs.push({
+                    type: "viz_bargraph",
                     title: "Moyenne des km parcourus en fonction des heures de la journée",
                     bars : utils.barsToPercent(data, 'sum', function(item) {
                         return [
@@ -94,6 +96,7 @@ ofMonth: function(month, callback) {
                 //Top 3.
                 if (data.length >= 3) {
                   viz.push({
+                    type: "viz_top3",
                     title: "Top 3 de vos courses",
                     bars : utils.barsToPercent(data.slice(0, 3), 'amount', function(item) {
                         return [
@@ -105,10 +108,11 @@ ofMonth: function(month, callback) {
                 }
 
 
-                //Top 10.
-                if (data.length >= 10) {
+                //Top 5.
+                if (data.length >= 5) {
                   viz.push({
-                    title: "Top 10 de vos courses",
+                    type: "viz_top5",
+                    title: "Vos articles préférés",
                     bars : utils.barsToPercent(data.slice(0, 10), 'amount', function(item) {
                         return [
                             item.name,
@@ -139,8 +143,9 @@ ofMonth: function(month, callback) {
                     );
                                 var bargraphs = [];
                 
-                // Week Day call durations
+                // Week Day debts.
                 viz.push({
+                    type: "viz_bargraph",
                     title: "Moyenne des dépenses par jour de la semaine.",
                     bars : utils.barsToPercent(weekData, 'sum', function(item) { 
                         return [

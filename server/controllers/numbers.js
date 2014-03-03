@@ -238,7 +238,7 @@ ofMonth : function(month, callback) {
             Vehicle.all(function(err, data) {
                 if (err || data.length == 0) {
                     // Silent fail on error.
-                    console.log(err);
+                    console.log("Error (probably no data): %j", err);
                     callback(null, []);
                     return
                 }

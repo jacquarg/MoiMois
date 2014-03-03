@@ -7,11 +7,11 @@ module.exports = Bargraph = Backbone.View.extend({
     render: function() {
         
         this.$el.html(this.template({
-            bargraph: this.model.toJSON()
+            bargraph: this.model
         }));
         
         for (var i=0;i<7;i++) {
-            var bar = this.model.attributes.bars[i] ;
+            var bar = this.model.bars[i] ;
 
             var g = this.$el.find(".d" + i);
             g.children("rect")
@@ -20,7 +20,6 @@ module.exports = Bargraph = Backbone.View.extend({
 
             var txt = g.children("text");
             txt.attr("y", 70 + 200 - 2 * bar.percent);
-            console.log(txt);
             txt[0].textContent = bar.label;
         }
 

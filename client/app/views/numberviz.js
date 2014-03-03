@@ -5,7 +5,7 @@ module.exports = NumberViz = Backbone.View.extend({
 
     render: function() {
         this.$el.html(this.template({
-            numberViz: this.model.toJSON()
+            numberViz: this.model
         }));
     },
 

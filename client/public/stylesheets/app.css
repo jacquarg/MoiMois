@@ -5998,9 +5998,27 @@ td.visible-print {
     display: none !important;
   }
 }
+@font-face {
+  font-family: "Lux Sans Book";
+  src: url("/fonts/LuxSansBook.otf");
+}
+@font-face {
+  font-family: "Lux Sans Book Italic";
+  src: url("/fonts/LuxSansBookItalic.otf");
+}
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("/fonts/BebasNeue.otf");
+}
+.mmtitle {
+  font-size: 12px;
+  font-family: "Lux Sans Book";
+  text-transform: uppercase;
+}
 .frame {
   position: relative;
   display: inline-block;
+  background: white;
 }
 .vizframe {
   width: 300px;
@@ -6029,39 +6047,64 @@ td.visible-print {
 }
 .mmnumber .frame {
   width: 300px;
+  padding: 10px;
 }
-.mmnumber .frame .lab {
-  text-transform: capitalize;
+.mmnumber .frame .labcompare {
+  font-size: 12px;
+  font-family: "Lux Sans Book Italic";
+}
+.mmnumber .frame hr {
+  margin: 5px 60px;
+  border-color: black;
+}
+.mmnumber .frame .count {
+  font-family: "Bebas Neue";
+  text-transform: uppercase;
+  font-size: 60px;
+  line-height: 0.9;
 }
 .mmnumber .frame .vcCount {
   color: #F15048;
-  text-size: 42px;
-  text-transform: capitalize;
+  font-family: "Bebas Neue";
+  text-transform: uppercase;
+  font-size: 60px;
+  line-height: 0.9;
 }
 .mmnumber .frame .vvcCount {
   color: #F15048;
-  text-size: 20px;
-  text-transform: capitalize;
+  text-size: 25px;
+  font-family: "Bebas Neue";
+  text-transform: uppercase;
+  font-size: 60px;
+  line-height: 0.9;
 }
 .mmnumber .frame .vvcCount2 {
   color: #F68470;
-  text-size: 42px;
-  text-transform: capitalize;
+  font-family: "Bebas Neue";
+  text-transform: uppercase;
+  font-size: 60px;
+  line-height: 0.9;
 }
 .mmnumber .frame .vCount {
   color: #2F6878;
-  text-size: 42px;
-  text-transform: capitalize;
+  font-family: "Bebas Neue";
+  text-transform: uppercase;
+  font-size: 60px;
+  line-height: 0.9;
 }
 .mmnumber .frame .vvCount {
   color: #2F6878;
-  text-size: 42px;
-  text-transform: capitalize;
+  font-family: "Bebas Neue";
+  text-transform: uppercase;
+  font-size: 60px;
+  line-height: 0.9;
 }
 .mmnumber .frame .vvCount2 {
   color: #5AC8CC;
-  text-size: 42px;
-  text-transform: capitalize;
+  font-family: "Bebas Neue";
+  text-transform: uppercase;
+  font-size: 60px;
+  line-height: 0.9;
 }
 .mmcursor {
   text-align: center;
@@ -6070,7 +6113,7 @@ td.visible-print {
   width: 300px;
   height: 240px;
 }
-.mmcursor .frame .title {
+.mmcursor .frame .mmtitle {
   position: absolute;
   top: 30px;
   width: 100%;
@@ -6078,18 +6121,27 @@ td.visible-print {
 .mmcursor .frame .mmLabel {
   position: absolute;
   width: 80px;
-  bottom: 30px;
+  top: 190px;
+  font-family: "Lux Sans Book";
+  text-transform: capitalize;
+  font-size: 12px;
 }
 .mmcursor .frame .minLabel {
   position: absolute;
   width: 80px;
-  bottom: 30px;
+  top: 190px;
+  font-family: "Lux Sans Book";
+  text-transform: capitalize;
+  font-size: 12px;
   left: 5px;
 }
 .mmcursor .frame .maxLabel {
   position: absolute;
   width: 80px;
-  bottom: 30px;
+  top: 190px;
+  font-family: "Lux Sans Book";
+  text-transform: capitalize;
+  font-size: 12px;
   right: 5px;
 }
 .mmcursor .frame .svg {
@@ -6105,7 +6157,7 @@ td.visible-print {
   width: 300px;
   height: 380px;
 }
-.mmbargraph .frame .title {
+.mmbargraph .frame .mmtitle {
   position: absolute;
   top: 30px;
   width: 100%;
@@ -6123,7 +6175,7 @@ td.visible-print {
   width: 630px;
   height: 480px;
 }
-.mmspider .title {
+.mmspider .mmtitle {
   position: absolute;
   top: 30px;
   width: 100%;
@@ -6141,7 +6193,7 @@ td.visible-print {
   width: 300px;
   height: 410px;
 }
-.mmtopx .frame .title {
+.mmtopx .frame .mmtitle {
   position: absolute;
   top: 30px;
   width: 100%;
@@ -6151,6 +6203,29 @@ td.visible-print {
   width: 300px;
   height: 350px;
   bottom: 0px;
+}
+.mm {
+  background: #F4F4F4;
+  width: 640px;
+  padding: 5px;
+}
+.mm .mmcol {
+  float: left;
+  margin: 5px;
+}
+.mm h2 {
+  text-align: center;
+  width: 100%;
+  color: #2F6878;
+}
+.mm hr {
+  border-color: #F68470;
+}
+.mm .mmbloc {
+  margin: 10px 0;
+}
+.mm .spider {
+  clear: both;
 }
 
 
