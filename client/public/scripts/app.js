@@ -287,13 +287,13 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="mm"><div class="mmheader"><!-- - todo : parametre--><div class="mmname">');
+buf.push('<div class="mm"><div class="mmheader"><div class="frame"><div class="mmhblue"></div><div class="mmhred"></div><div class="mmhgrey"></div><img src="img/Logo_MoiMois_130px.png" class="mmlogo"/><img src="img/Logo_MesInfos_71px.png" class="mmmesinfoslogo"/><!-- - todo : parametre--><div class="mmname">');
 var __val__ = mm.userName
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><div class="mmdate">');
 var __val__ = mm.date
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div></div><!-- - todo : header, avec nom ...--><div class="mmexploits"><h2>~ Vos exploits ~</h2><div class="row"><div class="badge_0"></div><div class="badge_1"></div><div class="badge_2"></div></div></div><hr/><div class="mmmois"><h2>~ Votre mois ~</h2><div class="mmcol"><div class="mmbloc number_0"></div><div class="mmbloc cursor_0"></div><div class="mmbloc number_1"></div><div class="mmbloc viz_1"></div></div><div class="mmcol"><div class="mmbloc viz_2"></div><div class="mmbloc number_2"></div><div class="mmbloc cursor_1"></div><div class="mmbloc number_3"></div><div class="mmbloc number_4"></div></div><div class="spider"><hr/></div></div></div>');
+buf.push('</div><div class="mmnum">#1</div></div></div><!-- - todo : header, avec nom ...--><div class="mmexploits"><h2>~ Vos exploits ~</h2><div class="row"><div class="badge_0"></div><div class="badge_1"></div><div class="badge_2"></div></div></div><hr class="mmdotted"/><div class="mmmois"><h2>~ Votre mois ~</h2><div class="mmcol"><div class="mmbloc number_0"></div><div class="mmbloc cursor_0"></div><div class="mmbloc number_1"></div><div class="mmbloc viz_1"></div></div><div class="mmcol"><div class="mmbloc viz_2"></div><div class="mmbloc number_2"></div><div class="mmbloc cursor_1"></div><div class="mmbloc number_3"></div><div class="mmbloc number_4"></div></div><div class="spider"><hr/></div></div></div>');
 }
 return buf.join("");
 };
@@ -418,7 +418,788 @@ MoiMois = require('./moimois');
 
 module.exports = AllThingsView = Backbone.View.extend({
     //el : $( "#allbadges" ),
-    collection : new MoiMoisCollection(),
+    collection : new MoiMoisCollection(
+    [
+
+    {
+        "moimois": {
+            "date": "2013-09",
+            "userName": "John Doe"
+        },
+        "numbers": [
+            {
+                "type": "v",
+                "label": "Quantité de fromage que vous avez acheté",
+                "count": "12.1 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de viande que vous avez acheté",
+                "count": "2.0 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de surgelés que vous avez acheté",
+                "count": "0.9 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de lait que vous avez acheté",
+                "count": "9.0 L"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de vin que vous avez acheté",
+                "count": "0 L"
+            }
+        ],
+        "cursors": [
+            {
+                "minLabel": "végétarien",
+                "maxLabel": "carnivore",
+                "balance": 16.67313574931714,
+                "color": "Red"
+            },
+            {
+                "minLabel": "célibataire",
+                "maxLabel": "famille nombreuse",
+                "balance": 32.44000000000001,
+                "color": "Blue"
+            }
+        ],
+        "viz": [
+            {
+                "type": "viz_top3",
+                "title": "Top 3 de vos courses",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "ranou sdw jambon beurre ",
+                        "valueLabel": "x5"
+                    },
+                    {
+                        "percent": 80,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 60,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x3"
+                    }
+                ]
+            },
+            {
+                "type": "viz_top5",
+                "title": "Vos articles préférés",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "ranou sdw jambon beurre ",
+                        "valueLabel": "x5"
+                    },
+                    {
+                        "percent": 80,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 60,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "signal bad croissance 3/6 ans",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "president pointe de brie ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "mdc senseo dx 36d ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "aix les bains ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "ranou eminces 5%mg fum ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "poulet jaune pac s/f 1k3",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 20,
+                        "label": "paturages yt nat l ent ",
+                        "valueLabel": "x1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moimois": {
+            "date": "2013-10",
+            "userName": "John Doe"
+        },
+        "numbers": [
+            {
+                "type": "v",
+                "label": "Quantité de fromage que vous avez acheté",
+                "count": "32.4 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de viande que vous avez acheté",
+                "count": "3.9 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de surgelés que vous avez acheté",
+                "count": "3.7 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de lait que vous avez acheté",
+                "count": "16.6 L"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de vin que vous avez acheté",
+                "count": "0 L"
+            }
+        ],
+        "cursors": [
+            {
+                "minLabel": "végétarien",
+                "maxLabel": "carnivore",
+                "balance": 12.868379368049569,
+                "color": "Red"
+            },
+            {
+                "minLabel": "célibataire",
+                "maxLabel": "famille nombreuse",
+                "balance": 74.83166666666664,
+                "color": "Blue"
+            }
+        ],
+        "viz": [
+            {
+                "type": "viz_top3",
+                "title": "Top 3 de vos courses",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "t budget compote pomme ",
+                        "valueLabel": "x7"
+                    },
+                    {
+                        "percent": 85.71428571428571,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x6"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    }
+                ]
+            },
+            {
+                "type": "viz_top5",
+                "title": "Vos articles préférés",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "t budget compote pomme ",
+                        "valueLabel": "x7"
+                    },
+                    {
+                        "percent": 85.71428571428571,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x6"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "chabrior kh kanoe abric ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "kiri gouter 8 portions ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "ids jambon sec italien 6t ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "t budget yrt aromat.",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "pastis 51 45d ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "top budget saint paulin ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "gotxoki tomate concasse bte1/2",
+                        "valueLabel": "x3"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moimois": {
+            "date": "2013-11",
+            "userName": "John Doe"
+        },
+        "numbers": [
+            {
+                "type": "v",
+                "label": "Quantité de fromage que vous avez acheté",
+                "count": "12.1 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de viande que vous avez acheté",
+                "count": "2.0 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de surgelés que vous avez acheté",
+                "count": "0.9 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de lait que vous avez acheté",
+                "count": "9.0 L"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de vin que vous avez acheté",
+                "count": "0 L"
+            }
+        ],
+        "cursors": [
+            {
+                "minLabel": "végétarien",
+                "maxLabel": "carnivore",
+                "balance": 16.67313574931714,
+                "color": "Red"
+            },
+            {
+                "minLabel": "célibataire",
+                "maxLabel": "famille nombreuse",
+                "balance": 32.44000000000001,
+                "color": "Blue"
+            }
+        ],
+        "viz": [
+            {
+                "type": "viz_top3",
+                "title": "Top 3 de vos courses",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "ranou sdw jambon beurre ",
+                        "valueLabel": "x5"
+                    },
+                    {
+                        "percent": 80,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 60,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x3"
+                    }
+                ]
+            },
+            {
+                "type": "viz_top5",
+                "title": "Vos articles préférés",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "ranou sdw jambon beurre ",
+                        "valueLabel": "x5"
+                    },
+                    {
+                        "percent": 80,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 60,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "signal bad croissance 3/6 ans",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "president pointe de brie ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "mdc senseo dx 36d ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "aix les bains ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "ranou eminces 5%mg fum ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "poulet jaune pac s/f 1k3",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 20,
+                        "label": "paturages yt nat l ent ",
+                        "valueLabel": "x1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moimois": {
+            "date": "2013-12",
+            "userName": "John Doe"
+        },
+        "numbers": [
+            {
+                "type": "v",
+                "label": "Quantité de fromage que vous avez acheté",
+                "count": "32.4 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de viande que vous avez acheté",
+                "count": "3.9 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de surgelés que vous avez acheté",
+                "count": "3.7 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de lait que vous avez acheté",
+                "count": "16.6 L"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de vin que vous avez acheté",
+                "count": "0 L"
+            }
+        ],
+        "cursors": [
+            {
+                "minLabel": "végétarien",
+                "maxLabel": "carnivore",
+                "balance": 12.868379368049569,
+                "color": "Red"
+            },
+            {
+                "minLabel": "célibataire",
+                "maxLabel": "famille nombreuse",
+                "balance": 74.83166666666664,
+                "color": "Blue"
+            }
+        ],
+        "viz": [
+            {
+                "type": "viz_top3",
+                "title": "Top 3 de vos courses",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "t budget compote pomme ",
+                        "valueLabel": "x7"
+                    },
+                    {
+                        "percent": 85.71428571428571,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x6"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    }
+                ]
+            },
+            {
+                "type": "viz_top5",
+                "title": "Vos articles préférés",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "t budget compote pomme ",
+                        "valueLabel": "x7"
+                    },
+                    {
+                        "percent": 85.71428571428571,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x6"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "chabrior kh kanoe abric ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "kiri gouter 8 portions ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "ids jambon sec italien 6t ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "t budget yrt aromat.",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "pastis 51 45d ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "top budget saint paulin ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "gotxoki tomate concasse bte1/2",
+                        "valueLabel": "x3"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moimois": {
+            "date": "2014-01",
+            "userName": "John Doe"
+        },
+        "numbers": [
+            {
+                "type": "vc",
+                "label": "Votre temps d'appel",
+                "count": "1h2",
+                "compareLabel": "Équivalent à 37 km parcourus à pleine vitesse par Usain Bolt, champion du monde de 100m."
+            },
+            {
+                "type": "vc",
+                "label": "Votre consommation internet sur mobile",
+                "count": "238 Mo",
+                "compareLabel": "Équivalent à 166 disquettes."
+            },
+            {
+                "type": "vvc",
+                "label": "Le numéro le plus appelé",
+                "count": "+33 6 79 51 98 74",
+                "count2": "25 min",
+                "compareLabel": "Équivalent à la cuisson de 6 oeufs coques."
+            },
+            {
+                "type": "vv",
+                "label": "Votre jour le plus bavard",
+                "count": "2014-01-21",
+                "count2": 32
+            },
+            {
+                "type": "v",
+                "label": "Quantité de fromage que vous avez acheté",
+                "count": "12.1 kg"
+            }
+        ],
+        "cursors": [
+            {
+                "minLabel": "muet",
+                "maxLabel": "pipelette",
+                "balance": 3,
+                "color": "Red"
+            },
+            {
+                "minLabel": "récepteur",
+                "maxLabel": "émetteur",
+                "balance": 97.82608695652173,
+                "color": "Blue"
+            }
+        ],
+        "viz": [
+            {
+                "type": "viz_bargraph",
+                "title": "Répartition de vos temps d'appel cumulés sur les jours de la semaine",
+                "bars": [
+                    {
+                        "percent": 17.59211209133368,
+                        "label": "",
+                        "valueLabel": "6 min"
+                    },
+                    {
+                        "percent": 100,
+                        "label": "",
+                        "valueLabel": "32 min"
+                    },
+                    {
+                        "percent": 3.1655422937208098,
+                        "label": "",
+                        "valueLabel": "1 min"
+                    },
+                    {
+                        "percent": 2.9579657498702647,
+                        "label": "",
+                        "valueLabel": "1 min"
+                    },
+                    {
+                        "percent": 0,
+                        "label": "",
+                        "valueLabel": "0 min"
+                    },
+                    {
+                        "percent": 23.819408406850027,
+                        "label": "",
+                        "valueLabel": "8 min"
+                    },
+                    {
+                        "percent": 46.652828230409966,
+                        "label": "",
+                        "valueLabel": "15 min"
+                    }
+                ]
+            },
+            {
+                "type": "viz_bargraph",
+                "title": "Moyenne des km parcourus en fonction des heures de la journée",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "",
+                        "valueLabel": "391.2 km"
+                    },
+                    {
+                        "percent": 62.65085221662547,
+                        "label": "",
+                        "valueLabel": "245.1 km"
+                    },
+                    {
+                        "percent": 42.479180263298524,
+                        "label": "",
+                        "valueLabel": "166.2 km"
+                    },
+                    {
+                        "percent": 69.5219824155161,
+                        "label": "",
+                        "valueLabel": "272.0 km"
+                    },
+                    {
+                        "percent": 20.76581021243439,
+                        "label": "",
+                        "valueLabel": "81.2 km"
+                    },
+                    {
+                        "percent": 54.49228745410684,
+                        "label": "",
+                        "valueLabel": "213.2 km"
+                    },
+                    {
+                        "percent": 38.7156165668291,
+                        "label": "",
+                        "valueLabel": "151.5 km"
+                    },
+                    {
+                        "percent": 0,
+                        "label": "",
+                        "valueLabel": "0.0 km"
+                    },
+                    {
+                        "percent": 4.221554373067259,
+                        "label": "",
+                        "valueLabel": "16.5 km"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moimois": {
+            "date": "2014-02",
+            "userName": "John Doe"
+        },
+        "numbers": [
+            {
+                "type": "v",
+                "label": "Quantité de fromage que vous avez acheté",
+                "count": "32.4 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de viande que vous avez acheté",
+                "count": "3.9 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de surgelés que vous avez acheté",
+                "count": "3.7 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de lait que vous avez acheté",
+                "count": "16.6 L"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de vin que vous avez acheté",
+                "count": "0 L"
+            }
+        ],
+        "cursors": [
+            {
+                "minLabel": "végétarien",
+                "maxLabel": "carnivore",
+                "balance": 12.868379368049569,
+                "color": "Red"
+            },
+            {
+                "minLabel": "célibataire",
+                "maxLabel": "famille nombreuse",
+                "balance": 74.83166666666664,
+                "color": "Blue"
+            }
+        ],
+        "viz": [
+            {
+                "type": "viz_top3",
+                "title": "Top 3 de vos courses",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "t budget compote pomme ",
+                        "valueLabel": "x7"
+                    },
+                    {
+                        "percent": 85.71428571428571,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x6"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    }
+                ]
+            },
+            {
+                "type": "viz_top5",
+                "title": "Vos articles préférés",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "t budget compote pomme ",
+                        "valueLabel": "x7"
+                    },
+                    {
+                        "percent": 85.71428571428571,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x6"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "chabrior kh kanoe abric ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "kiri gouter 8 portions ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "ids jambon sec italien 6t ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "t budget yrt aromat.",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "pastis 51 45d ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "top budget saint paulin ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "gotxoki tomate concasse bte1/2",
+                        "valueLabel": "x3"
+                    }
+                ]
+            }
+        ]
+    }
+
+]  
+    ),
     //collection : new BadgesCollection(),
     collectionN : new NumbersCollection(),
     collectionC : new CursorsCollection(),
@@ -437,7 +1218,12 @@ module.exports = AllThingsView = Backbone.View.extend({
     initialize: function() {
 //        this.collection = new SectionCollection([], { receiptId: this.model.attributes.receiptId });
         this.listenTo(this.collection, "add", this.onItemAdded);
-        this.collection.fetch();
+        //this.collection.fetch();
+        var self = this;
+        
+        this.collection.forEach(function(model) {
+            self.onItemAdded(model);
+            });
         //this.listenTo(this.collectionN, "add", this.onNumberVizAdded);
         //this.collectionN.fetch();
 
@@ -673,6 +1459,7 @@ module.exports = MoiMois = Backbone.View.extend({
 
     },
     render: function() {
+        console.log(this.model);
         this.$el.html(this.template({ mm: this.model.attributes.moimois}));
 
         // badges

@@ -15,6 +15,14 @@
   src: url("/fonts/BebasNeue.otf");
 }
 
+@font-face {
+  font-family: "Ostrich Bold";
+  //src: url("/fonts/ostrich-bold.ttf");
+  src: url("/fonts/OstrichSansInline-Regular.otf");
+
+}
+
+
 .mmtitle {
     font-size: 12px;
     font-family: "Lux Sans Book";
@@ -211,6 +219,7 @@
 }
 
 .mm {
+    margin-top: 40px;
     background: #F4F4F4;
     width: 640px;
     padding: 5px;
@@ -223,10 +232,12 @@
       text-align: center;
       width: 100%;
       color: #2F6878;
+      font-family: "Ostrich Bold";
+      font-size: 75px;
 
     }
-    hr {
-      border-color: #F68470;
+    hr.mmdotted {
+      border-top: dotted 4px #F68470;
     }
 
     .mmbloc {
@@ -237,4 +248,72 @@
         clear: both; 
     }
 
+}
+.mmheader {
+  .frame {
+    height: 121px;
+    width: 100%;
+
+    .mmh {
+        position: absolute;
+        width: 100%;
+        left: 0px;
+    }
+    .mmhblue {
+        .mmh;
+        height: 100px;
+        top: 0px;
+        background: #306878;
+    }
+    .mmhred {
+        .mmh;
+        height: 14px;
+        top: 100px;
+        background: #F68470;
+    }
+    .mmhgrey {
+        .mmh;
+        height: 7px;
+        top: 114px;
+        background: #D3D2D2;
+    }
+
+    .mmlogo {
+        position: absolute;
+        left: 255px;
+        top: 15px;
+    }
+    .mmmesinfoslogo {
+        position: absolute;
+        right: 30px;
+        top: 32px;
+    }
+
+    .mmtxt {
+    }
+    .mmname {
+        color: white;
+        position: absolute;
+        left: 30px;
+        top: 32px;
+        font-family: "Lux Sans Book";
+        font-size: 18px;
+    }
+    .mmdate {
+        color: white;
+        position: absolute;
+        left: 30px;
+        top: 55px;
+        font-family: "Lux Sans Book";
+        font-size: 12px;        
+    }
+    .mmnum {
+        color: white;
+        position: absolute;
+        left: 30px;
+        top: 70px;
+        font-family: "Lux Sans Book";
+        font-size: 12px;        
+    }
+  }
 }

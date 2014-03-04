@@ -1,10 +1,15 @@
 .mm
   .mmheader
-    // - todo : parametre
-    .mmname= mm.userName
-    .mmdate= mm.date
-    //- .mmnum mm.num
-
+    .frame
+      .mmhblue
+      .mmhred
+      .mmhgrey
+      img.mmlogo(src="img/Logo_MoiMois_130px.png")
+      img.mmmesinfoslogo(src="img/Logo_MesInfos_71px.png")
+      // - todo : parametre
+      .mmname= mm.userName
+      .mmdate= mm.date
+      .mmnum #1
 
   // - todo : header, avec nom ...
   .mmexploits
@@ -15,7 +20,7 @@
         .badge_1
         .badge_2
 
-  hr
+  hr.mmdotted
   .mmmois
     h2 ~ Votre mois ~
     .mmcol
