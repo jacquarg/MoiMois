@@ -31,28 +31,6 @@ module.exports = ReceiptDetail = americano.getModel('receiptdetail', {
 
  });
 
-ReceiptDetail.touch = function() {
-    var cbGen = function(reqName) {
-        var startTime = Date.now();
-
-        return function() {
-            console.log("Touch " + reqName + " in " + (Date.now() - startTime) + "ms");
-        };
-    }
-
-    var params = { 
-        limit: 1,
-        reduce: false
-    };
-
-    ReceiptDetail.rawRequest("byBarcode", params, cbGen("receiptdetail/byBarcode"));
-    ReceiptDetail.rawRequest("byReceiptId", params, cbGen("receiptdetail/byReceiptId"));  
-    ReceiptDetail.rawRequest("totalsByMonthBySection", params, cbGen("receiptdetail/totalsByMonthBySection"));
-    ReceiptDetail.rawRequest("totalsByMonthByProduct", params, cbGen("receiptdetail/totalsByMonthByProduct"));
-
-};
-
-
 ReceiptDetail._ean13CheckSum = function(rdet) {
     if (rdet.barcode && rdet.barcode.length == 12) {
         // last checksum digit is needed
@@ -310,7 +288,42 @@ ReceiptDetail.mostBoughtProductsOfMonth = function(month, callback) {
         });
 };
 
-ReceiptDetail.sectionsTotals = function(sections, callback) {
+
+
+ReceiptDetail.sectionsTotals = function(month, sections, callback) {
+    ReceiptDetail.request(
+        "byDate",
+        {
+            startkey: [null, null],
+            endkey: [month, {}]
+        },
+        function(err, rdets) {
+                console.log(err);
+
+             if (err) {
+                callback(err, null);
+            } else if (rdets.length == 0) {
+                callback("No receiptdetails", null);
+            } else {
+                
+                var count = rdets.reduce(function(acc, item) {
+                    if (item.section in sections) {
+                        return acc + item.amount;
+                    } else {
+                        return acc;
+                    }
+                }, 0);
+
+                callback(null, count);
+
+            }
+
+        }
+    );
+
+};
+
+/*ReceiptDetail.sectionsTotals = function(month, sections, callback) {
     ReceiptDetail.rawRequest(
         "totalsBySection",
         {
@@ -337,7 +350,7 @@ ReceiptDetail.sectionsTotals = function(sections, callback) {
         }
     );
 
-};
+};*/
 
 /*ReceiptDetail.getOneByBarCode = function(barcode, callback) {
     ReceiptDetail.request(

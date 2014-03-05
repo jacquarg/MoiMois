@@ -189,6 +189,13 @@ module.exports = {
                 return sums;
             }
         },
+        byDate: function(doc) {
+            emit(
+               [doc.timestamp.slice(0, 7), 
+                doc.timestamp.slice(8,10), 
+                doc.timestamp.slice(11, -1)]
+                , doc);
+        },
     },
     bankoperation: {
         byDate: function(doc) {

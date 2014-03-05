@@ -194,3 +194,22 @@ BankOperation.ofMonth = function(month, callback) {
     );
 };
 
+
+BankOperation.upToMonth = function(month, callback) {
+    BankOperation.request(
+        "byDate",
+        {
+            startkey: [null, null],
+            endkey: [month, {}] 
+        },
+        function(err, instances) {
+            if (err) {
+                callback(err, null);
+            } else if (instances.length == 0) {
+                callback("No bankoperations", null);
+            } else {
+                callback(null, instances);
+            }
+        }
+    );
+};

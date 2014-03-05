@@ -17,14 +17,20 @@ module.exports = PhoneCommunicationLog = americano.getModel('phonecommunicationl
     'snippet': String
 });
 
-PhoneCommunicationLog.totals = function(callback) {
+PhoneCommunicationLog.totals = function(month, callback) {
     PhoneCommunicationLog.rawRequest(
         "totals",
-        {},
+        {
+            startkey: [null, null, null],
+            endkey: [month, {}, {}]    
+        },
         function(err, kv) {
             if (err) {
                 callback(err, null);
-                //TODO defensive ?
+                //TODO defensive ? 
+
+            } else if (kv.length == 0) {
+                callback("No phonecommunication this month.", null);
             } else {
                 var res = kv[0].value;
                 res['callsContactsCount'] = Object.keys(res.callsContacts).length;

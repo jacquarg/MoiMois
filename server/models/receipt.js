@@ -42,3 +42,23 @@ Receipt.totalsOfMonth = function(month, callback) {
     );
 };
 
+Receipt.upToMonth = function(month, callback) {
+     Receipt.request(
+        "byDate",
+        {
+            startkey: [null, null],
+            endkey: [month, {}]
+        },
+        function(err, rs) {
+                console.log(err);
+
+            if (err) {
+                callback(err, null);
+            } else if (rs.length == 0) {
+                callback("No receiptdetails", null);
+            } else {
+                callback(null, rs);
+            }
+        });
+};
+

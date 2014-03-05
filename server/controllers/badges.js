@@ -4,25 +4,88 @@ BankOperation = require('../models/bankoperation');
 PhoneCommunicationLog = require('../models/phonecommunicationlog');
 ReceiptDetail = require('../models/receiptdetail');
 async = require('async');
+utils = require('../models/utils');
 
 
 module.exports = Badges = {
+
 all: function(req, res) {
+    Badges.byMonth(function(err, badges) {
+        if(err != null) {
+            res.send(500, "An error has occurred -- " + err);
+        } else {
+            res.send(200, badges);
+        }
+    });
+},
+byMonth: function(callback) {
+    // TODO : where start ?
+
+    var months = utils.months();
+
+    async.map(months,
+        Badges.upToMonth,
+        function(err, results) {
+            // prepare result struct.
+            badgesByMonth = {};
+            months.forEach(function(month) {
+                badgesByMonth[month] = [];
+            });
+
+            // On each month, keep only new badges.
+            results.forEach(function(badges, monthIdx, allBadges) {
+                badges.forEach(function(badge) {
+                    var donTKeep = false;
+                    for (var i=monthIdx-1;i>-1;i--) {
+
+                        donTKeep = allBadges[i].some(function(oldBadge) {
+                            if (oldBadge.type == badge.type
+                                && oldBadge.value >= badge.value) {
+                                console.log(badge.type + '_' + badge.value);
+                                return true;
+                            }
+                        });
+                        if (donTKeep) {
+                            break;    
+                        }
+                    }
+
+                    if (!donTKeep) {
+                        badgesByMonth[months[monthIdx]].push(badge);
+                    }
+                });
+            });
+
+            callback(null, badgesByMonth);
+        });
+},
+upToMonth : function(month, callback) {
+
     // each function use différents part of the model, and create a badges list.
     async.parallel([
         function(callback) {
-            GeolocationLog.distanceStats(function(err, data) {
+            GeolocationLog.distanceStats(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
                 var badges = [];
                 // Top dist badge
                 badges.push({
                     type: "top_distance",
                     label: Math.round(data.topDistance) + ' km',
+                    value: data.topDistance,
+                    month: month,
                 });
 
                 // Top speed
                 badges.push({
                     type: "top_speed",
                     label: Math.round(data.topSpeed) + ' km/h',
+                    value: data.topSpeed,
+                    month: month,
                 });
 
                 // Traveled distances
@@ -31,6 +94,8 @@ all: function(req, res) {
                     badges.push({
                         type: "traveled_distance",
                         label: h + '00 km',
+                        value: h,
+                        month: month,                        
                     });
                 }
                 
@@ -38,7 +103,13 @@ all: function(req, res) {
             });
         },
         function(callback) {
-            PhoneCommunicationLog.totals(function(err, data) {
+            PhoneCommunicationLog.totals(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
                 var badges = [];
                 
                 // Data
@@ -48,6 +119,8 @@ all: function(req, res) {
                     badges.push({
                         type: "data",
                         label: h + '00 Mo',
+                        value: h,
+                        month: month,                        
                     });
                 }
 
@@ -57,7 +130,9 @@ all: function(req, res) {
                     badges.push({
                         type: "calls_duration",
                         label: h + ' H',
-                    });
+                        value: h,
+                        month: month,
+                     });
                 }
 
                 // Contacts called/received.
@@ -66,6 +141,8 @@ all: function(req, res) {
                     badges.push({
                         type: "contacts_count",
                         label: h + '0',
+                        value: h,
+                        month: month,
                     });
                 }
                 
@@ -74,12 +151,20 @@ all: function(req, res) {
         },
 
         function(callback) {
-            ReceiptDetail.sectionsTotals(['10', '30'], function(err, data) {
+            ReceiptDetail.sectionsTotals(month, ['10', '30'], function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
                 var badges = [];
                 // Top fromage count
                 badges.push({
                     type: "top_fromage",
                     label: Math.round(data) +  ' ème',
+                    value: data,
+                    month: month,
                 });
                 console.log(badges);
                 callback(null, badges);
@@ -87,7 +172,13 @@ all: function(req, res) {
             
         },
         function(callback) {
-            Receipt.all(function(err, data) {
+            Receipt.upToMonth(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
                 var badges = [];
 
                 // Get max articles count
@@ -100,6 +191,8 @@ all: function(req, res) {
                 badges.push({
                     type: "top_articles_count",
                     label: Math.round(max) +  ' articles',
+                    value: max,
+                    month: month,
                 });
                 callback(null, badges);
             });
@@ -107,6 +200,12 @@ all: function(req, res) {
         },
         function(callback) {
             InsuranceClaim.all(function(err, data) {
+                if (err || data.length == 0) {
+                    // Silent fail on error.
+                    console.log("Error (probably no data): %j", err);
+                    callback(null, []);
+                    return
+                }
                 var badges = [];
 
                 // Get max articles count
@@ -121,6 +220,8 @@ all: function(req, res) {
                 badges.push({
                     type: "top_sinistres",
                     label: count,
+                    value: count,
+                    month: month,
                 });
                 callback(null, badges);
             });
@@ -128,7 +229,7 @@ all: function(req, res) {
         // TODO auto anniversary !
 
         function(callback) {
-            BankOperation.all(function(err, data) {
+            BankOperation.upToMonth(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
                     console.log(err);
@@ -177,24 +278,32 @@ all: function(req, res) {
                   badges.push({
                     type: "top_dab_count",
                     label: topDabCount,
+                    value: topDabCount,
+                    month: month,
                   });
                 }
                 if (topDabAmount > 0) {
                   badges.push({
                     type: "top_dab_accrued_amount",
                     label: topDabAmount,
+                    value: topDabAmount,
+                    month: month,
                   });
                 }
                 if (counts.topDab < 0) {
                   badges.push({
                     type: "top_dab_amount",
                     label: - counts.topDab,
+                    value: - counts.topDab,
+                    month: month,
                   });
                 }
                 if (counts.topCb < 0) {
                   badges.push({
                     type: "top_cb",
                     label: - counts.topCb,
+                    value: - counts.topCb,
+                    month: month,
                   });
                 }
                 callback(null, badges);
@@ -208,12 +317,8 @@ all: function(req, res) {
             badges = badges.concat(results[i]);
         }
 
-        if(err != null) {
-            res.send(500, "An error has occurred -- " + err);
-        }
-        else {
-            res.send(200, badges);
-        }
+        callback(null, badges);
+
     });
 },
 

@@ -18,7 +18,6 @@ module.exports.main = function(req, res) {
     //2. Compute each values
         // 
         async.parallel({
-            // badges
             "numbers": fGen1P(month, Numbers.ofMonth),
             "cursors": fGen1P(month, Cursors.ofMonth),
             "viz": fGen1P(month, Viz.ofMonth),

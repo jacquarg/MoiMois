@@ -124,3 +124,18 @@ module.exports.groupByWeekDays = function(data, getDate, getValue) {
     return res ;
 };
 
+module.exports.months = function() {
+    var months = [];
+
+    // TODO, crappy, special experimentation.
+    for (var i=1;i<=9;i++) {
+        months.push("2013-0" + i);
+    }
+    for (var i=10;i<=12;i++) {
+        months.push("2013-" + i);
+    }
+    for (var i=0;i<=new Date().getMonth();i++) {
+        months.push("2014-0" + (i + 1));
+    }
+    return months
+}
