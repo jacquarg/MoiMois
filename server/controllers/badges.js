@@ -90,14 +90,14 @@ upToMonth : function(month, callback) {
 
                 // Traveled distances
                 var hundreds = Math.floor(data.totalDistance / 100);
-                for (var h=1;h<=hundreds;h++) {
+                //for (var h=1;h<=hundreds;h++) {
                     badges.push({
                         type: "traveled_distance",
-                        label: h + '00 km',
-                        value: h,
+                        label: hundreds + '00 km',
+                        value: hundreds,
                         month: month,                        
                     });
-                }
+                //}
                 
                 callback(null, badges);
             });
@@ -115,36 +115,36 @@ upToMonth : function(month, callback) {
                 // Data
                 //var tens = Math.floor(data.callsDuration / (5 * 1000000000)); //(5 GB) TODO
                 var tens = Math.floor(data.data / (100000000)); //(100 MB)
-                for (var h=1;h<=tens;h++) {
+                //for (var h=1;h<=tens;h++) {
                     badges.push({
                         type: "data",
-                        label: h + '00 Mo',
-                        value: h,
+                        label: tens + '00 Mo',
+                        value: tens,
                         month: month,                        
                     });
-                }
+                //}
 
                 // Calls duration.
                 var tens = Math.floor(data.callsDuration / (5 * 60 * 60)); //(5 hours)
-                for (var h=1;h<=tens;h++) {
+                //for (var h=1;h<=tens;h++) {
                     badges.push({
                         type: "calls_duration",
-                        label: h + ' H',
-                        value: h,
+                        label: tens + ' H',
+                        value: tens,
                         month: month,
                      });
-                }
+                //}
 
                 // Contacts called/received.
                 var tens = Math.floor(data.callsContactsCount / 10);
-                for (var h=1;h<=tens;h++) {
+                //for (var h=1;h<=tens;h++) {
                     badges.push({
                         type: "contacts_count",
-                        label: h + '0',
-                        value: h,
+                        label: tens + '0',
+                        value: tens,
                         month: month,
                     });
-                }
+                //}
                 
                 callback(null, badges);
             });
@@ -216,7 +216,7 @@ upToMonth : function(month, callback) {
                     }
                 });
 
-                // Top fromage count
+                // 
                 badges.push({
                     type: "top_sinistres",
                     label: count,

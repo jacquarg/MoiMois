@@ -6039,6 +6039,8 @@ td.visible-print {
   position: absolute;
   bottom: 5px;
   left: 5px;
+  width: 190px;
+  height: 134px;
 }
 .mmbadge .frame .score {
   position: absolute;

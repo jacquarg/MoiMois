@@ -5,7 +5,7 @@ module.exports = Badge = Backbone.View.extend({
 
     render: function() {
         this.$el.html(this.template({
-            badge: this.model.toJSON()
+            badge: this.model
         }));
     },
 

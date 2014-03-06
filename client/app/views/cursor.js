@@ -1,4 +1,4 @@
-module.exports = Badge = Backbone.View.extend({
+module.exports = Cursor = Backbone.View.extend({
 
 
 //    tagName: 'div',

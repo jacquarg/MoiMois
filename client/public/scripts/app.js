@@ -225,7 +225,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="mmbadge col-lg-6"><div class="frame"><img');
+buf.push('<div class="mmbadge col-xs-4"><div class="frame"><img');
 buf.push(attrs({ 'title':(""), 'src':('img/badges/' + (badge.type) + '_badge.png') }, {"title":true,"src":true}));
 buf.push('/><div class="score">');
 var __val__ = badge.label
@@ -293,7 +293,7 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><div class="mmdate">');
 var __val__ = mm.date
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div><div class="mmnum">#1</div></div></div><!-- - todo : header, avec nom ...--><div class="mmexploits"><h2>~ Vos exploits ~</h2><div class="row"><div class="badge_0"></div><div class="badge_1"></div><div class="badge_2"></div></div></div><hr class="mmdotted"/><div class="mmmois"><h2>~ Votre mois ~</h2><div class="mmcol"><div class="mmbloc number_0"></div><div class="mmbloc cursor_0"></div><div class="mmbloc number_1"></div><div class="mmbloc viz_1"></div></div><div class="mmcol"><div class="mmbloc viz_2"></div><div class="mmbloc number_2"></div><div class="mmbloc cursor_1"></div><div class="mmbloc number_3"></div><div class="mmbloc number_4"></div></div><div class="spider"><hr/></div></div></div>');
+buf.push('</div><div class="mmnum">#1</div></div></div><!-- - todo : header, avec nom ...--><div class="mmexploits"><h2>~ Vos exploits ~</h2><div class="row"><div class="badge_0"></div><div class="badge_1"></div><div class="badge_2"></div></div></div><hr class="mmdotted"/><div class="mmmois"><h2>~ Votre mois ~</h2><div class="mmcol"><div class="mmbloc number_0"></div><div class="mmbloc cursor_0"></div><div class="mmbloc number_1"></div><div class="mmbloc viz_0"></div></div><div class="mmcol"><div class="mmbloc viz_1"></div><div class="mmbloc number_2"></div><div class="mmbloc cursor_1"></div><div class="mmbloc number_3"></div><div class="mmbloc number_4"></div></div><div class="spider"><hr/></div></div></div>');
 }
 return buf.join("");
 };
@@ -402,11 +402,11 @@ return buf.join("");
 });
 
 ;require.register("views/all_things", function(exports, require, module) {
-BadgesCollection = require('../collections/badges');
+MoiMoisCollection = require('../collections/moimois');
+/*BadgesCollection = require('../collections/badges');
 NumbersCollection = require('../collections/numbers');
 CursorsCollection = require('../collections/cursors');
 BargraphsCollection = require('../collections/bargraphs');
-MoiMoisCollection = require('../collections/moimois');
 Badge = require('./badge');
 NumberViz = require('./numberviz');
 Cursor = require('./cursor');
@@ -414,18 +414,899 @@ Bargraph = require('./bargraph');
 Spider = require('./spider');
 Top3 = require('./top3');
 Top5 = require('./top5');
+*/
 MoiMois = require('./moimois');
 
 module.exports = AllThingsView = Backbone.View.extend({
     //el : $( "#allbadges" ),
-    collection : new MoiMoisCollection(
-    [
+    /*collection : new MoiMoisCollection(
+[
 
+    {
+        "moimois": {
+            "date": "2013-01",
+            "userName": "John Doe"
+        },
+        "badges": [ ],
+        "numbers": [ ],
+        "cursors": [ ],
+        "viz": [ ]
+    },
+    {
+        "moimois": {
+            "date": "2013-02",
+            "userName": "John Doe"
+        },
+        "badges": [ ],
+        "numbers": [ ],
+        "cursors": [ ],
+        "viz": [ ]
+    },
+    {
+        "moimois": {
+            "date": "2013-03",
+            "userName": "John Doe"
+        },
+        "badges": [
+            {
+                "type": "top_fromage",
+                "label": "0 ème",
+                "value": 0,
+                "month": "2013-03"
+            },
+            {
+                "type": "top_articles_count",
+                "label": "41 articles",
+                "value": 41,
+                "month": "2013-03"
+            },
+            {
+                "type": "top_dab_count",
+                "label": 1,
+                "value": 1,
+                "month": "2013-03"
+            }
+        ],
+        "numbers": [
+            {
+                "type": "v",
+                "label": "Quantité de fromage que vous avez acheté",
+                "count": "12.1 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de viande que vous avez acheté",
+                "count": "2.0 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de surgelés que vous avez acheté",
+                "count": "0.9 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de lait que vous avez acheté",
+                "count": "9.0 L"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de vin que vous avez acheté",
+                "count": "0 L"
+            }
+        ],
+        "cursors": [
+            {
+                "minLabel": "végétarien",
+                "maxLabel": "carnivore",
+                "balance": 16.67313574931714,
+                "color": "Red"
+            },
+            {
+                "minLabel": "célibataire",
+                "maxLabel": "famille nombreuse",
+                "balance": 32.44000000000001,
+                "color": "Blue"
+            }
+        ],
+        "viz": [
+            {
+                "type": "viz_top3",
+                "title": "Top 3 de vos courses",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "ranou sdw jambon beurre ",
+                        "valueLabel": "x5"
+                    },
+                    {
+                        "percent": 80,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 60,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x3"
+                    }
+                ]
+            },
+            {
+                "type": "viz_top5",
+                "title": "Vos articles préférés",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "ranou sdw jambon beurre ",
+                        "valueLabel": "x5"
+                    },
+                    {
+                        "percent": 80,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 60,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "signal bad croissance 3/6 ans",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "president pointe de brie ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "mdc senseo dx 36d ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "aix les bains ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "ranou eminces 5%mg fum ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "poulet jaune pac s/f 1k3",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 20,
+                        "label": "paturages yt nat l ent ",
+                        "valueLabel": "x1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moimois": {
+            "date": "2013-04",
+            "userName": "John Doe"
+        },
+        "badges": [
+            {
+                "type": "top_dab_accrued_amount",
+                "label": 140,
+                "value": 140,
+                "month": "2013-04"
+            },
+            {
+                "type": "top_dab_count",
+                "label": 3,
+                "value": 3,
+                "month": "2013-04"
+            }
+        ],
+        "numbers": [
+            {
+                "type": "v",
+                "label": "Quantité de fromage que vous avez acheté",
+                "count": "32.4 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de viande que vous avez acheté",
+                "count": "3.9 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de surgelés que vous avez acheté",
+                "count": "3.7 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de lait que vous avez acheté",
+                "count": "16.6 L"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de vin que vous avez acheté",
+                "count": "0 L"
+            }
+        ],
+        "cursors": [
+            {
+                "minLabel": "végétarien",
+                "maxLabel": "carnivore",
+                "balance": 12.868379368049569,
+                "color": "Red"
+            },
+            {
+                "minLabel": "célibataire",
+                "maxLabel": "famille nombreuse",
+                "balance": 74.83166666666664,
+                "color": "Blue"
+            }
+        ],
+        "viz": [
+            {
+                "type": "viz_top3",
+                "title": "Top 3 de vos courses",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "t budget compote pomme ",
+                        "valueLabel": "x7"
+                    },
+                    {
+                        "percent": 85.71428571428571,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x6"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    }
+                ]
+            },
+            {
+                "type": "viz_top5",
+                "title": "Vos articles préférés",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "t budget compote pomme ",
+                        "valueLabel": "x7"
+                    },
+                    {
+                        "percent": 85.71428571428571,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x6"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "chabrior kh kanoe abric ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "kiri gouter 8 portions ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "ids jambon sec italien 6t ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "t budget yrt aromat.",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "pastis 51 45d ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "top budget saint paulin ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "gotxoki tomate concasse bte1/2",
+                        "valueLabel": "x3"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moimois": {
+            "date": "2013-05",
+            "userName": "John Doe"
+        },
+        "badges": [
+            {
+                "type": "top_dab_count",
+                "label": 4,
+                "value": 4,
+                "month": "2013-05"
+            },
+            {
+                "type": "top_dab_accrued_amount",
+                "label": 190,
+                "value": 190,
+                "month": "2013-05"
+            }
+        ],
+        "numbers": [
+            {
+                "type": "v",
+                "label": "Quantité de fromage que vous avez acheté",
+                "count": "12.1 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de viande que vous avez acheté",
+                "count": "2.0 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de surgelés que vous avez acheté",
+                "count": "0.9 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de lait que vous avez acheté",
+                "count": "9.0 L"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de vin que vous avez acheté",
+                "count": "0 L"
+            }
+        ],
+        "cursors": [
+            {
+                "minLabel": "végétarien",
+                "maxLabel": "carnivore",
+                "balance": 16.67313574931714,
+                "color": "Red"
+            },
+            {
+                "minLabel": "célibataire",
+                "maxLabel": "famille nombreuse",
+                "balance": 32.44000000000001,
+                "color": "Blue"
+            }
+        ],
+        "viz": [
+            {
+                "type": "viz_top3",
+                "title": "Top 3 de vos courses",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "ranou sdw jambon beurre ",
+                        "valueLabel": "x5"
+                    },
+                    {
+                        "percent": 80,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 60,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x3"
+                    }
+                ]
+            },
+            {
+                "type": "viz_top5",
+                "title": "Vos articles préférés",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "ranou sdw jambon beurre ",
+                        "valueLabel": "x5"
+                    },
+                    {
+                        "percent": 80,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 60,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "signal bad croissance 3/6 ans",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "president pointe de brie ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "mdc senseo dx 36d ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "aix les bains ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "ranou eminces 5%mg fum ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "poulet jaune pac s/f 1k3",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 20,
+                        "label": "paturages yt nat l ent ",
+                        "valueLabel": "x1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moimois": {
+            "date": "2013-06",
+            "userName": "John Doe"
+        },
+        "badges": [
+            {
+                "type": "top_dab_count",
+                "label": 6,
+                "value": 6,
+                "month": "2013-06"
+            },
+            {
+                "type": "top_dab_accrued_amount",
+                "label": 280,
+                "value": 280,
+                "month": "2013-06"
+            }
+        ],
+        "numbers": [
+            {
+                "type": "v",
+                "label": "Quantité de fromage que vous avez acheté",
+                "count": "32.4 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de viande que vous avez acheté",
+                "count": "3.9 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de surgelés que vous avez acheté",
+                "count": "3.7 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de lait que vous avez acheté",
+                "count": "16.6 L"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de vin que vous avez acheté",
+                "count": "0 L"
+            }
+        ],
+        "cursors": [
+            {
+                "minLabel": "végétarien",
+                "maxLabel": "carnivore",
+                "balance": 12.868379368049569,
+                "color": "Red"
+            },
+            {
+                "minLabel": "célibataire",
+                "maxLabel": "famille nombreuse",
+                "balance": 74.83166666666664,
+                "color": "Blue"
+            }
+        ],
+        "viz": [
+            {
+                "type": "viz_top3",
+                "title": "Top 3 de vos courses",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "t budget compote pomme ",
+                        "valueLabel": "x7"
+                    },
+                    {
+                        "percent": 85.71428571428571,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x6"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    }
+                ]
+            },
+            {
+                "type": "viz_top5",
+                "title": "Vos articles préférés",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "t budget compote pomme ",
+                        "valueLabel": "x7"
+                    },
+                    {
+                        "percent": 85.71428571428571,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x6"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "chabrior kh kanoe abric ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "kiri gouter 8 portions ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "ids jambon sec italien 6t ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "t budget yrt aromat.",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "pastis 51 45d ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "top budget saint paulin ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "gotxoki tomate concasse bte1/2",
+                        "valueLabel": "x3"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moimois": {
+            "date": "2013-07",
+            "userName": "John Doe"
+        },
+        "badges": [
+            {
+                "type": "top_dab_count",
+                "label": 7,
+                "value": 7,
+                "month": "2013-07"
+            },
+            {
+                "type": "top_dab_accrued_amount",
+                "label": 330,
+                "value": 330,
+                "month": "2013-07"
+            }
+        ],
+        "numbers": [
+            {
+                "type": "v",
+                "label": "Quantité de fromage que vous avez acheté",
+                "count": "12.1 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de viande que vous avez acheté",
+                "count": "2.0 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de surgelés que vous avez acheté",
+                "count": "0.9 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de lait que vous avez acheté",
+                "count": "9.0 L"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de vin que vous avez acheté",
+                "count": "0 L"
+            }
+        ],
+        "cursors": [
+            {
+                "minLabel": "végétarien",
+                "maxLabel": "carnivore",
+                "balance": 16.67313574931714,
+                "color": "Red"
+            },
+            {
+                "minLabel": "célibataire",
+                "maxLabel": "famille nombreuse",
+                "balance": 32.44000000000001,
+                "color": "Blue"
+            }
+        ],
+        "viz": [
+            {
+                "type": "viz_top3",
+                "title": "Top 3 de vos courses",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "ranou sdw jambon beurre ",
+                        "valueLabel": "x5"
+                    },
+                    {
+                        "percent": 80,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 60,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x3"
+                    }
+                ]
+            },
+            {
+                "type": "viz_top5",
+                "title": "Vos articles préférés",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "ranou sdw jambon beurre ",
+                        "valueLabel": "x5"
+                    },
+                    {
+                        "percent": 80,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 60,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "signal bad croissance 3/6 ans",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "president pointe de brie ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "mdc senseo dx 36d ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "aix les bains ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "ranou eminces 5%mg fum ",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 40,
+                        "label": "poulet jaune pac s/f 1k3",
+                        "valueLabel": "x2"
+                    },
+                    {
+                        "percent": 20,
+                        "label": "paturages yt nat l ent ",
+                        "valueLabel": "x1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moimois": {
+            "date": "2013-08",
+            "userName": "John Doe"
+        },
+        "badges": [
+            {
+                "type": "top_dab_count",
+                "label": 9,
+                "value": 9,
+                "month": "2013-08"
+            },
+            {
+                "type": "top_dab_accrued_amount",
+                "label": 420,
+                "value": 420,
+                "month": "2013-08"
+            }
+        ],
+        "numbers": [
+            {
+                "type": "v",
+                "label": "Quantité de fromage que vous avez acheté",
+                "count": "32.4 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de viande que vous avez acheté",
+                "count": "3.9 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de surgelés que vous avez acheté",
+                "count": "3.7 kg"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de lait que vous avez acheté",
+                "count": "16.6 L"
+            },
+            {
+                "type": "v",
+                "label": "Quantité de vin que vous avez acheté",
+                "count": "0 L"
+            }
+        ],
+        "cursors": [
+            {
+                "minLabel": "végétarien",
+                "maxLabel": "carnivore",
+                "balance": 12.868379368049569,
+                "color": "Red"
+            },
+            {
+                "minLabel": "célibataire",
+                "maxLabel": "famille nombreuse",
+                "balance": 74.83166666666664,
+                "color": "Blue"
+            }
+        ],
+        "viz": [
+            {
+                "type": "viz_top3",
+                "title": "Top 3 de vos courses",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "t budget compote pomme ",
+                        "valueLabel": "x7"
+                    },
+                    {
+                        "percent": 85.71428571428571,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x6"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    }
+                ]
+            },
+            {
+                "type": "viz_top5",
+                "title": "Vos articles préférés",
+                "bars": [
+                    {
+                        "percent": 100,
+                        "label": "t budget compote pomme ",
+                        "valueLabel": "x7"
+                    },
+                    {
+                        "percent": 85.71428571428571,
+                        "label": "pains blancs / boulangerie tr",
+                        "valueLabel": "x6"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "1er prix emmental rape ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 57.14285714285714,
+                        "label": "chabrior kh kanoe abric ",
+                        "valueLabel": "x4"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "kiri gouter 8 portions ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "ids jambon sec italien 6t ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "t budget yrt aromat.",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "pastis 51 45d ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "top budget saint paulin ",
+                        "valueLabel": "x3"
+                    },
+                    {
+                        "percent": 42.857142857142854,
+                        "label": "gotxoki tomate concasse bte1/2",
+                        "valueLabel": "x3"
+                    }
+                ]
+            }
+        ]
+    },
     {
         "moimois": {
             "date": "2013-09",
             "userName": "John Doe"
         },
+        "badges": [
+            {
+                "type": "top_dab_count",
+                "label": 10,
+                "value": 10,
+                "month": "2013-09"
+            },
+            {
+                "type": "top_dab_accrued_amount",
+                "label": 470,
+                "value": 470,
+                "month": "2013-09"
+            }
+        ],
         "numbers": [
             {
                 "type": "v",
@@ -552,6 +1433,20 @@ module.exports = AllThingsView = Backbone.View.extend({
             "date": "2013-10",
             "userName": "John Doe"
         },
+        "badges": [
+            {
+                "type": "top_dab_count",
+                "label": 12,
+                "value": 12,
+                "month": "2013-10"
+            },
+            {
+                "type": "top_dab_accrued_amount",
+                "label": 560,
+                "value": 560,
+                "month": "2013-10"
+            }
+        ],
         "numbers": [
             {
                 "type": "v",
@@ -678,6 +1573,20 @@ module.exports = AllThingsView = Backbone.View.extend({
             "date": "2013-11",
             "userName": "John Doe"
         },
+        "badges": [
+            {
+                "type": "top_dab_count",
+                "label": 13,
+                "value": 13,
+                "month": "2013-11"
+            },
+            {
+                "type": "top_dab_accrued_amount",
+                "label": 610,
+                "value": 610,
+                "month": "2013-11"
+            }
+        ],
         "numbers": [
             {
                 "type": "v",
@@ -804,6 +1713,20 @@ module.exports = AllThingsView = Backbone.View.extend({
             "date": "2013-12",
             "userName": "John Doe"
         },
+        "badges": [
+            {
+                "type": "top_dab_count",
+                "label": 15,
+                "value": 15,
+                "month": "2013-12"
+            },
+            {
+                "type": "top_dab_accrued_amount",
+                "label": 700,
+                "value": 700,
+                "month": "2013-12"
+            }
+        ],
         "numbers": [
             {
                 "type": "v",
@@ -930,6 +1853,26 @@ module.exports = AllThingsView = Backbone.View.extend({
             "date": "2014-01",
             "userName": "John Doe"
         },
+        "badges": [
+            {
+                "type": "top_distance",
+                "label": "34 km",
+                "value": 34.39026948533664,
+                "month": "2014-01"
+            },
+            {
+                "type": "top_speed",
+                "label": "138 km/h",
+                "value": 137.56107794134655,
+                "month": "2014-01"
+            },
+            {
+                "type": "traveled_distance",
+                "label": "1600 km",
+                "value": 16,
+                "month": "2014-01"
+            }
+        ],
         "numbers": [
             {
                 "type": "vc",
@@ -1076,6 +2019,20 @@ module.exports = AllThingsView = Backbone.View.extend({
             "date": "2014-02",
             "userName": "John Doe"
         },
+        "badges": [
+            {
+                "type": "top_dab_count",
+                "label": 18,
+                "value": 18,
+                "month": "2014-02"
+            },
+            {
+                "type": "top_dab_accrued_amount",
+                "label": 840,
+                "value": 840,
+                "month": "2014-02"
+            }
+        ],
         "numbers": [
             {
                 "type": "v",
@@ -1196,14 +2153,26 @@ module.exports = AllThingsView = Backbone.View.extend({
                 ]
             }
         ]
+    },
+    {
+        "moimois": {
+            "date": "2014-03",
+            "userName": "John Doe"
+        },
+        "badges": [ ],
+        "numbers": [ ],
+        "cursors": [ ],
+        "viz": [ ]
     }
 
-]  
-    ),
+]
+),*/
+
+    collection: new MoiMoisCollection(),
     //collection : new BadgesCollection(),
-    collectionN : new NumbersCollection(),
-    collectionC : new CursorsCollection(),
-    collectionB : new BargraphsCollection(),
+//    collectionN : new NumbersCollection(),
+//    collectionC : new CursorsCollection(),
+//    collectionB : new BargraphsCollection(),
     //modelView : require('./badge'),
     template : require('../templates/allbadges'),
 
@@ -1217,13 +2186,15 @@ module.exports = AllThingsView = Backbone.View.extend({
 
     initialize: function() {
 //        this.collection = new SectionCollection([], { receiptId: this.model.attributes.receiptId });
+
         this.listenTo(this.collection, "add", this.onItemAdded);
-        //this.collection.fetch();
-        var self = this;
-        
-        this.collection.forEach(function(model) {
-            self.onItemAdded(model);
-            });
+        this.collection.fetch();
+
+//        var self = this;        
+//        this.collection.forEach(function(model) {
+//            self.onItemAdded(model);
+//            });
+
         //this.listenTo(this.collectionN, "add", this.onNumberVizAdded);
         //this.collectionN.fetch();
 
@@ -1247,7 +2218,7 @@ module.exports = AllThingsView = Backbone.View.extend({
         this.$el.append(moimoisView.$el);
     },
     
-    onNumberVizAdded: function(instance) {
+/*    onNumberVizAdded: function(instance) {
         // render the specific element
         var itemView = new NumberViz({
             model: instance
@@ -1277,6 +2248,7 @@ module.exports = AllThingsView = Backbone.View.extend({
         itemView.render();
         this.$el.append(itemView.$el);
     },
+    */
 });
 
 
@@ -1366,7 +2338,7 @@ module.exports = Badge = Backbone.View.extend({
 
     render: function() {
         this.$el.html(this.template({
-            badge: this.model.toJSON()
+            badge: this.model
         }));
     },
 
@@ -1407,7 +2379,7 @@ module.exports = Bargraph = Backbone.View.extend({
 });
 
 ;require.register("views/cursor", function(exports, require, module) {
-module.exports = Badge = Backbone.View.extend({
+module.exports = Cursor = Backbone.View.extend({
 
 
 //    tagName: 'div',
@@ -1459,7 +2431,6 @@ module.exports = MoiMois = Backbone.View.extend({
 
     },
     render: function() {
-        console.log(this.model);
         this.$el.html(this.template({ mm: this.model.attributes.moimois}));
 
         // badges
@@ -1474,7 +2445,11 @@ module.exports = MoiMois = Backbone.View.extend({
 //            badgeView.render();
 //            this.$el.fing('.badge_' + i).html(badgeView.$el);
 //        }
-        
+        this._renderGroup(this.model.attributes.badges,
+            Badge,
+            '.badge_',
+            3);
+
         this._renderGroup(this.model.attributes.numbers,
             NumberViz,
             '.number_',
@@ -1701,7 +2676,7 @@ Bargraph = require('./bargraph');
 Top3 = require('./top3');
 Top5 = require('./top5');
 
-module.exports = Badge = Backbone.View.extend({
+module.exports = Viz = Backbone.View.extend({
 
 
 
@@ -1714,7 +2689,9 @@ module.exports = Badge = Backbone.View.extend({
             "viz_top3": Top3,
             "viz_top5": Top5,
         };
+
         var viewClass = vizMap[this.model.type];
+        console.log(this.model.type);
         var view = new viewClass({ model: this.model });
         view.render();
         

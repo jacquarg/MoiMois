@@ -2,7 +2,7 @@ Bargraph = require('./bargraph');
 Top3 = require('./top3');
 Top5 = require('./top5');
 
-module.exports = Badge = Backbone.View.extend({
+module.exports = Viz = Backbone.View.extend({
 
 
 
@@ -15,7 +15,9 @@ module.exports = Badge = Backbone.View.extend({
             "viz_top3": Top3,
             "viz_top5": Top5,
         };
+
         var viewClass = vizMap[this.model.type];
+        console.log(this.model.type);
         var view = new viewClass({ model: this.model });
         view.render();
         
