@@ -6,11 +6,31 @@ var Spiders = require('./spiders');
 module.exports = Main = {
 
 main: function(req, res) {
+    async.parallel([ 
+        Main.badges,
+        Main.scns,
+        ],
+        function(err, results) {
+            var moiByMonth = results[1];
+            var l = utils.months().map(function(month) {
+                moiByMonth[month].moimois = { 
+                    date : month,
+                    userName: "John Doe"
+                };
+
+                moiByMonth[month].badges = results[0][month];
+                return moiByMonth[month];
+            });
+
+            res.send(l);
+        }
+    );
+
+/*
 //I. 1. checkDoctypes.
     //var activesDoctypes = checkDoctypes(cb?) ;
         //TODO meilleur imbrication.
         Main.badges(function(err, badges) {
-        console.log(badges);
 //II. For each month
     async.map(
         utils.months(),
@@ -52,8 +72,10 @@ main: function(req, res) {
         res.send(200, results);
     });
     });
-
+*/
 },
+
+
 
 badges: function(callback) {
     var sameBadgeInPrevious = function(badge, oldBadges) {
@@ -88,6 +110,105 @@ badges: function(callback) {
     });
 },
 
+
+scns : function(callback) {
+    Main.scnByMonth(function(err, instances) {
+        Main.selectSCN(err, instances, callback);
+    });
+},
+
+scnByMonth: function(callback) {
+    async.map(
+      utils.months(),
+      function(month, cb) {
+    //2. Compute each values
+        // 
+        async.parallel({
+            "numbers": fGen1P(month, Numbers.ofMonth),
+            "cursors": fGen1P(month, Cursors.ofMonth),
+            //"spiders": fGen1P(month, Spiders.ofMonth),
+            "viz": fGen1P(month, Viz.ofMonth),
+        },
+    //3. Select
+        cb
+        );
+      },
+      callback
+    );
+},
+selectSCN: function(err, resultsByMonth, callback) {
+    // 1 choix spider : différent du précédent
+    var months = utils.months();
+
+    var notInPreviouses = function(thing, thingsX) {
+        var res = -1 ;
+        for (var i=1;i<=thingsX.length;i++) {
+            var things = thingsX[i-1];
+            var present = things.some(function(prevThing) { 
+                return prevThing.origin == thing.origin ;
+            });
+
+            res = present ? i : res ;
+        }
+
+        return res;
+    };
+    
+    /*var cmpPreviouses = function(tag, idx, excludeList) {
+        return function(o1, o2) {
+        if (idx > 0) {
+            var olds = moiByMonth[months[idx - 1]][tag];
+            return notInPreviouses(o1, [olds, excludeList]) - sameType(o2, [olds, excludeList]);
+        }
+        return 0;
+        
+    }}*/
+
+    var filterViz = function(tag, quantity, month, idx, excludeList) {
+        // Cursors
+        var items = resultsByMonth[idx][tag].sort(function(o1, o2) {
+            if (idx > 0) {
+                // TODO : for each previous months ?
+                var olds = moiByMonth[months[idx - 1]][tag];
+                return notInPreviouses(o1, [olds, excludeList]) - notInPreviouses(o2, [olds, excludeList]);
+            }
+            return 0;
+        });
+
+        moiByMonth[month][tag] = items.slice(0, quantity);
+        
+        // exclude list
+        return moiByMonth[month][tag].map(function(item) { return item.origin });
+    };
+    
+    var moiByMonth = {};
+    months.forEach(function(month) { moiByMonth[month] = {}; });
+        
+    months.forEach(function(month, idx) {
+        /*
+        // Spiders
+        spiders = resultsByMonth[month].spiders.sort(
+            cmpPreviouses("spiders", idx, []));
+
+        });
+
+        moiByMonth[month].spiders = spiders.slice(0, 1);
+        var spiderType = moiByMonth[month].spiders.map(function(item) { return item.type });
+        */
+
+        // Cursors
+        var cursorsTypes = filterViz("cursors", 2, month, idx, []);
+
+        // Numbers
+        filterViz("numbers", 5, month, idx, cursorsTypes);
+        
+        // viz
+        filterViz("viz", 2, month, idx, []);
+
+    });
+
+        callback(null, moiByMonth); 
+},
 /*
 //module.exports.checkDoctypes = function(callback) {
 function checkDoctypes(callback) {

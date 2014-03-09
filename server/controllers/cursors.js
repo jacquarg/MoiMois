@@ -44,6 +44,7 @@ ofMonth: function(month, callback) {
                     //TODO find values !
                 var value = Math.min(Math.round(data.callsDuration / (20 * 60 * 60) * 50), 100); //20h ?
                 cursors.push({
+                    origin: "orange",
                     minLabel: "muet",
                     maxLabel: "pipelette",
                     balance: value,
@@ -52,6 +53,7 @@ ofMonth: function(month, callback) {
                 
                 // Direction balance
                 cursors.push({
+                    origin: "orange",
                     minLabel: "récepteur",
                     maxLabel: "émetteur",
                     balance: utils.balance(data.callsIncoming, data.callsOutgoing),
@@ -60,6 +62,7 @@ ofMonth: function(month, callback) {
 
                 // SMS / calls balance ...
                 cursors.push({
+                    origin: "orange",
                     minLabel: "scribe",
                     maxLabel: "Orateur",
                     balance: utils.balance(data.sms, data.calls),
@@ -85,6 +88,7 @@ ofMonth: function(month, callback) {
                 var value = Math.min(Math.round(data.totalDistance / (100) * 50), 100) ; // 100km ?
 
                 cursors.push({
+                    origin: "orange",
                     minLabel: "casanier",
                     maxLabel: "globetrotter",
                     balance: value,
@@ -95,6 +99,7 @@ ofMonth: function(month, callback) {
                     //TODO find values !
                 var value = Math.min(Math.round(data.totalDistance / 50 * 50), 100) ; // 50km/h ?
                 cursors.push({
+                    origin: "orange",
                     minLabel: "tortue",
                     maxLabel: "lièvre",
                     balance: value,
@@ -140,6 +145,7 @@ ofMonth: function(month, callback) {
                 console.log(vegetables, meat);
 
                 cursors.push({
+                    origin: "intermarche",
                     minLabel: "végétarien",
                     maxLabel: "carnivore",
                     balance: utils.balance(vegetables, meat),
@@ -147,6 +153,7 @@ ofMonth: function(month, callback) {
                 });
 
                 cursors.push({
+                    origin: "intermarche",
                     minLabel: "célibataire",
                     maxLabel: "famille nombreuse",
                     balance: Math.min(totalWeight, 100),
@@ -167,6 +174,7 @@ ofMonth: function(month, callback) {
                 var cursors = [] ;
 
                 cursors.push({
+                    origin: "intermarche",
                     minLabel: "au jour le jour",
                     maxLabel: "prévoyant",
                     balance: Math.min(200 / data.receipts, 100),
@@ -196,6 +204,7 @@ ofMonth: function(month, callback) {
                 if (data[0].power in powerMap) {
 
                   cursors.push({
+                    origin: "axa",
                     minLabel: "pot de yaourt",
                     maxLabel: "batmobile",
                     balance: powerMap[data[0].power],
@@ -204,6 +213,7 @@ ofMonth: function(month, callback) {
                 }
 
                 cursors.push({
+                    origin: "axa",
                     minLabel: "conducteur à risque",
                     maxLabel: "conducteur modèle",
                     balance: data[0].axaTXBON,
@@ -226,6 +236,7 @@ ofMonth: function(month, callback) {
                
 
                 cursors.push({
+                    origin: "axa",
                     minLabel: "maison de poupée",
                     maxLabel: "château",
                     balance: 10 * data[0].roomCount,
@@ -254,6 +265,7 @@ ofMonth: function(month, callback) {
                 },
                 { debits: 0, credits: 0 });
                 cursors.push({
+                    origin: "bank",
                     minLabel: "épargnant",
                     maxLabel: "dépensier",
                     balance: utils.balance(debcred.credits, debcred.debits),

@@ -277,7 +277,7 @@ upToMonth : function(month, callback) {
                 if (topDabCount > 0) {
                   badges.push({
                     type: "top_dab_count",
-                    label: topDabCount,
+                    label: topDabCount + " retraits",
                     value: topDabCount,
                     month: month,
                   });
@@ -285,7 +285,7 @@ upToMonth : function(month, callback) {
                 if (topDabAmount > 0) {
                   badges.push({
                     type: "top_dab_accrued_amount",
-                    label: topDabAmount,
+                    label: topDabAmount + " €",
                     value: topDabAmount,
                     month: month,
                   });
@@ -293,7 +293,7 @@ upToMonth : function(month, callback) {
                 if (counts.topDab < 0) {
                   badges.push({
                     type: "top_dab_amount",
-                    label: - counts.topDab,
+                    label: - counts.topDab + " €",
                     value: - counts.topDab,
                     month: month,
                   });
@@ -301,7 +301,7 @@ upToMonth : function(month, callback) {
                 if (counts.topCb < 0) {
                   badges.push({
                     type: "top_cb",
-                    label: - counts.topCb,
+                    label: - counts.topCb + " €",
                     value: - counts.topCb,
                     month: month,
                   });

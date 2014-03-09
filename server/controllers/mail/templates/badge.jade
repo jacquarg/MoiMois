@@ -1,0 +1,4 @@
+mixin badge(data)
+ - if (data)
+  img(title="", src='img/badges/#{data.type}_badge.png')
+  .score= data.label

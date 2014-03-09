@@ -8,7 +8,7 @@
   },
   "main": "server.js",
   "dependencies": {
-    "jade": "0.35.0",
+    "jade": "~0.35.0",
     "americano": "0.3.0",
     "americano-cozy": "0.2.1",
     "async": "0.2.10"
@@ -20,6 +20,5 @@
     "start": "node server.js"
   },
   "cozy-displayName": "Moi:Mois",
-  "cozy-permissions": {
-  }
+  "cozy-permissions": {}
 }

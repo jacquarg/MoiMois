@@ -1,0 +1,43 @@
+mixin numberviz(numberViz)
+ - var countStyle = "text-transform: uppercase;font-size: 60px;line-height: 0.9;";
+ - if (numberViz)
+  table(bgcolor="white", frame="void", width="300px", cellspacing="10px")
+    tr
+      td(align="center", valign="middle", style='font-size: 12px;text-transform: uppercase;')= numberViz.label
+        hr
+      
+    - if (numberViz.type == "vc")
+      tr
+        td(align="center", style="#{countStyle} color: #F15048;")= numberViz.count
+        //.vcCount= numberViz.count
+
+    - else if (numberViz.type == "vvc")
+      tr
+        td(align="center", style="text-transform: uppercase;font-size: 25px;line-height: 0.9;color: #F15048")= numberViz.count
+      tr
+        td(align="center", style="#{countStyle} color: #F68470;")= numberViz.count2
+        //.vvcCount= numberViz.count
+        //.vvcCount2= numberViz.count2
+
+    - else if (numberViz.type == "v")
+      tr
+        td(align="center", style="#{countStyle} color: #2F6878;")= numberViz.count
+      //.vCount= numberViz.count
+
+    - else if (numberViz.type == "vv")
+      tr
+        td(align="center", style="#{countStyle} color: #2F6878;")= numberViz.count
+      tr
+        td(align="center", style="#{countStyle} color: #5AC8CC;")= numberViz.count2
+      //.vvCount= numberViz.count
+      //.vvCount2= numberViz.count2
+
+    - if (numberViz.type.indexOf('c') != -1)
+      tr
+        td
+          hr
+      tr
+        td(align="center", style="text-transform: uppercase;font-size: 60px;line-height: 0.9;")= numberViz.compareLabel
+
+        //.labcompare= numberViz.compareLabel
+

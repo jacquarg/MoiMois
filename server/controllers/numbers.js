@@ -50,6 +50,7 @@ ofMonth : function(month, callback) {
                 // each 10',  + 0.1 , ie / 100 .
                 var compare = Math.round(data.callsDuration / 100);
                 numbers.push({
+                    origin: "orange",
                     type: "vc",
                     label: "Votre temps d'appel",
                     count: hours + "h" + mins,
@@ -60,6 +61,7 @@ ofMonth : function(month, callback) {
                 var mo = Math.floor(data.data / 1000000); //(1 MB)
                 var compare = Math.round(data.data / 1440000); // (1.44 MB
                 numbers.push({
+                    origin: "orange",
                     type: "vc",
                     label: "Votre consommation internet sur mobile",
                     count: mo + " Mo",
@@ -71,6 +73,7 @@ ofMonth : function(month, callback) {
                 var compare =  Math.round(mins / 4);// each 4'.
                 var contact = utils.formatPhoneNumber(data.mostCalledContact);
                 numbers.push({
+                    origin: "orange",
                     type: "vvc",
                     label: "Le numéro le plus appelé",
                     count: contact,
@@ -98,6 +101,7 @@ ofMonth : function(month, callback) {
 
                 var mins = Math.round(data.value.callsDuration / 60);
                 numbers.push({
+                    origin: "orange",
                     type: "vv",
                     label: "Votre jour le plus bavard",
                     count: data.key.join('-'),
@@ -132,6 +136,7 @@ ofMonth : function(month, callback) {
                 });
 
                 numbers.push({
+                    origin: "intermarche",
                     type: "v",
                     label: "Quantité de fromage que vous avez acheté",
                     count: count.toFixed(1) + ' kg',
@@ -149,6 +154,7 @@ ofMonth : function(month, callback) {
                     }
                 });
                 numbers.push({
+                    origin: "intermarche",
                     type: "v",
                     label: "Quantité de viande que vous avez acheté",
                     count: count.toFixed(1) + ' kg',
@@ -164,6 +170,7 @@ ofMonth : function(month, callback) {
                     }
                 });
                 numbers.push({
+                    origin: "intermarche",
                     type: "v",
                     label: "Quantité de surgelés que vous avez acheté",
                     count: count.toFixed(1) + ' kg',
@@ -183,6 +190,7 @@ ofMonth : function(month, callback) {
                     }
                 });
                 numbers.push({
+                    origin: "intermarche",
                     type: "v",
                     label: "Quantité de lait que vous avez acheté",
                     count: count.toFixed(1) + ' L',
@@ -207,6 +215,7 @@ ofMonth : function(month, callback) {
                     }
                 });
                 numbers.push({
+                    origin: "intermarche",
                     type: "v",
                     label: "Quantité de vin que vous avez acheté",
                     count: count + ' L',
@@ -226,6 +235,7 @@ ofMonth : function(month, callback) {
 
                 var eqCount = Math.ceil(count / 1.5) ;
                 numbers.push({
+                    origin: "intermarche",
                     type: "vc",
                     label: "La masse de nourriture que vous avez acheté",
                     count: count.toFixed(2) + ' kg',
@@ -258,6 +268,7 @@ ofMonth : function(month, callback) {
 
                 
                 numbers.push({
+                    origin: "axa",
                     type: "vv",
                     label: "Age de votre voiture",
                     count: years + ' ans',
@@ -290,17 +301,19 @@ ofMonth : function(month, callback) {
 
                 var compareCount = counts.dab * 0.03 ; // 1E <-> 0.03 g d'or.
                 numbers.push({
+                    origin: "bank",
                     type: "vc",
                     label: "L'argent que vous avez retiré",
-                    count: counts.dab.toFixed(0),
+                    count: counts.dab.toFixed(0) + " €",
                     compareLabel: "Équivalent à " + compareCount.toFixed(1) + " g d'or",
                     });
 
                 var compareCount = counts.dab * 0.03 ; // 1E <-> 0.03 g d'or.
                 numbers.push({
+                    origin: "bank",
                     type: "vc",
                     label: "Vous avez dépensé",
-                    count: counts.cb.toFixed(0),
+                    count: counts.cb.toFixed(0) + " €",
                     compareLabel: "Équivalent à " + compareCount.toFixed(1) + " g d'or",
                 });
                 callback(null, numbers);

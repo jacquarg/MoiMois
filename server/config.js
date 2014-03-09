@@ -10,9 +10,9 @@ module.exports = {
         }),
         americano.static(__dirname + '/../client/public', {
             maxAge: 86400000
-        })/*,
-        americano.set('views', __dirname + '/../client'),
-        americano.engine('.html', require('jade').__express)*/
+        }),
+        //americano.set('views', __dirname + '/../client'),
+        //americano.engine('.html', require('jade').__express),
     ],
     development: [
         americano.logger('dev')
