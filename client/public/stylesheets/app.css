@@ -6000,19 +6000,19 @@ td.visible-print {
 }
 @font-face {
   font-family: "Lux Sans Book";
-  src: url("/fonts/LuxSansBook.otf");
+  src: url("../fonts/LuxSansBook.otf");
 }
 @font-face {
   font-family: "Lux Sans Book Italic";
-  src: url("/fonts/LuxSansBookItalic.otf");
+  src: url("../fonts/LuxSansBookItalic.otf");
 }
 @font-face {
   font-family: "Bebas Neue";
-  src: url("/fonts/BebasNeue.otf");
+  src: url("../fonts/BebasNeue.otf");
 }
 @font-face {
   font-family: "Ostrich Bold";
-  src: url("/fonts/OstrichSansInline-Regular.otf");
+  src: url("../fonts/OstrichSansInline-Regular.otf");
 }
 .mmtitle {
   font-size: 12px;
