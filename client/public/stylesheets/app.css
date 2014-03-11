@@ -6028,23 +6028,24 @@ td.visible-print {
   width: 300px;
 }
 .mmbadge {
-  height: 150px;
+  height: 180px;
   text-align: center;
 }
 .mmbadge .frame {
-  height: 150px;
+  height: 180px;
   width: 200px;
+  background: none;
 }
 .mmbadge .frame img {
   position: absolute;
-  bottom: 5px;
+  top: 5px;
   left: 5px;
   width: 190px;
   height: 134px;
 }
 .mmbadge .frame .score {
   position: absolute;
-  bottom: 34px;
+  bottom: 5px;
   width: 100%;
   text-align: center;
 }
@@ -6223,9 +6224,11 @@ td.visible-print {
 .mm h2 {
   text-align: center;
   width: 100%;
-  color: #2F6878;
-  font-family: "Ostrich Bold";
-  font-size: 75px;
+  color: #969898;
+  font-family: "Bebas Neue";
+  text-transform: uppercase;
+  font-size: 40px;
+  line-height: 1.5;
 }
 .mm hr.mmdotted {
   border-top: dotted 4px #F68470;
@@ -6236,72 +6239,128 @@ td.visible-print {
 .mm .spider {
   clear: both;
 }
-.mmheader .frame {
-  height: 121px;
-  width: 100%;
-}
-.mmheader .frame .mmh {
+.mmh {
   position: absolute;
   width: 100%;
   left: 0px;
 }
-.mmheader .frame .mmhblue {
+.mmhblue {
   position: absolute;
   width: 100%;
   left: 0px;
-  height: 100px;
+  height: 50px;
   top: 0px;
-  background: #306878;
+  background: #8AC7C2;
 }
-.mmheader .frame .mmhred {
-  position: absolute;
+.mmheader {
+  /*.mmhred {
+        .mmh;
+        height: 14px;
+        top: 100px;
+        background: #F68470;
+    }
+    .mmhgrey {
+        .mmh;
+        height: 7px;
+        top: 114px;
+        background: #D3D2D2;
+    }*/
+  /*.mmname {
+        color: white;
+        position: absolute;
+        left: 30px;
+        top: 32px;
+        font-family: "Lux Sans Book";
+        font-size: 18px;
+    }
+    
+    .mmnum {
+        color: white;
+        position: absolute;
+        left: 30px;
+        top: 70px;
+        font-family: "Lux Sans Book";
+        font-size: 12px;        
+    }*/
+}
+.mmheader .frame {
+  height: 50px;
   width: 100%;
-  left: 0px;
-  height: 14px;
-  top: 100px;
-  background: #F68470;
 }
-.mmheader .frame .mmhgrey {
-  position: absolute;
-  width: 100%;
-  left: 0px;
-  height: 7px;
-  top: 114px;
-  background: #D3D2D2;
-}
-.mmheader .frame .mmlogo {
+.mmheader .mmlogo {
   position: absolute;
   left: 255px;
   top: 15px;
 }
-.mmheader .frame .mmmesinfoslogo {
+.mmheader .mmmesinfoslogo {
   position: absolute;
   right: 30px;
-  top: 32px;
+  top: 5px;
 }
-.mmheader .frame .mmname {
-  color: white;
-  position: absolute;
-  left: 30px;
-  top: 32px;
-  font-family: "Lux Sans Book";
-  font-size: 18px;
+.mmheader h1.mmdate {
+  color: #196B78;
+  font-family: "Ostrich Bold";
+  font-size: 75px ;
+  line-height: 2 ;
+  width: 100% ;
+  text-align: center ;
 }
-.mmheader .frame .mmdate {
-  color: white;
-  position: absolute;
-  left: 30px;
-  top: 55px;
-  font-family: "Lux Sans Book";
-  font-size: 12px;
+.mmfooter .frame {
+  height: 50px;
+  width: 100%;
 }
-.mmheader .frame .mmnum {
-  color: white;
+.mmfooter .mmfblue {
   position: absolute;
-  left: 30px;
-  top: 70px;
-  font-family: "Lux Sans Book";
-  font-size: 12px;
+  width: 100%;
+  left: 0px;
+  height: 50px;
+  top: 0px;
+  background: #8AC7C2;
+}
+.mainmenu {
+  margin-bottom: 30px;
+}
+.mainmenu .rubriques {
+  color: #969898;
+  font-family: "Bebas Neue";
+  text-transform: uppercase;
+  font-size: 25px;
+  line-height: 1.5;
+}
+.moimenu .frame {
+  height: 50px;
+  width: 100%;
+}
+.moimenu .moimtitle {
+  position: absolute;
+  left: 5px;
+  color: #969898;
+  font-family: "Bebas Neue";
+  text-transform: uppercase;
+  font-size: 40px;
+}
+.moimenu .moimmonth {
+  position: absolute;
+  left: 150px;
+  width: 400px;
+  font-size: 20px;
+}
+.moimenu .moimmonth .amonth {
+  font-size: 14px;
+  color: #969898;
+}
+.moimenu .moimshare {
+  position: absolute;
+  right: 0px;
+  color: #969898;
+  font-family: "Bebas Neue";
+  text-transform: uppercase;
+  font-size: 40px;
+}
+.moicontainer {
+  width: 640px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 

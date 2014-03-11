@@ -40,15 +40,18 @@
 }
 
 .mmbadge {
-    height: 150px;
+    height: 180px;
     text-align: center;
     .frame {
-        height: 150px;
+        height: 180px;
+
         width: 200px;
+        background: none;
         
         img {
             position: absolute;
-            bottom: 5px;
+            //bottom: 5px;
+            top: 5px;
             left: 5px;
             width: 190px;
             height: 134px;
@@ -57,7 +60,8 @@
 
         .score {
             position: absolute;
-            bottom: 34px;
+            //bottom: 34px;
+            bottom: 5px;
             width: 100%;
             text-align: center;
         }
@@ -234,10 +238,11 @@
     h2 {
       text-align: center;
       width: 100%;
-      color: #2F6878;
-      font-family: "Ostrich Bold";
-      font-size: 75px;
-
+      color: #969898;
+      font-family:  "Bebas Neue";
+      text-transform: uppercase;
+      font-size: 40px;
+      line-height: 1.5; 
     }
     hr.mmdotted {
       border-top: dotted 4px #F68470;
@@ -252,23 +257,26 @@
     }
 
 }
-.mmheader {
-  .frame {
-    height: 121px;
-    width: 100%;
 
-    .mmh {
+.mmh {
         position: absolute;
         width: 100%;
         left: 0px;
-    }
-    .mmhblue {
+}
+.mmhblue {
         .mmh;
-        height: 100px;
+        height: 50px;
         top: 0px;
-        background: #306878;
-    }
-    .mmhred {
+        background: #8AC7C2;
+}
+
+.mmheader {
+  .frame {
+    height: 50px;
+    width: 100%;
+  }
+    
+    /*.mmhred {
         .mmh;
         height: 14px;
         top: 100px;
@@ -279,7 +287,7 @@
         height: 7px;
         top: 114px;
         background: #D3D2D2;
-    }
+    }*/
 
     .mmlogo {
         position: absolute;
@@ -289,12 +297,21 @@
     .mmmesinfoslogo {
         position: absolute;
         right: 30px;
-        top: 32px;
+        top: 5px;
     }
-
+    
     .mmtxt {
     }
-    .mmname {
+    h1.mmdate {
+        color: #196B78;
+        font-family: "Ostrich Bold";
+        font-size: 75px ;
+        line-height: 2 ;
+        width: 100% ;
+        text-align: center ;
+
+    }
+    /*.mmname {
         color: white;
         position: absolute;
         left: 30px;
@@ -302,14 +319,7 @@
         font-family: "Lux Sans Book";
         font-size: 18px;
     }
-    .mmdate {
-        color: white;
-        position: absolute;
-        left: 30px;
-        top: 55px;
-        font-family: "Lux Sans Book";
-        font-size: 12px;        
-    }
+    
     .mmnum {
         color: white;
         position: absolute;
@@ -317,6 +327,81 @@
         top: 70px;
         font-family: "Lux Sans Book";
         font-size: 12px;        
-    }
+    }*/
+}
+
+.mmfooter {
+  .frame {
+    height: 50px;
+    width: 100%;
   }
+
+  .mmfblue {
+    .mmhblue;
+  
+  }
+}
+
+
+
+.mainmenu {
+    margin-bottom: 30px;
+    .rubriques {
+      color: #969898;
+      font-family:  "Bebas Neue";
+      text-transform: uppercase;
+      font-size: 25px;
+      line-height: 1.5; 
+    }
+
+}
+
+.moimenu {
+    .frame {
+      height: 50px;
+      width: 100%;
+    }
+    .moimtitle {
+      position: absolute;
+      left: 5px;
+
+      color: #969898;
+      font-family:  "Bebas Neue";
+      text-transform: uppercase;
+      font-size: 40px;
+    }
+
+    .moimmonth {
+      position: absolute;
+      left: 150px;
+      width: 400px;
+
+     
+      //font-family:  "Bebas Neue";
+      font-size: 20px;
+      
+      .amonth {
+        font-size: 14px;
+         color: #969898;
+      }
+    }
+
+    .moimshare {
+         position: absolute;
+      right: 0px;
+
+
+      color: #969898;
+      font-family:  "Bebas Neue";
+      text-transform: uppercase;
+      font-size: 40px;
+    }
+
+
+}
+
+.moicontainer {
+    width: 640px;
+    margin-left: auto;
+    margin-right: auto;
 }

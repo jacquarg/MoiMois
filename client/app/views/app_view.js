@@ -1,4 +1,5 @@
-var AllThingsView = require('./all_things');
+//var AllThingsView = require('./all_things');
+var MoiList = require('./moilist');
 
 module.exports = AppView = Backbone.View.extend({
 
@@ -12,18 +13,32 @@ module.exports = AppView = Backbone.View.extend({
         //update view in db.
         //$.get('touch');
     },
+
+    events : {
+        "click #splash": "toggleSplash"
+    
+    },
     render: function() {
 
         // we render the template
         this.$el.html(this.template());
 
-        allbadgesView = new AllThingsView();
-        allbadgesView.render();
-        this.$el.find('#allbadges').append(allbadgesView.$el);
+//        allbadgesView = new AllThingsView();
+//        allbadgesView.render();
+        moilist = new MoiList();
+        moilist.render();
+        this.$el.find('#allbadges').append(moilist.$el);
 //        var personView = new PersonView();
 //        personView.render();
 
 //        this.$el.find('#fix').append(personView.$el);
+    },
+
+    toggleSplash: function() {
+        //this.$el.find('#splash').css('display: none;');
+        this.$el.find('#splash').hide();
+        //this.$el.find('#allbadges').css('display: block;');
+        this.$el.find('#allbadges').show();
     },
 
 });
