@@ -1,4 +1,19 @@
-module.exports.mail = function(req, res) {
+var CozyInstance = require('../../models/cozyinstance');
+var Client = require('request-json').JsonClient
+var async = require('async');
+
+var Main = require("../main");
+
+module.exports = Mail = {
+
+mail : function(req, res) {
+    Mail.compose(function(err, html) {
+    res.send(200, html);
+    });
+},
+
+compose : function(mms, callback) {
+   if (!mms) { // stub
     var mms = {
 
     "cursors": [
@@ -152,20 +167,91 @@ module.exports.mail = function(req, res) {
             "month": "2013-03"
         }
     ]
-
+    
 };  
-    var jade = require('jade'),
-    fs = require('fs');
+    }
 
-    fs.readFile(__dirname + '/templates/moimail.jade', 'utf8', function (err, data) {
-    if (err) throw err;
-    console.log(data);
-    var fn = jade.compile(data, { filename: __dirname + "/templates/moimail.jade"});
-    var html = fn(mms);
-    console.log(html);
-    res.send(200, html);
-});
+    var jade = require('jade');
+    
+    async.parallel([
+        //function(cb) { fs.readFile(__dirname + '/templates/moimail.jade', 'utf8', cb); },
+        CozyInstance.one,
+        ],
+        function(err, results) {
+            if (err) throw err;
 
+            //var fn = jade.compile(results[0], { filename: __dirname + "/templates/moimail.jade"});
+            mms.baseUrl = "https://" + results[0].domain + "/public/moimois" ;
+            mms.filename = __dirname + "/templates/moimail.jade" ;
+
+            jade.renderFile(__dirname + '/templates/moimail.jade', mms, callback);
+//                function(err, html) {
+//                    res.send(200, html);
+//                }
+//            );
+
+            //var html = fn(mms);
+            //res.send(200, html);
+      });
+},
+
+testSend : function(req, res) {
+    Mail.compose(function(err, html) {
+        Mail.send("", html);
+        res.send(200, "done ?");
+    });
+},
+
+send : function(textContent, htmlContent) {
+    data = {
+            from: "Moi (Le mag) <moi-noreply@cozycloud.cc>",
+            subject: "Moi, des nouvelles fraiches sur vous", // Z : meilleur sujet.
+            content: textContent,
+            html: htmlContent,
+        }
+
+        var client = new Client("http://localhost:9101/");
+        if (process.env.NODE_ENV in ["production", "test"]) {
+            client.setBasicAuth(process.env.NAME, process.env.TOKEN);
+        }
+            
+
+        client.post("mail/to-user/", data, function(err, res, body) {
+            if (err) {
+                msg = "An error occurred while sending an email"
+                console.log("#{msg} -- #{err}");
+                if (res) { console.log(res.statusCode); }
+
+            } else {
+                console.log("Report sent.");
+            }
+        });
+        
+},
+
+report : function() {
+    Main.all(function(err, instances) {
+
+    Mail.compose(instances[4], function(err, html) {
+        res.send(200, html);
+    });
+    });
+    setNextReport();
+},
+
+setNextReport : function() {
+    var dt = { 
+            day: 4, // Thruday ?
+            hour: 12,  // between 12 and 14.
+            };
+    var now = new Date();
+    
+    // TODO : check it's work!
+    var msBefore = (7 - (7 + dt.day - now.getDay()) % 7) * 24 * 3600 * 1000 ;
+    msBefore += dt.hour - now.getHours() * 3600 * 1000 ;
+
+    setTimeout(report, msBefore);
+},
 
 /*    var template = require('templates/moimail.jade')
     var jade = require('jade');

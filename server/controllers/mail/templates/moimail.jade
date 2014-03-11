@@ -12,21 +12,22 @@ table(align="center", bgcolor="#F4F4F4", cellpadding="5px", frame="void", width=
     th(align="center", style="font-size: 50px; color: #2F6878;") ~ Vos Exploits ~
   tr
     td
-      table
+      table(align="center")
         tr
-          td
-            mixin badge(badges[0])
-          td
-            mixin badge(badges[1])
-          td
-            mixin badge(badges[2])
+          mixin badgeimg(badges[0])
+          mixin badgeimg(badges[1])
+          mixin badgeimg(badges[2])
+        tr
+          mixin badgelabel(badges[0])
+          mixin badgelabel(badges[1])
+          mixin badgelabel(badges[2])          
   tr
     th(align="center", style="font-size: 50px; color: #2F6878;") ~ Votre mois ~
   tr
     td
-      table(valign="top")
+      table
         tr
-          td
+          td(valign="top")
             table
               tr
                 td
@@ -40,7 +41,7 @@ table(align="center", bgcolor="#F4F4F4", cellpadding="5px", frame="void", width=
               tr
                 td
                   mixin viz(viz[0])
-          td
+          td(valign="top")
             table
               tr
                 td 

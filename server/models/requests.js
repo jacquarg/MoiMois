@@ -206,5 +206,8 @@ module.exports = {
                 , doc);
         },
     },
-
+    
+    cozyinstance: {
+        all: americano.defaultRequests.all
+    }
 };

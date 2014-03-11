@@ -12,22 +12,24 @@ Mail = require('./mail/rendermail');
 // Test
 //TestModel = require('../models/geolocationlog');
 TestModel = require('../models/bankoperation');
-test = function(req, res) {
+test = Mail.testSend ;
+
+//function(req, res) {
     //TestModel.test(function(err, instances) {
-    Main.scnByMonth(
-        function(err, instances) {
-            Main.selectSCN(err, instances, 
-        
-        function(err, instances) {
-        if(err != null) {
-            res.send(500, "An error has occurred -- " + err);
-        }
-        else {
-            res.send(200, instances);
-        }
-    });
-        });
-};
+//    Mail.send(
+//        function(err, instances) {
+//            //Main.selectSCN(err, instances, 
+//        
+//        function(err, instances) {
+//        if(err != null) {
+//            res.send(500, "An error has occurred -- " + err);
+//        }
+//        else {
+//            res.send(200, instances);
+//        }
+//    });
+//        });
+//};
 //
 
 

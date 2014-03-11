@@ -75,6 +75,27 @@ main: function(req, res) {
 */
 },
 
+all: function(callback) {
+    async.parallel([ 
+        Main.badges,
+        Main.scns,
+        ],
+        function(err, results) {
+            var moiByMonth = results[1];
+            var l = utils.months().map(function(month) {
+                moiByMonth[month].moimois = { 
+                    date : month,
+                    userName: "John Doe"
+                };
+
+                moiByMonth[month].badges = results[0][month];
+                return moiByMonth[month];
+            });
+
+            callback(null, l);
+        }
+    );
+},
 
 
 badges: function(callback) {

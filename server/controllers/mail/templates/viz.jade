@@ -4,10 +4,11 @@ mixin viz(viz)
       td(align="center", valign="middle", style='font-size: 12px;text-transform: uppercase;')= viz.title
     tr
       td
-        table
+        table(background="public/viz/#{viz.type}_bg.png", width="300px")
           - for (var i=0;i<viz.bars.length;i++)
             - var bar = viz.bars[i];
             - var s = "text-transform: capitalize; font-size: 12px;";
+            - var colors = ["#F15048", "#F68470", "#2F6878", "#5AC8CC", "#BFE8DD", "#66AB9F", "#308462", "#4CC190"];
               tr
                 td(style=s)= bar.label
-                td(style=s)= bar.valueLabel
+                td(style=s + "color: #{colors[i]};")= bar.valueLabel

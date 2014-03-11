@@ -1,4 +1,9 @@
-mixin badge(data)
+mixin badgeimg(data)
  - if (data)
-  img(title="", src='img/badges/#{data.type}_badge.png')
-  .score= data.label
+  td(align="center") 
+    img(title="", src='img/badges/#{data.type}_badge.png')
+    
+
+mixin badgelabel(data)
+ - if (data)
+  td(align="center",style='font-size: 12px;text-transform: uppercase;')= data.label
