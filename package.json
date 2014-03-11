@@ -51,6 +51,9 @@
       },
       "CozyInstance": {
         "description": "TODO"
+      },
+      "send mail to user": {
+        "description": "TODO"
       }
   }
 }

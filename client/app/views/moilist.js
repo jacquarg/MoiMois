@@ -1759,6 +1759,7 @@ module.exports = MoiList = Backbone.View.extend({
     events: {
         "click .amonth": "onClickMonth",
         "click #bymail": "onClickShareMail",
+        "click #testmail": "sendTestMail",
     },
     initialize: function() {
 
@@ -1826,5 +1827,9 @@ module.exports = MoiList = Backbone.View.extend({
         console.log(this.month + "/sendmail/ sended.");
     },
     
+    sendTestMail: function(ev) {
+        $.get("test/");
+        console.log("test mail sended ?");
+    },
 });
 

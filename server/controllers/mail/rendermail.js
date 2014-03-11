@@ -196,8 +196,9 @@ compose : function(mms, callback) {
 },
 
 testSend : function(req, res) {
-    Mail.compose(function(err, html) {
-        Mail.send("", html);
+    Mail.compose(null, function(err, html) {
+        
+        Mail.send("Test mail.", html);
         res.send(200, "done ?");
     });
 },
@@ -211,7 +212,7 @@ send : function(textContent, htmlContent) {
         }
 
         var client = new Client("http://localhost:9101/");
-        if (process.env.NODE_ENV in ["production", "test"]) {
+        if (["production", "test"].indexOf(process.env.NODE_ENV) != -1) {
             client.setBasicAuth(process.env.NAME, process.env.TOKEN);
         }
             
@@ -237,8 +238,9 @@ sendReportReq : function(req, res) {
 sendReport: function(month) {
     Main.all(function(err, moiByMonth) {
         Mail.compose(moiByMonth[month], 
-            Mail.send //TODO crapy --> err in text.
-            );
+            function(err, html) {
+                Mail.send(JSON.stringify(moiByMonth), html);
+            });
     });
 },
 

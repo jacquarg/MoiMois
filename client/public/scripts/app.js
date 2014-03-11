@@ -287,7 +287,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="mainmenu"><a id="exploits" class="rubriques">vos exploits</a>&nbsp;&nbsp;<a id="details" class="rubriques">en détails</a></div><div class="moimenu"><div class="frame"><div class="moimtitle">vos unes</div><!--select.moimmonth(name="moimmonth")--><div class="moimmonth"></div><div class="moimshare"> <a id="bymail">mail</a></div></div></div><div id="moi"></div>');
+buf.push('<div class="mainmenu"><a id="exploits" class="rubriques">vos exploits</a>&nbsp;&nbsp;<a id="details" class="rubriques">en détails</a></div><div class="moimenu"><div class="frame"><div class="moimtitle">vos unes</div><!--select.moimmonth(name="moimmonth")--><div class="moimmonth"></div><div class="moimshare"> <a id="bymail">mail</a>&nbsp;<a id="testmail">test</a></div></div></div><div id="moi"></div>');
 }
 return buf.join("");
 };
@@ -4191,6 +4191,7 @@ module.exports = MoiList = Backbone.View.extend({
     events: {
         "click .amonth": "onClickMonth",
         "click #bymail": "onClickShareMail",
+        "click #testmail": "sendTestMail",
     },
     initialize: function() {
 
@@ -4258,6 +4259,10 @@ module.exports = MoiList = Backbone.View.extend({
         console.log(this.month + "/sendmail/ sended.");
     },
     
+    sendTestMail: function(ev) {
+        $.get("test/");
+        console.log("test mail sended ?");
+    },
 });
 
 
