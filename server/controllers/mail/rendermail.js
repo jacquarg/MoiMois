@@ -229,6 +229,19 @@ send : function(textContent, htmlContent) {
         
 },
 
+sendReportReq : function(req, res) {
+    Mail.sendReport(req.params.month);
+    res.send(200);
+},
+
+sendReport: function(month) {
+    Main.all(function(err, moiByMonth) {
+        Mail.compose(moiByMonth[month], 
+            Mail.send //TODO crapy --> err in text.
+            );
+    });
+},
+
 report : function() {
     Main.all(function(err, instances) {
 

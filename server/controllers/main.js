@@ -6,7 +6,8 @@ var Spiders = require('./spiders');
 module.exports = Main = {
 
 main: function(req, res) {
-    async.parallel([ 
+
+    /*async.parallel([ 
         Main.badges,
         Main.scns,
         ],
@@ -20,8 +21,8 @@ main: function(req, res) {
 
                 moiByMonth[month].badges = results[0][month];
                 return moiByMonth[month];
-            });
-
+            }); */
+    Main.allList(function(err, l) {
             res.send(l);
         }
     );
@@ -74,6 +75,13 @@ main: function(req, res) {
     });
 */
 },
+allList: function(callback) {
+    Main.all(function(err, moiByMonth) {
+        var months = Object.keys(moiByMonth).sort();
+        var l = months.map(function(month) { return moiByMonth[month];    });
+        callback(null, l);
+    });
+},
 
 all: function(callback) {
     async.parallel([ 
@@ -82,17 +90,30 @@ all: function(callback) {
         ],
         function(err, results) {
             var moiByMonth = results[1];
-            var l = utils.months().map(function(month) {
+            var l = [];
+            var dataStarted = false;
+            utils.months().forEach(function(month) {
+            //var l = utils.months().map(function(month) {
+                if (!dataStarted && 
+                    (
+                    //moiByMonth[month].badges.length == 0 &&
+                    (moiByMonth[month].cursors.length == 0)
+                    && (moiByMonth[month].numbers.length == 0) 
+                    && (moiByMonth[month].viz.length == 0) )) {
+                    delete moiByMonth[month];
+                    return;
+                }
+                dataStarted = true;
+
                 moiByMonth[month].moimois = { 
                     date : month,
                     userName: "John Doe"
                 };
 
                 moiByMonth[month].badges = results[0][month];
-                return moiByMonth[month];
             });
 
-            callback(null, l);
+            callback(null, moiByMonth);
         }
     );
 },

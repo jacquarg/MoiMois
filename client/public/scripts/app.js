@@ -287,7 +287,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="mainmenu"><a id="exploits" class="rubriques">vos exploits</a>&nbsp;&nbsp;<a id="details" class="rubriques">en détails</a></div><div class="moimenu"><div class="frame"><div class="moimtitle">vos unes</div><!--select.moimmonth(name="moimmonth")--><div class="moimmonth"></div><div class="moimshare">mail</div></div></div><div id="moi"></div>');
+buf.push('<div class="mainmenu"><a id="exploits" class="rubriques">vos exploits</a>&nbsp;&nbsp;<a id="details" class="rubriques">en détails</a></div><div class="moimenu"><div class="frame"><div class="moimtitle">vos unes</div><!--select.moimmonth(name="moimmonth")--><div class="moimmonth"></div><div class="moimshare"> <a id="bymail">mail</a></div></div></div><div id="moi"></div>');
 }
 return buf.join("");
 };
@@ -2435,7 +2435,7 @@ MoiMois = require('./moimois');
 
 module.exports = MoiList = Backbone.View.extend({
     //el : $( "#allbadges" ),
-    collection : new MoiMoisCollection(
+    /*collection : new MoiMoisCollection(
 [
 
     {
@@ -4182,24 +4182,21 @@ module.exports = MoiList = Backbone.View.extend({
     }
 
 ]
-),
+),*/
 
-    //collection: new MoiMoisCollection(),
+    collection: new MoiMoisCollection(),
     template : require('../templates/moilist'),
-
+    
+    currentMonth: null,
     events: {
         "click .amonth": "onClickMonth",
+        "click #bymail": "onClickShareMail",
     },
     initialize: function() {
 
-//        this.listenTo(this.collection, "add", this.onItemAdded);
-//        this.collection.fetch();
+        this.listenTo(this.collection, "add", this.onItemAdded);
+        this.collection.fetch();
 
-/*        var self = this;        
-        this.collection.forEach(function(model) {
-            self.onItemAdded(model);
-            });
-*/
     },
 
     render: function() {
@@ -4207,10 +4204,11 @@ module.exports = MoiList = Backbone.View.extend({
 //            : this.model.toJSON()
         }));
 
-        var self = this;        
+        /*var self = this;        
         this.collection.forEach(function(model) {
             self.onItemAdded(model);
             });
+        */
     },
     
     /*collectionFetch: function() {
@@ -4252,6 +4250,12 @@ module.exports = MoiList = Backbone.View.extend({
         });
         moimoisView.render();
         this.$el.find('#moi').html(moimoisView.$el);
+        this.month = instance.attributes.moimois.date;
+    },
+
+    onClickShareMail: function(ev) {
+        $.get(this.month + "/sendmail/");
+        console.log(this.month + "/sendmail/ sended.");
     },
     
 });

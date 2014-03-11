@@ -134,7 +134,7 @@ module.exports.months = function() {
     for (var i=10;i<=12;i++) {
         months.push("2013-" + i);
     }
-    for (var i=0;i<=new Date().getMonth();i++) {
+    for (var i=0;i<new Date().getMonth();i++) { //exclude current month.
         months.push("2014-0" + (i + 1));
     }
     return months

@@ -37,6 +37,9 @@ module.exports = {
   'mail': {
     get: Mail.mail
   },
+  ':month/sendmail': {
+    get: Mail.sendReportReq   
+  },
   'mms': {
       get: Main.main
   },
