@@ -7,7 +7,7 @@ var Main = require("../main");
 module.exports = Mail = {
 
 mail : function(req, res) {
-    Mail.compose(function(err, html) {
+    Mail.compose(null, function(err, html) {
     res.send(200, html);
     });
 },
@@ -181,7 +181,7 @@ compose : function(mms, callback) {
             if (err) throw err;
 
             //var fn = jade.compile(results[0], { filename: __dirname + "/templates/moimail.jade"});
-            mms.baseUrl = "https://" + results[0].domain + "/public/moimois" ;
+            mms.baseUrl = "https://" + results[0].domain + "/public/mesinfos-moi" ;
             mms.filename = __dirname + "/templates/moimail.jade" ;
 
             jade.renderFile(__dirname + '/templates/moimail.jade', mms, callback);
