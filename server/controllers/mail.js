@@ -256,10 +256,8 @@ sendReport: function(month) {
 
 setNextReport : function() {
     var dt = { 
-            //day: 4, // Thursday ?
-           // hour: 12,  // between 12 and 14.
-             day: 3,
-             hour: 16,
+            day: 4, // Thursday ?
+            hour: 12,  // between 12 and 14.
             };
     var now = new Date();
     
@@ -286,11 +284,9 @@ setNextReport : function() {
     // Add some seconds to avoid inside loop.
     msBefore += 10;
     
-    //TODO : remove stub !
-    msBefore = 10 * 60 * 1000;
-
     // which report ?
     var reportsMap = {
+        "2014-03-13": "2014-02",
         "2014-03-20": "2014-02",
         "2014-03-27": "2014-01",
         "2014-04-03": "2013-12",
@@ -304,25 +300,14 @@ setNextReport : function() {
     };
     console.log("ms before mail: " + msBefore);
     setTimeout(function() {
-        //TODO : remove stub !
-            //Mail.sendReport(reportsMap[now.toISOString().slice(0, 11)]);
+            Mail.sendReport(reportsMap[now.toISOString().slice(0, 11)]);
             //console.log("send report: " + reportsMap[now.toISOString().slice(0, 10)]);
-            Mail.sendReport(reportsMap["2014-05-01"]);
+            //Mail.sendReport(reportsMap["2014-05-01"]);
             Mail.setNextReport();
 
         }, msBefore);
 },
 
-/*    var template = require('templates/moimail.jade')
-    var jade = require('jade');
-    var fn = jade.compile(template);
-    var html = fn(mms);
-*/
-    //res.render('./templates/moimail.jade', mms);
-    //, function(err, html) {
-    //    console.log(html);
-    //});
-    
 }
 
 Mail.setNextReport();

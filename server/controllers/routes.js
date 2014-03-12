@@ -57,7 +57,7 @@ module.exports = {
     get: Cursors.all        
   },
 
-  'bargraphs': {
+  'viz': {
     get: Viz.all        
   },
 

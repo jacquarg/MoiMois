@@ -12,8 +12,10 @@ all: function(req, res) {
     //    title,
     //    bars,
     // }
+    async.map(utils.months(),
+        Viz.ofMonth,
 
-    Viz.ofMonth("2013-09", function(err, viz) {
+        function(err, viz) {
 
         if(err != null) {
             res.send(500, "An error has occurred -- " + err);
