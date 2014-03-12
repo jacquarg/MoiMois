@@ -45,7 +45,7 @@ ofMonth: function(month, callback) {
                     bars : utils.barsToPercent(data, 'sum', function(item) { 
                         return [
                             item.rangeLabel,
-                            Math.round(item.sum / 60) + " min"
+                            Math.round(item.sum / 60) + "'"
                                ];
                         }),
                 });
@@ -72,7 +72,7 @@ ofMonth: function(month, callback) {
                     bars : utils.barsToPercent(data, 'sum', function(item) {
                         return [
                             item.rangeLabel,
-                            item.sum.toFixed(1) + " km",
+                            Math.round(item.sum) + "km",
                                 ];
                         }),
                 });

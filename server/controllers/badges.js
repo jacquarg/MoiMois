@@ -41,7 +41,6 @@ byMonth: function(callback) {
                         donTKeep = allBadges[i].some(function(oldBadge) {
                             if (oldBadge.type == badge.type
                                 && oldBadge.value >= badge.value) {
-                                console.log(badge.type + '_' + badge.value);
                                 return true;
                             }
                         });

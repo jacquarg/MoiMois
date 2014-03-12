@@ -6079,7 +6079,7 @@ td.visible-print {
 }
 .mmnumber .frame .vvcCount {
   color: #F15048;
-  text-size: 25px;
+  font-size: 25px !important;
   font-family: "Bebas Neue";
   text-transform: uppercase;
   font-size: 60px;

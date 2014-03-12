@@ -1,7 +1,7 @@
 {
   "name": "mesinfos-moi",
   "version": "0.0.1",
-  "description": "Une application refletant mon activité chque mois.",
+  "description": "Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits rien de votre quotidien ...",
   "repository": {
     "type": "git",
     "url": "https://github.com/jacquarg/MoiMois.git"
@@ -20,40 +20,40 @@
   "scripts": {
     "start": "node server.js"
   },
-  "cozy-displayName": "Moi:Mois",
+  "cozy-displayName": "moi (le mag)",
   "cozy-permissions": {
       "BankOperation": {
-        "description": "TODO"
+        "description": "Lire vos opérations bancaires pour vous en présenter une synthèse visuelle."
       },
       "GeolocationLog": {
-        "description": "TODO"
+        "description": "Lire vos point de géolocalisation pour vous en présenter une synthèse visuelle."
       },
       "PhoneCommunicationLog": {
-        "description": "TODO"
+        "description": "Lire votre journal d'appel pour vous en présenter une synthèse visuelle."
       },
       "Receipt": {
-        "description": "TODO"
+        "description": "Lire vos tickets de caisse pour vous en présenter une synthèse visuelle."
       },
       "ReceiptDetail": {
-        "description": "TODO"
+        "description": "Lire le détail de vos tickets de caisse pour vous en présenter une synthèse visuelle."
       },
       "Vehicle": {
-        "description": "TODO"
+        "description": "Lire les informations relative à votre véhicule (issue d'un contrat AXA) pour vous en présenter quelques caractéristiques."
       },
       "RiskVehicle": {
-        "description": "TODO"
+        "description": "Lire les informations de risques relative à votre contrat auto AXA pour vous en présenter quelques caractéristiques."
       },
       "RiskHome": {
-        "description": "TODO"
+        "description": "Lire les informations de risques relative à votre contrat habitation AXA pour vous en présenter quelques caractéristiques."
       },
       "InsuranceClaim": {
-        "description": "TODO"
+        "description": "Lire le détail de vos sinistres (assurance AXA) pour vous en présenter une synthèse visuelle."
       },
       "CozyInstance": {
-        "description": "TODO"
+        "description": "Lire l'URL de votre espace personnel, afin voir les images dans les rapports par mail, ou vous donner la possibilité de partager vos moi"
       },
       "send mail to user": {
-        "description": "TODO"
+        "description": "Vous donner la possibilité de recevoir un rapport hebdomadaire par mail."
       }
   }
 }

@@ -7,7 +7,7 @@ Badges = require('./badges');
 Numbers = require('./numbers');
 Cursors = require('./cursors');
 Viz = require('./viz');
-Mail = require('./mail/rendermail');
+Mail = require('./mail');
 
 // Test
 //TestModel = require('../models/geolocationlog');

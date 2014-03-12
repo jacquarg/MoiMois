@@ -139,3 +139,12 @@ module.exports.months = function() {
     }
     return months
 }
+
+module.exports.toWeekDate = function(dateStr) {
+    var d = new Date(dateStr);
+    var wDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 
+            'jeudi', 'vendredi', 'samedi'][d.getDay()];
+
+    wDay += " " + d.getDate();
+    return wDay;
+}

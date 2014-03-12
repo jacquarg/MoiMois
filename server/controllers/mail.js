@@ -1,8 +1,8 @@
-var CozyInstance = require('../../models/cozyinstance');
+var CozyInstance = require('../models/cozyinstance');
 var Client = require('request-json').JsonClient
 var async = require('async');
 
-var Main = require("../main");
+var Main = require("./main");
 
 module.exports = Mail = {
 
@@ -182,9 +182,9 @@ compose : function(mms, callback) {
 
             //var fn = jade.compile(results[0], { filename: __dirname + "/templates/moimail.jade"});
             mms.baseUrl = "https://" + results[0].domain + "/public/mesinfos-moi" ;
-            mms.filename = __dirname + "/templates/moimail.jade" ;
+            mms.filename = __dirname + "/../views/templates/moimail.jade" ;
 
-            jade.renderFile(__dirname + '/templates/moimail.jade', mms, callback);
+            jade.renderFile(__dirname + '/../views/templates/moimail.jade', mms, callback);
 //                function(err, html) {
 //                    res.send(200, html);
 //                }

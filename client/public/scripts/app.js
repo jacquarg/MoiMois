@@ -287,7 +287,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="mainmenu"><a id="exploits" class="rubriques">vos exploits</a>&nbsp;&nbsp;<a id="details" class="rubriques">en détails</a></div><div class="moimenu"><div class="frame"><div class="moimtitle">vos unes</div><!--select.moimmonth(name="moimmonth")--><div class="moimmonth"></div><div class="moimshare"> <a id="bymail">mail</a>&nbsp;<a id="testmail">test</a></div></div></div><div id="moi"></div>');
+buf.push('<div class="mainmenu"><a id="exploits" class="rubriques">vos exploits</a>&nbsp;&nbsp;<a id="details" class="rubriques">en détails</a></div><div class="moimenu"><div class="frame"><div class="moimtitle">vos unes</div><!--select.moimmonth(name="moimmonth")--><div class="moimmonth"></div><div class="moimshare"> <a id="bymail">mail</a></div></div></div><div id="moi"></div>');
 }
 return buf.join("");
 };
@@ -302,7 +302,7 @@ var interp;
 buf.push('<div class="mm"><div class="mmheader"><div class="frame"><div class="mmhblue"></div><!--img.mmlogo(src="img/Logo_MoiMois_130px.png")--><img src="img/Logo_MesInfos_71px.png" class="mmmesinfoslogo"/><!-- - todo : parametre--><!--.mmname= mm.userName--><h1 class="mmdate">');
 var __val__ = mm.date
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h1><!--.mmnum #1--></div></div><!-- - todo : header, avec nom ...--><div class="mmexploits"><h2>Exploits du mois</h2><div class="row"><div class="badge_0"></div><div class="badge_1"></div><div class="badge_2"></div></div></div><!--hr.mmdotted--><div class="mmmois"><h2>Vous ce mois-ci</h2><div class="mmcol"><div class="mmbloc number_0"></div><div class="mmbloc cursor_0"></div><div class="mmbloc number_1"></div><div class="mmbloc viz_0"></div></div><div class="mmcol"><div class="mmbloc viz_1"></div><div class="mmbloc number_2"></div><div class="mmbloc cursor_1"></div><div class="mmbloc number_3"></div><div class="mmbloc number_4"></div></div><div class="spider"><hr/></div></div><div class="mmfooter"><div class="frame"><div class="mmfblue"></div></div></div></div>');
+buf.push('</h1><!--.mmnum #1--></div></div><!-- - todo : header, avec nom ...--><div class="mmexploits"><h2>Exploits du mois</h2><div class="row"><div class="badge_0"></div><div class="badge_1"></div><div class="badge_2"></div></div></div><!--hr.mmdotted--><div class="mmmois"><h2>Vous ce mois-ci</h2><div class="mmcol"><div class="mmbloc number_0"></div><div class="mmbloc cursor_0"></div><div class="mmbloc number_2"></div><div class="mmbloc viz_1"></div></div><div class="mmcol"><div class="mmbloc viz_0"></div><div class="mmbloc number_1"></div><div class="mmbloc cursor_1"></div><div class="mmbloc number_3"></div><div class="mmbloc number_4"></div></div><div class="spider"><hr/></div></div><div class="mmfooter"><div class="frame"><div class="mmfblue"></div></div></div></div>');
 }
 return buf.join("");
 };
@@ -4194,7 +4194,7 @@ module.exports = MoiList = Backbone.View.extend({
     events: {
         "click .amonth": "onClickMonth",
         "click #bymail": "onClickShareMail",
-        "click #testmail": "sendTestMail",
+        //"click #testmail": "sendTestMail",
     },
     initialize: function() {
 
@@ -4262,10 +4262,10 @@ module.exports = MoiList = Backbone.View.extend({
         console.log(this.month + "/sendmail/ sended.");
     },
     
-    sendTestMail: function(ev) {
-        $.get("test/");
-        console.log("test mail sended ?");
-    },
+    //sendTestMail: function(ev) {
+    //    $.get("test/");
+    //    console.log("test mail sended ?");
+    //},
 });
 
 

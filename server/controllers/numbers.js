@@ -47,6 +47,7 @@ ofMonth : function(month, callback) {
                 //Total calls duration.
                 var hours =  Math.floor(data.callsDuration / 3600);
                 var mins = Math.round((data.callsDuration / 60) % 60);
+                var mins = (mins < 10) ? "0" + mins : "" + mins;
                 // each 10',  + 0.1 , ie / 100 .
                 var compare = Math.round(data.callsDuration / 100);
                 numbers.push({
@@ -100,12 +101,13 @@ ofMonth : function(month, callback) {
                 //var day = 
 
                 var mins = Math.round(data.value.callsDuration / 60);
+                var day = utils.toWeekDate(data.key.join('-'));
                 numbers.push({
                     origin: "orange",
                     type: "vv",
                     label: "Votre jour le plus bavard",
-                    count: data.key.join('-'),
-                    count2: mins,
+                    count: day,
+                    count2: mins + " min" ,
                     });
 
                 callback(null, numbers);
@@ -263,9 +265,13 @@ ofMonth : function(month, callback) {
                     callback(null, []);
                     return
                 }
-                var years = parseInt(month.slice(0, 4)) - parseInt(dtStr.slice(0, 4));
-                var months = parseInt(month.slice(5, 7)) - parseInt(dtStr.slice(5, 7));
+                
+                var dYears = parseInt(month.slice(0, 4)) - parseInt(dtStr.slice(0, 4));
+                var dMonth = dYears * 12 + parseInt(month.slice(5, 7)) - parseInt(dtStr.slice(5, 7));
 
+                var years = Math.ceil(dYears / 12);
+                var months = dYears % 12;
+                
                 
                 numbers.push({
                     origin: "axa",
