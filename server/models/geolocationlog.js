@@ -163,8 +163,8 @@ function(err, locs) {
                 15 * 60 * 1000 * (1 + 0.1) > timeDelta ;
             
             if (areSuccessivePoints) {
-                //slice by pair hours.
-                var hIdx = Math.floor(parseInt(loc1.timestamp.toISOString().slice(11, 13)) / 2) ;
+                //slice by 3 hours.
+                var hIdx = Math.floor(parseInt(loc1.timestamp.toISOString().slice(11, 13)) / 3) ;
                 d = GeolocationLog.computeDistance(loc1, loc2);
                 
                 slices[hIdx] += d;
@@ -174,15 +174,13 @@ function(err, locs) {
         }
         //console.log(slices);
         res =  [
-            { rangeLabel: "8h-10h", sum: slices[4],  },
-            { rangeLabel: "10h-12h", sum: slices[5],  },
-            { rangeLabel: "12h-14h", sum: slices[6],  },
-            { rangeLabel: "14h-16h", sum: slices[7],  },
-            { rangeLabel: "16h-18h", sum: slices[8],  },
-            { rangeLabel: "18h-20h", sum: slices[9],  },
-            { rangeLabel: "20h-22h", sum: slices[10],  },
-            { rangeLabel: "22h-2h", sum: slices[11] + slices[0],  },
-            { rangeLabel: "6h-8h", sum: slices[2] + slices[3],  },
+            { rangeLabel: "0h-6h", sum: slices[0] + slices[1],  },
+            { rangeLabel: "6h-9h", sum: slices[2],  },
+            { rangeLabel: "9h-12h", sum: slices[3],  },
+            { rangeLabel: "12h-15h", sum: slices[4],  },
+            { rangeLabel: "15h-18h", sum: slices[5],  },
+            { rangeLabel: "18h-21h", sum: slices[6],  },
+            { rangeLabel: "21h-0h", sum: slices[7],  },
             
         ]
 

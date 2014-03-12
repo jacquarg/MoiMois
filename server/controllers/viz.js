@@ -44,7 +44,7 @@ ofMonth: function(month, callback) {
                     title: "Répartition de vos temps d'appel cumulés sur les jours de la semaine",
                     bars : utils.barsToPercent(data, 'sum', function(item) { 
                         return [
-                            '',
+                            item.rangeLabel,
                             Math.round(item.sum / 60) + " min"
                                ];
                         }),
@@ -71,7 +71,7 @@ ofMonth: function(month, callback) {
                     title: "Moyenne des km parcourus en fonction des heures de la journée",
                     bars : utils.barsToPercent(data, 'sum', function(item) {
                         return [
-                            '',
+                            item.rangeLabel,
                             item.sum.toFixed(1) + " km",
                                 ];
                         }),

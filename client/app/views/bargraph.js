@@ -20,7 +20,10 @@ module.exports = Bargraph = Backbone.View.extend({
 
             var txt = g.children("text");
             txt.attr("y", 70 + 200 - 2 * bar.percent);
-            txt[0].textContent = bar.label;
+            txt[0].textContent = bar.valueLabel;
+
+            var lab = this.$el.find(".label_" + i);
+            lab[0].textContent = bar.label;
         }
 
     },
