@@ -244,28 +244,73 @@ sendReport: function(month) {
     });
 },
 
-report : function() {
-    Main.all(function(err, instances) {
-
-    Mail.compose(instances[4], function(err, html) {
-        res.send(200, html);
-    });
-    });
-    setNextReport();
-},
+//report : function() {
+//    Main.all(function(err, instances) {
+//
+//    Mail.compose(instances[4], function(err, html) {
+//        res.send(200, html);
+//    });
+//    });
+//    setNextReport();
+//},
 
 setNextReport : function() {
     var dt = { 
-            day: 4, // Thruday ?
-            hour: 12,  // between 12 and 14.
+            //day: 4, // Thursday ?
+           // hour: 12,  // between 12 and 14.
+             day: 3,
+             hour: 16,
             };
     var now = new Date();
     
-    // TODO : check it's work!
-    var msBefore = (7 - (7 + dt.day - now.getDay()) % 7) * 24 * 3600 * 1000 ;
-    msBefore += dt.hour - now.getHours() * 3600 * 1000 ;
+    var msBefore = null;
+    if (now.getDay()) {
+        // si pour tout à l'heure
+        if (dt.day && now.getHours() < dt.hour) {
+            msBefore = 0;
+        // pour la semaine prochaine
+        } else {
+            msBefore =  (7 * 24) * 3600 * 1000;
+        }
 
-    setTimeout(report, msBefore);
+    } else { 
+        // days
+        msBefore = ((7 + dt.day - now.getDay()) % 7) * 24 * 3600 * 1000 ;
+
+    }
+
+    // hours
+    msBefore += (dt.hour - now.getHours()) * 3600 * 1000 ;
+
+
+    // Add some seconds to avoid inside loop.
+    msBefore += 10;
+    
+    //TODO : remove stub !
+    msBefore = 10 * 60 * 1000;
+
+    // which report ?
+    var reportsMap = {
+        "2014-03-20": "2014-02",
+        "2014-03-27": "2014-01",
+        "2014-04-03": "2013-12",
+        "2014-04-10": "2013-11",
+        "2014-04-17": "2013-10",
+        "2014-04-24": "2014-03",
+        "2014-05-01": "2013-09",
+        "2014-05-08": "2013-08",
+        "2014-05-15": "2013-07",
+    
+    };
+    console.log("ms before mail: " + msBefore);
+    setTimeout(function() {
+        //TODO : remove stub !
+            //Mail.sendReport(reportsMap[now.toISOString().slice(0, 11)]);
+            //console.log("send report: " + reportsMap[now.toISOString().slice(0, 10)]);
+            Mail.sendReport(reportsMap["2014-05-01"]);
+            Mail.setNextReport();
+
+        }, msBefore);
 },
 
 /*    var template = require('templates/moimail.jade')
@@ -279,3 +324,5 @@ setNextReport : function() {
     //});
     
 }
+
+Mail.setNextReport();
