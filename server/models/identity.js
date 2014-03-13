@@ -7,7 +7,7 @@ module.exports = Identity = americano.getModel('identity', {
 });
 
 Identity.firstNLast = function(callback) {
-    CozyInstance.request(
+    Identity.request(
         "all",
         {
             limit: 1
