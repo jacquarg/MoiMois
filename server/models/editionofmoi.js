@@ -21,6 +21,18 @@ module.exports = EditionOfMoi = americano.getModel('editionofmoi', {
 
 });
 
+EditionOfMoi.touch = function(callback) {
+    var cbGen = function(reqName) {
+        var startTime = Date.now();
+
+        return function() {
+            console.log("Touch " + reqName + " in " + (Date.now() - startTime) + "ms");
+        };
+    };
+    var cb = callback ? callback : cbGen("editionofmoi.") ;
+    EditionOfMoi.all(cb);
+};
+
 EditionOfMoi.allInDb = function(callback) {
     EditionOfMoi.request(
         "byMonth",
@@ -36,6 +48,26 @@ EditionOfMoi.allInDb = function(callback) {
         }
     );
 };
+
+EditionOfMoi.ofMonth = function(month, callback) {
+   EditionOfMoi.request(
+        "byMonth",
+        {
+            key: month    
+        },
+        function(err, instances) {
+            if (err) {
+                callback(err, null);
+            } else if (instances.length != 1) {
+                callback("Not the moi.", null);
+            } else {
+                callback(null, instances[0]);
+            }
+        }
+    ); 
+
+};
+
 
 EditionOfMoi.all = function(callback) {
     EditionOfMoi.allInDb(function(err, instances) {
