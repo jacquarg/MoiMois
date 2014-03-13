@@ -6,7 +6,10 @@
       img.mmmesinfoslogo(src="img/Logo_MesInfos_71px.png")
       // - todo : parametre
       //.mmname= mm.userName
-      h1.mmdate= mm.ofMonth
+      h1.mmdate
+        | ~&nbsp;
+        = mm.displayDate
+        | &nbsp;~
       //.mmnum #1
 
   // - todo : header, avec nom ...

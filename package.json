@@ -1,6 +1,6 @@
 {
   "name": "mesinfos-moi",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits rien de votre quotidien ...",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   "scripts": {
     "start": "node server.js"
   },
-  "cozy-displayName": "moi (le mag)",
+  "cozy-displayName": "moi",
   "cozy-permissions": {
       "BankOperation": {
         "description": "Lire vos opérations bancaires pour vous en présenter une synthèse visuelle."
@@ -54,6 +54,9 @@
       },
       "EditionOfMoi": {
         "description": "Sauvegarder les exemplaire du magazine moi dans votre espace personnel."
+      },
+      "Identity": {
+        "description": "Lire votre nom et votre prénom, pour s'adresser à vous plus poliment"
       },
       "send mail to user": {
         "description": "Vous donner la possibilité de recevoir un rapport hebdomadaire par mail."

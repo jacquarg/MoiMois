@@ -1,5 +1,6 @@
 mixin cursor(data)
-    
+
+  - if (data)
     table(bgcolor="white", frame="void", width="300px", cellspacing="0px")
       tr
         td &nbsp;
@@ -7,9 +8,9 @@ mixin cursor(data)
         td(align="center", valign="middle", style='font-size: 12px;text-transform: uppercase;') Ce mois-ci vous avez été plutôt
 
       tr
-        td
-          - var val = Math.round(data.balance / 16) * 30 ;
-            img(src="#{baseUrl}/img/cursors/cursor_b_#{val}.png")
+        td(align="center")
+          - var val = Math.round(data.balance / 16) * 30 ; 
+            img(alt="#{ 100 - data.balance} - #{data.balance}", src="#{baseUrl}/img/cursors/cursor_b_#{val}.png")
          
        tr
          td

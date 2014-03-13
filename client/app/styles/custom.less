@@ -43,7 +43,7 @@
     height: 180px;
     text-align: center;
     .frame {
-        height: 180px;
+        height: 190px;
 
         width: 200px;
         background: none;
@@ -61,9 +61,19 @@
         .score {
             position: absolute;
             //bottom: 34px;
+            bottom: 17px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            font-family: "LuxSansBook"; 
+        }
+        .explanation {
+            position: absolute;
             bottom: 5px;
             width: 100%;
             text-align: center;
+            font-size: 12px;
+            font-family: "Lux Sans Book Italic"; 
         }
     }
 }
@@ -343,6 +353,36 @@
 }
 
 
+.moiheader {
+    margin-bottom: 30px;
+    .moilogo {
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+    }
+    .moisnippet {
+        background: #EC624B;
+        border-top: solid 3px #246C7C;
+
+        padding: 15px;
+        color: white;
+        h1 {
+            text-decoration: underline;
+            text-transform: uppercase;
+            font-family:  "Bebas Neue";
+            font-size: 30px;
+            line-height: 1; 
+        } 
+        p {
+            text-transform: uppercase;
+            font-family:  "Bebas Neue";
+            font-size: 25px;
+            line-height: 1; 
+        }
+
+    }
+}
+
 
 .mainmenu {
     margin-bottom: 30px;
@@ -361,9 +401,9 @@
       height: 50px;
       width: 100%;
     }
-    .moimtitle {
-      position: absolute;
-      left: 5px;
+    h2.moimtitle {
+      //position: absolute;
+      //left: 5px;
 
       color: #969898;
       font-family:  "Bebas Neue";
@@ -372,17 +412,18 @@
     }
 
     .moimmonth {
-      position: absolute;
-      left: 150px;
-      width: 400px;
+      color: #969898;
+      //position: absolute;
+      //left: 150px;
+      //width: 400px;
 
-     
       //font-family:  "Bebas Neue";
       font-size: 20px;
       
       .amonth {
-        font-size: 14px;
-         color: #969898;
+        //text-transform: uppercase;
+        color: #969898;
+
       }
     }
 

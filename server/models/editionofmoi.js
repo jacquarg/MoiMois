@@ -3,6 +3,7 @@ americano = require('americano');
 var utils = require('./utils');
 var async = require('async');
 
+var Identity = require('./identity');
 var Badge = require('./badge');
 var NumberModel = require('./numbermodel');
 var Cursor = require('./cursor');
@@ -11,6 +12,8 @@ var Spider = require('./spider');
 
 module.exports = EditionOfMoi = americano.getModel('editionofmoi', {
     'ofMonth': String, // YYYY-MM string format.
+    'displayDate': String, // mois YYYY
+    'flName': String,
     'number': String,
     'timestamp': Date,
     'badges': [Object],
@@ -98,6 +101,7 @@ EditionOfMoi.all = function(callback) {
                         }
 
                         mm.ofMonth = month;
+                        mm.displayDate = utils.displayMonth(month);
                         //mm.number = idx;
                         mm.timestamp = new Date();
                         
@@ -121,6 +125,7 @@ EditionOfMoi._generateAMoi = function(month, previouses, callback) {
         //"spiders": utils.fGen1P(month, Spider.ofMonth),
         "viz": utils.fGen1P(month, VizModel.ofMonth),
         "badges": utils.fGen1P(month, Badge.ofMonth),
+        "flName": Identity.firstNLast,
         },
         function(err, allOfMonth) {
             EditionOfMoi._selectAMoi(allOfMonth, previouses, callback);
@@ -173,6 +178,7 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
     };
     
     var mm = {};
+    mm.flName = allOfMonth.flName;
         /*
         // Spiders
         spiders = resultsByMonth[month].spiders.sort(

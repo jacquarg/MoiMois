@@ -79,6 +79,7 @@ _upToMonth : function(month, callback) {
                     label: Math.round(data.topDistance) + ' km',
                     value: data.topDistance,
                     month: month,
+                    explanationLabel: "votre distance max. en 15min.",
                 });
 
                 // Top speed
@@ -88,6 +89,7 @@ _upToMonth : function(month, callback) {
                     label: Math.round(data.topSpeed) + ' km/h',
                     value: data.topSpeed,
                     month: month,
+                    explanationLabel: "votre vitesse max.",
                 });
 
                 // Traveled distances
@@ -98,7 +100,8 @@ _upToMonth : function(month, callback) {
                         origin: "orange",
                         label: hundreds + '00 km',
                         value: hundreds,
-                        month: month,                        
+                        month: month,
+                        explanationLabel: "parcourus à vol d'oiseau",
                     });
                 //}
                 
@@ -124,7 +127,8 @@ _upToMonth : function(month, callback) {
                         origin: "orange",
                         label: tens + '00 Mo',
                         value: tens,
-                        month: month,                        
+                        month: month,
+                        explanationLabel: "de data consommées",
                     });
                 //}
 
@@ -137,6 +141,7 @@ _upToMonth : function(month, callback) {
                         label: tens + ' H',
                         value: tens,
                         month: month,
+                        explanationLabel: "d'appels",
                      });
                 //}
 
@@ -149,6 +154,7 @@ _upToMonth : function(month, callback) {
                         label: tens + '0',
                         value: tens,
                         month: month,
+                        explanationLabel: "contacts appelés",
                     });
                 //}
                 
@@ -172,6 +178,7 @@ _upToMonth : function(month, callback) {
                     label: Math.round(data) +  ' ème',
                     value: data,
                     month: month,
+                    explanationLabel: "fromage",
                 });
                 callback(null, badges);
             });
@@ -200,6 +207,7 @@ _upToMonth : function(month, callback) {
                     label: Math.round(max) +  ' articles',
                     value: max,
                     month: month,
+                    explanationLabel: "ticket de caisse le plus long",
                 });
                 callback(null, badges);
             });
@@ -230,6 +238,7 @@ _upToMonth : function(month, callback) {
                     label: count,
                     value: count,
                     month: month,
+                    explanationLabel: "sinistres subits",
                 });
                 callback(null, badges);
             });
@@ -289,6 +298,7 @@ _upToMonth : function(month, callback) {
                     label: topDabCount + " retraits",
                     value: topDabCount,
                     month: month,
+                    explanationLabel: "au distributeur automatique",
                   });
                 }
                 if (topDabAmount > 0) {
@@ -298,6 +308,8 @@ _upToMonth : function(month, callback) {
                     label: topDabAmount + " €",
                     value: topDabAmount,
                     month: month,
+                    explanationLabel: "retirés au distributeur automatique",
+
                   });
                 }
                 if (counts.topDab < 0) {
@@ -307,6 +319,8 @@ _upToMonth : function(month, callback) {
                     label: - counts.topDab + " €",
                     value: - counts.topDab,
                     month: month,
+                    explanationLabel: "d'un coup",
+
                   });
                 }
                 if (counts.topCb < 0) {
@@ -316,6 +330,7 @@ _upToMonth : function(month, callback) {
                     label: - counts.topCb + " €",
                     value: - counts.topCb,
                     month: month,
+                    explanationLabel: "votre plus grosse dépense",
                   });
                 }
                 callback(null, badges);

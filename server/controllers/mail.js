@@ -8,12 +8,16 @@ var Main = require("./main");
 module.exports = Mail = {
 
 mail : function(req, res) {
-    Mail.compose(null, function(err, html) {
-    res.send(200, html);
+    EditionOfMoi.ofMonth("2013-12", function(err, mm) {
+            console.log(mm.toJSON());
+        Mail.compose(mm.toJSON(), function(err, html) {
+            console.log(err);
+            res.send(200, html);
+        });
     });
 },
 
-compose : function(mms, callback) {
+compose : function(mm, callback) {
   // if (!mms) { // stub
   //  var mms = {
   //  }
@@ -21,24 +25,15 @@ compose : function(mms, callback) {
     var jade = require('jade');
     
     async.parallel([
-        //function(cb) { fs.readFile(__dirname + '/templates/moimail.jade', 'utf8', cb); },
         CozyInstance.one,
         ],
         function(err, results) {
             if (err) throw err;
 
-            //var fn = jade.compile(results[0], { filename: __dirname + "/templates/moimail.jade"});
-            mms.baseUrl = "https://" + results[0].domain + "/public/mesinfos-moi" ;
-            mms.filename = __dirname + "/../views/templates/moimail.jade" ;
-
-            jade.renderFile(__dirname + '/../views/templates/moimail.jade', mms, callback);
-//                function(err, html) {
-//                    res.send(200, html);
-//                }
-//            );
-
-            //var html = fn(mms);
-            //res.send(200, html);
+            mm.baseUrl = "https://" + results[0].domain + "/public/mesinfos-moi" ;
+            mm.miURL = "https://" + results[0].domain ;
+            mm.filename = __dirname + "/../views/templates/moimail.jade" ;
+            jade.renderFile(__dirname + '/../views/templates/moimail.jade', mm, callback);
       });
 },
 

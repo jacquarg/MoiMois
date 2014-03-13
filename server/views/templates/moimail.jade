@@ -3,13 +3,44 @@ include numberviz
 include cursor
 include viz
 
+h2 Bonjour 
+  = flName
+  |,
 
-table(align="center", bgcolor="#F4F4F4", cellpadding="5px", frame="void", width="640px")
+p(style="font-size: 14px;")
+  | Voici le numéro du mois de 
+  = displayDate
+  | &nbsp;de  
+  i 
+    a(href="#{miURL}/#apps/mesinfos-moi") moi
+  | , le magazine qui vous raconte votre propre histoire.
 
-  //tr
-  //  td // th
+p(style="font-size: 11px;")
+  | Le magazine virtuel 
+  i 
+    a(href="#{miURL}/#apps/mesinfos-moi") moi
+  | &nbsp;est édité automatiquement par votre 
+  a(href="#{miURL}") espace personnel MesInfos
+  |, et n'est consultable que par vous-même.
+
+a(href="#{miURL}/#apps/mesinfos-moi")
+ table(align="center", bgcolor="#F4F4F4", cellpadding="5px", frame="void", width="640px")
+    
   tr
-    th(align="center", style="font-size: 50px; color: #2F6878;") ~ Vos Exploits ~
+    th(align="center")
+      img(alt="moi",src="#{baseUrl}/img/logo_moi_64px;")
+  tr
+    th(bgcolor="#246C7C")
+    //- tr
+    //- th(bgcolor="#8AC7C2", style="font-size: 30px;")
+
+  tr
+    th(align="center", style="line-height: 2; font-size: 40px; color: #2F6878;text-transform: uppercase;") 
+      |~
+      = displayDate
+      |~
+  tr
+    th(align="center", style="line-height: 2; font-size: 40px; color: #969898;") EXPLOITS DU MOIS
   tr
     td
       table(align="center")
@@ -22,7 +53,7 @@ table(align="center", bgcolor="#F4F4F4", cellpadding="5px", frame="void", width=
           mixin badgelabel(badges[1])
           mixin badgelabel(badges[2])          
   tr
-    th(align="center", style="font-size: 50px; color: #2F6878;") ~ Votre mois ~
+    th(align="center", style="line-height: 2; font-size: 40px; color: #969898;") VOUS CE MOIS-CI
   tr
     td
       table
@@ -59,3 +90,18 @@ table(align="center", bgcolor="#F4F4F4", cellpadding="5px", frame="void", width=
                 td
                   mixin numberviz(numbers[4])
 
+  tr
+    th(bgcolor="#8AC7C2", style="font-size: 30px;") &nbsp;
+
+
+p(style="font-size: 11px;")
+  | Ce message vous a été envoyer par 
+  i
+    a(href="#{miURL}/#apps/mesinfos-moi") moi
+  |, une application de votre 
+  a(href="#{miURL}") espace personnel MesInfos
+  | . Venez y découvrir les nouvelles applications.
+
+p
+  | Votre espace personnel MesInfos 
+  a(href="#{miURL}")= miURL
