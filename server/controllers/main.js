@@ -1,11 +1,19 @@
-var Numbers = require('./numbers');
-var Cursors = require('./cursors');
-var Viz = require('./viz');
-var Spiders = require('./spiders');
+//var Numbers = require('./numbers');
+//var Cursors = require('./cursors');
+//var Viz = require('./viz');
+//var Spiders = require('./spiders');
+var EditionOfMoi = require('../models/editionofmoi');
 
 module.exports = Main = {
 
 main: function(req, res) {
+    EditionOfMoi.all(function(err, l) {
+            res.send(l);
+        }
+    );
+},
+
+}
 
     /*async.parallel([ 
         Main.badges,
@@ -22,10 +30,6 @@ main: function(req, res) {
                 moiByMonth[month].badges = results[0][month];
                 return moiByMonth[month];
             }); */
-    Main.allList(function(err, l) {
-            res.send(l);
-        }
-    );
 
 /*
 //I. 1. checkDoctypes.
@@ -73,17 +77,71 @@ main: function(req, res) {
         res.send(200, results);
     });
     });
-*/
 },
-allList: function(callback) {
-    Main.all(function(err, moiByMonth) {
+/*allList: function(callback) {
+    EditionOfMoi.all(callback);
+    /*Main.all(function(err, moiByMonth) {
         var months = Object.keys(moiByMonth).sort();
         var l = months.map(function(month) { return moiByMonth[month];    });
         callback(null, l);
     });
-},
+//},
 
 all: function(callback) {
+    Main.allList(function(err, instances) {
+        var moisByMonth = {};
+
+        instances.forEach(function(item){ moisByMonth[item.ofMonth] = item });
+        callback(err, moisByMonth);
+    });
+},
+
+allList: function(callback) {
+    EditionOfMoi.all(function(err, instances) {
+        if (err) {
+            callback(err);
+        } else {
+            var allMonths = utils.months();
+            if (instances.length == 0) {
+                var lastComputed = -1;
+            } else {
+                var lastComputed = allMonths.indexOf(instances[instances.length - 1].ofMonth);
+            }
+            async.reduce(
+                allMonths.slice(lastComputed + 1),
+                instances,
+                function(mms, month, cb) {
+                    Main.generateAMoi(month, mms, function(err, mm) {
+                        //Filter empty first months.
+                        if (mms.length == 0 && 
+                         (
+                            //moiByMonth[month].badges.length == 0 &&
+                            (mm.cursors.length == 0)
+                            && (mm.numbers.length == 0) 
+                            && (mm.viz.length == 0) )) {
+                            // skip it.
+                            cb(null, mms);
+                            return;
+                        }
+
+                        mm.ofMonth = month;
+                        //mm.number = idx;
+                        mm.timestamp = new Date();
+                        
+                        mms.push(mm);
+                        
+                        EditionOfMoi.create(mm, function(err, moi) {
+                            cb(null, mms);
+                        }); 
+                    });
+                },
+                callback
+             );
+        }   
+    });
+},
+
+generateAll: function(callback) {
     async.parallel([ 
         Main.badges,
         Main.scns,
@@ -92,7 +150,7 @@ all: function(callback) {
             var moiByMonth = results[1];
             var l = [];
             var dataStarted = false;
-            utils.months().forEach(function(month) {
+            utils.months().forEach(function(month, idx) {
             //var l = utils.months().map(function(month) {
                 if (!dataStarted && 
                     (
@@ -105,18 +163,38 @@ all: function(callback) {
                 }
                 dataStarted = true;
 
-                moiByMonth[month].moimois = { 
-                    date : month,
-                    userName: "John Doe"
-                };
+                //moiByMonth[month].moimois = { 
+                //    date : month,
+                //    userName: "John Doe"
+                //};
+                moiByMonth[month].ofMonth = month;
+                moiByMonth[month].number = idx;
+                moiByMonth[month].timestamp = new Date();
 
                 moiByMonth[month].badges = results[0][month];
             });
 
-            callback(null, moiByMonth);
-        }
-    );
+            var mois = [];
+            for (var k in moiByMonth) {
+                mois.push(moiByMonth[k]);
+            }
+            async.map(mois,
+                EditionOfMoi.create,
+                callback);
+    });
 },
+
+
+
+generateAll: function(callback) {
+    Main.all(function(err, moiByMonth) {
+        for (var k in moiByMonth) {
+            EditionOfMoi.create(moiByMonth[k], function(err, instance) { console.log("Created, err?:" + err);});
+        }
+    });
+    callback(null, null);
+},
+
 
 
 badges: function(callback) {
@@ -152,6 +230,86 @@ badges: function(callback) {
     });
 },
 
+generateAMoi : function(month, previouses, callback) {
+    async.parallel({
+        "numbers": fGen1P(month, Numbers.ofMonth),
+        "cursors": fGen1P(month, Cursors.ofMonth),
+        //"spiders": fGen1P(month, Spiders.ofMonth),
+        "viz": fGen1P(month, Viz.ofMonth),
+        "badges": fGen1P(month, Badges.ofMonth),
+        },
+        function(err, allOfMonth) {
+            Main.selectAMoi(allOfMonth, previouses, callback);
+    });
+},
+
+selectAMoi: function(allOfMonth, previouses, callback) {
+    var notInPreviouses = function(thing, thingsX) {
+        var res = -1 ;
+        for (var i=1;i<=thingsX.length;i++) {
+            var things = thingsX[i-1];
+            var present = things.some(function(prevThing) { 
+                return prevThing.origin == thing.origin ;
+            });
+
+            res = present ? i : res ;
+        }
+
+        return res;
+    };
+        
+    //var cmpPreviouses = function(tag, idx, excludeList) {
+    //    return function(o1, o2) {
+    //    if (idx > 0) {
+    //        var olds = moiByMonth[months[idx - 1]][tag];
+    //        return notInPreviouses(o1, [olds, excludeList]) - sameType(o2, [olds, excludeList]);
+    //    }
+    //    return 0;
+    //    
+    //}}
+
+    var filterViz = function(mm, tag, quantity, excludeList) {
+        var items = allOfMonth[tag].sort(function(o1, o2) {
+            
+            if (previouses.length > 0) {
+                // TODO : for each previous months ?
+                var olds = previouses[previouses.length - 1][tag];
+                return notInPreviouses(o1, [olds, excludeList]) - notInPreviouses(o2, [olds, excludeList]);
+            }
+            return 0;
+        });
+        
+        mm[tag] = items.slice(0, quantity);
+        
+        // exclude list
+        return mm[tag].map(function(item) { return item.origin });
+    };
+    
+    var mm = {};
+        
+        //// Spiders
+        //spiders = resultsByMonth[month].spiders.sort(
+        //   cmpPreviouses("spiders", idx, []));
+
+        //});
+
+        //moiByMonth[month].spiders = spiders.slice(0, 1);
+        //var spiderType = moiByMonth[month].spiders.map(function(item) { return item.type });
+        
+
+    // Cursors
+    var cursorsTypes = filterViz(mm, "cursors", 2, []);
+    // Numbers
+    filterViz(mm, "numbers", 5, cursorsTypes);
+    // viz
+    filterViz(mm, "viz", 2, []);
+    
+    filterViz(mm, "badges", 3, []);
+
+
+
+    callback(null, mm); 
+},
 
 scns : function(callback) {
     Main.scnByMonth(function(err, instances) {
@@ -196,15 +354,15 @@ selectSCN: function(err, resultsByMonth, callback) {
         return res;
     };
     
-    /*var cmpPreviouses = function(tag, idx, excludeList) {
-        return function(o1, o2) {
-        if (idx > 0) {
-            var olds = moiByMonth[months[idx - 1]][tag];
-            return notInPreviouses(o1, [olds, excludeList]) - sameType(o2, [olds, excludeList]);
-        }
-        return 0;
-        
-    }}*/
+    //var cmpPreviouses = function(tag, idx, excludeList) {
+    //    return function(o1, o2) {
+    //    if (idx > 0) {
+    //        var olds = moiByMonth[months[idx - 1]][tag];
+    //        return notInPreviouses(o1, [olds, excludeList]) - sameType(o2, [olds, excludeList]);
+    //    }
+    //    return 0;
+    //    
+    //}}
 
     var filterViz = function(tag, quantity, month, idx, excludeList) {
         // Cursors
@@ -227,16 +385,15 @@ selectSCN: function(err, resultsByMonth, callback) {
     months.forEach(function(month) { moiByMonth[month] = {}; });
         
     months.forEach(function(month, idx) {
-        /*
         // Spiders
-        spiders = resultsByMonth[month].spiders.sort(
-            cmpPreviouses("spiders", idx, []));
+        //spiders = resultsByMonth[month].spiders.sort(
+        //    cmpPreviouses("spiders", idx, []));
 
-        });
+        //});
 
-        moiByMonth[month].spiders = spiders.slice(0, 1);
-        var spiderType = moiByMonth[month].spiders.map(function(item) { return item.type });
-        */
+        //moiByMonth[month].spiders = spiders.slice(0, 1);
+        //var spiderType = moiByMonth[month].spiders.map(function(item) { return item.type });
+        
 
         // Cursors
         var cursorsTypes = filterViz("cursors", 2, month, idx, []);
@@ -276,10 +433,10 @@ function checkDoctypes(callback) {
     callback
     );
 };
-*/
 }
 function fGen1P(param, f) {
     return function(callback) {
         f(param, callback);
     }
 }
+*/

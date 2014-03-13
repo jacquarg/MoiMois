@@ -300,7 +300,7 @@ var buf = [];
 with (locals || {}) {
 var interp;
 buf.push('<div class="mm"><div class="mmheader"><div class="frame"><div class="mmhblue"></div><!--img.mmlogo(src="img/Logo_MoiMois_130px.png")--><img src="img/Logo_MesInfos_71px.png" class="mmmesinfoslogo"/><!-- - todo : parametre--><!--.mmname= mm.userName--><h1 class="mmdate">');
-var __val__ = mm.date
+var __val__ = mm.ofMonth
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</h1><!--.mmnum #1--></div></div><!-- - todo : header, avec nom ...--><div class="mmexploits"><h2>Exploits du mois</h2><div class="row"><div class="badge_0"></div><div class="badge_1"></div><div class="badge_2"></div></div></div><!--hr.mmdotted--><div class="mmmois"><h2>Vous ce mois-ci</h2><div class="mmcol"><div class="mmbloc number_0"></div><div class="mmbloc cursor_0"></div><div class="mmbloc number_2"></div><div class="mmbloc viz_1"></div></div><div class="mmcol"><div class="mmbloc viz_0"></div><div class="mmbloc number_1"></div><div class="mmbloc cursor_1"></div><div class="mmbloc number_3"></div><div class="mmbloc number_4"></div></div><div class="spider"><hr/></div></div><div class="mmfooter"><div class="frame"><div class="mmfblue"></div></div></div></div>');
 }
@@ -4235,7 +4235,7 @@ module.exports = MoiList = Backbone.View.extend({
 
 
     onItemAdded: function(instance) {
-        this.$el.find('.moimmonth').append('<a class="amonth" id="bbcid_' + instance.cid + '">' + instance.attributes.moimois.date + '</a> ');
+        this.$el.find('.moimmonth').append('<a class="amonth" id="bbcid_' + instance.cid + '">' + instance.attributes.ofMonth + '</a> ');
         //this.$el.find('.moimmonth').append('<option value="bbcid_' + instance.cid + '">' + instance.attributes.moimois.date + '</option>');
         //console.log(this.$el.find('.moimmonth').html());
         this.displayMoi(instance);
@@ -4254,7 +4254,7 @@ module.exports = MoiList = Backbone.View.extend({
         });
         moimoisView.render();
         this.$el.find('#moi').html(moimoisView.$el);
-        this.month = instance.attributes.moimois.date;
+        this.month = instance.attributes.ofMonth;
     },
 
     onClickShareMail: function(ev) {
@@ -4297,7 +4297,7 @@ module.exports = MoiMois = Backbone.View.extend({
 
     },
     render: function() {
-        this.$el.html(this.template({ mm: this.model.attributes.moimois}));
+        this.$el.html(this.template({ mm: this.model.toJSON()}));
 
         // badges
        /* this._renderGroup(this.model.attributes.badges,

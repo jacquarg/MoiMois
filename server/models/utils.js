@@ -134,8 +134,15 @@ module.exports.months = function() {
     for (var i=10;i<=12;i++) {
         months.push("2013-" + i);
     }
-    for (var i=0;i<new Date().getMonth();i++) { //exclude current month.
+
+    var now = new Date();
+    for (var i=0;i<now.getMonth() - 1;i++) { //exclude current month, and previous month, to wait Orange data.
         months.push("2014-0" + (i + 1));
+    }
+
+    // if post 18 of this month, add previous month
+    if (now.getDate() > 18) {
+        months.push("2014-0" + now.getMonth()); // -1 + 1.
     }
     return months
 }
@@ -147,4 +154,10 @@ module.exports.toWeekDate = function(dateStr) {
 
     wDay += " " + d.getDate();
     return wDay;
+}
+
+module.exports.fGen1P = function(param, f) {
+    return function(callback) {
+        f(param, callback);
+    }
 }

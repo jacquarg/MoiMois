@@ -1800,7 +1800,7 @@ module.exports = MoiList = Backbone.View.extend({
 
 
     onItemAdded: function(instance) {
-        this.$el.find('.moimmonth').append('<a class="amonth" id="bbcid_' + instance.cid + '">' + instance.attributes.moimois.date + '</a> ');
+        this.$el.find('.moimmonth').append('<a class="amonth" id="bbcid_' + instance.cid + '">' + instance.attributes.ofMonth + '</a> ');
         //this.$el.find('.moimmonth').append('<option value="bbcid_' + instance.cid + '">' + instance.attributes.moimois.date + '</option>');
         //console.log(this.$el.find('.moimmonth').html());
         this.displayMoi(instance);
@@ -1819,7 +1819,7 @@ module.exports = MoiList = Backbone.View.extend({
         });
         moimoisView.render();
         this.$el.find('#moi').html(moimoisView.$el);
-        this.month = instance.attributes.moimois.date;
+        this.month = instance.attributes.ofMonth;
     },
 
     onClickShareMail: function(ev) {

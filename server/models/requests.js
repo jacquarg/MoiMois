@@ -209,5 +209,11 @@ module.exports = {
     
     cozyinstance: {
         all: americano.defaultRequests.all
-    }
+    },
+
+    editionofmoi: {
+        byMonth: function(doc) {
+            emit(doc.ofMonth, doc);
+        },
+    },
 };

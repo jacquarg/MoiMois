@@ -23,7 +23,7 @@ module.exports = MoiMois = Backbone.View.extend({
 
     },
     render: function() {
-        this.$el.html(this.template({ mm: this.model.attributes.moimois}));
+        this.$el.html(this.template({ mm: this.model.toJSON()}));
 
         // badges
        /* this._renderGroup(this.model.attributes.badges,

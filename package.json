@@ -52,6 +52,9 @@
       "CozyInstance": {
         "description": "Lire l'URL de votre espace personnel, afin voir les images dans les rapports par mail, ou vous donner la possibilité de partager vos moi"
       },
+      "EditionOfMoi": {
+        "description": "Sauvegarder les exemplaire du magazine moi dans votre espace personnel."
+      },
       "send mail to user": {
         "description": "Vous donner la possibilité de recevoir un rapport hebdomadaire par mail."
       }
