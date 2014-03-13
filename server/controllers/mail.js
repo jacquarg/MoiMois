@@ -81,6 +81,7 @@ sendReport: function(month) {
     EditionOfMoi.touch(function() {
         EditionOfMoi.ofMonth(month, function(err, mm) {
             Mail.compose(mm.toJSON(),
+
                 function(err, html) {
                 Mail.send(JSON.stringify(mm), html);
             });
