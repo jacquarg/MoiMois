@@ -158,7 +158,7 @@ _upToMonth : function(month, callback) {
 
         function(callback) {
             ReceiptDetail.sectionsTotals(month, ['10', '30'], function(err, data) {
-                if (err) {
+                if (err || data == 0) {
                     // Silent fail on error.
                     console.log(err);
                     callback(null, []);

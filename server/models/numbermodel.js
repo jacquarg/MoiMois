@@ -118,7 +118,7 @@ ofMonth : function(month, callback) {
                 numbers.push({
                     origin: "intermarche",
                     type: "v",
-                    label: "Quantité de fromage que vous avez acheté",
+                    label: "Produits laitiers que vous avez acheté",
                     count: count.toFixed(1) + ' kg',
                     });
 

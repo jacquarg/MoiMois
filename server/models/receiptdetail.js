@@ -307,7 +307,7 @@ ReceiptDetail.sectionsTotals = function(month, sections, callback) {
             } else {
                 
                 var count = rdets.reduce(function(acc, item) {
-                    if (item.section in sections) {
+                    if (sections.indexOf(item.section) != -1) {
                         return acc + item.amount;
                     } else {
                         return acc;

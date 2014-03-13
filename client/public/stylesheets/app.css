@@ -5999,7 +5999,7 @@ td.visible-print {
   }
 }
 @font-face {
-  font-family: "Lux Sans Book";
+  font-family: "LuxSansBook";
   src: url("../fonts/LuxSansBook.otf");
 }
 @font-face {
@@ -6016,7 +6016,7 @@ td.visible-print {
 }
 .mmtitle {
   font-size: 12px;
-  font-family: "Lux Sans Book";
+  font-family: "LuxSansBook";
   text-transform: uppercase;
 }
 .frame {
@@ -6129,7 +6129,7 @@ td.visible-print {
   position: absolute;
   width: 80px;
   top: 190px;
-  font-family: "Lux Sans Book";
+  font-family: "LuxSansBook";
   text-transform: capitalize;
   font-size: 12px;
 }
@@ -6137,7 +6137,7 @@ td.visible-print {
   position: absolute;
   width: 80px;
   top: 190px;
-  font-family: "Lux Sans Book";
+  font-family: "LuxSansBook";
   text-transform: capitalize;
   font-size: 12px;
   left: 5px;
@@ -6146,7 +6146,7 @@ td.visible-print {
   position: absolute;
   width: 80px;
   top: 190px;
-  font-family: "Lux Sans Book";
+  font-family: "LuxSansBook";
   text-transform: capitalize;
   font-size: 12px;
   right: 5px;

@@ -87,11 +87,11 @@ EditionOfMoi.all = function(callback) {
                     EditionOfMoi._generateAMoi(month, mms, function(err, mm) {
                         //Filter empty first months.
                         if (mms.length == 0 && 
-                         (
-                            //moiByMonth[month].badges.length == 0 &&
-                            (mm.cursors.length == 0)
-                            && (mm.numbers.length == 0) 
-                            && (mm.viz.length == 0) )) {
+                          (
+                            mm.badges.length == 0 
+                            || mm.cursors.length == 0
+                            || mm.numbers.length == 0
+                            || mm.viz.length == 0 )) {
                             // skip it.
                             cb(null, mms);
                             return;
@@ -128,12 +128,12 @@ EditionOfMoi._generateAMoi = function(month, previouses, callback) {
 };
 
 EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
-    var notInPreviouses = function(thing, thingsX) {
+    var notInPreviouses = function(thing, thingsX, tag) {
         var res = -1 ;
         for (var i=1;i<=thingsX.length;i++) {
             var things = thingsX[i-1];
             var present = things.some(function(prevThing) { 
-                return prevThing.origin == thing.origin ;
+                return prevThing[tag] == thing[tag] ;
             });
 
             res = present ? i : res ;
@@ -152,13 +152,16 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
         
     }}*/
 
-    var filterViz = function(mm, tag, quantity, excludeList) {
+    var filterViz = function(mm, tag, quantity, excludeList, cmpTag) {
+        if (!cmpTag) {
+            cmpTag = 'origin';
+        }
         var items = allOfMonth[tag].sort(function(o1, o2) {
-            
+
             if (previouses.length > 0) {
                 // TODO : for each previous months ?
                 var olds = previouses[previouses.length - 1][tag];
-                return notInPreviouses(o1, [olds, excludeList]) - notInPreviouses(o2, [olds, excludeList]);
+                return notInPreviouses(o1, [olds, excludeList], cmpTag) - notInPreviouses(o2, [olds, excludeList], cmpTag);
             }
             return 0;
         });
@@ -166,7 +169,7 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
         mm[tag] = items.slice(0, quantity);
         
         // exclude list
-        return mm[tag].map(function(item) { return item.origin });
+        return mm[tag].map(function(item) { return item[cmpTag] });
     };
     
     var mm = {};
@@ -188,7 +191,7 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
     // viz
     filterViz(mm, "viz", 2, []);
     
-    filterViz(mm, "badges", 3, []);
+    filterViz(mm, "badges", 3, [], 'type');
 
     callback(null, mm); 
 };

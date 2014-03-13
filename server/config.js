@@ -1,7 +1,7 @@
 var americano = require('americano');
 
 module.exports = {
-    common: [
+    common:[
         americano.bodyParser(),
         americano.methodOverride(),
         americano.errorHandler({
@@ -11,8 +11,6 @@ module.exports = {
         americano.static(__dirname + '/../client/public', {
             maxAge: 86400000
         }),
-        //americano.set('views', __dirname + '/../client'),
-        //americano.engine('.html', require('jade').__express),
     ],
     development: [
         americano.logger('dev')
