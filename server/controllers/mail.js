@@ -28,7 +28,7 @@ _generateTextContent : function(mm) {
     //header
     txt += "Bonjour " + mm.flName + ",\n\n";
     txt += "Voici le numéro du mois de novembre 2013 de moi, le magazine qui vous raconte votre propre histoire.\n" ;
-    txt += "Le magazine virtuel moi est édité automatiquement par votre espace personnel MesInfos " + mm.miURL + ", et n'est consultable que par vous-même.\n\n\n";
+    txt += "Le magazine virtuel moi est édité automatiquement par votre espace personnel MesInfos *" + mm.miURL + ", et n'est consultable que par vous-même.\n\n\n";
 
     //body
     txt += "moi " + mm.displayDate + " : " + mm.miURL + "/#apps/mesinfos-moi " + "\n\n";
@@ -64,8 +64,9 @@ _generateTextContent : function(mm) {
     txt += "\n\n";
     // footer
     txt += "Ce message vous a été envoyer par moi, une application de votre espace personnel MesInfos. Venez y découvrir les nouvelles applications.\n";
-    txt += "Votre espace personnel MesInfos : " + mm.miURL  + "\n\n";
-
+    //txt += "Votre espace personnel MesInfos : " + mm.miURL  + "\n\n";
+    txt += "* Votre espace personnel MesInfos a été créé dans le cadre de l'expérimentation MesInfos, à laquelle vous avez accepté de participer à partir du second semestre 2013, et vous permettant d'accéder à vos données personnelles ainsi qu'à des applications inédites, via un espace sécurisé : " +  mm.miURL + "\n";
+    txt += "Pour toutes questions, rendez-vous sur le forum des testeurs MesInfos (animé par Eden) http://mesinfos.edeninsight.net/ .";
     return txt;
 },
 
@@ -84,7 +85,7 @@ compose : function(mm, callback) {
             function(err, html) {
                 data = {
                     from: "Le magazine moi<moi-noreply@cozycloud.cc>",
-                    subject: "Votre magazine moi " + mm.dispayDate,
+                    subject: "Votre magazine moi de " + mm.displayDate,
                     content: Mail._generateTextContent(mm),
                     html: html,
                 }
@@ -164,7 +165,7 @@ setNextReport : function() {
     msBefore += 10;
     
     // TODO Stub
-    msBefore = 10 * 60 * 1000 ;
+    //msBefore = 10 * 60 * 1000 ;
 
     // which report ?
     var reportsMap = {

@@ -22,7 +22,7 @@ html
       i 
         a(href="#{miURL}/#apps/mesinfos-moi") moi
       | &nbsp;est édité automatiquement par votre 
-      a(href="#{miURL}") espace personnel MesInfos
+      a(href="#{miURL}") espace personnel MesInfos *
       |, et n'est consultable que par vous-même.
 
     a(href="#{miURL}/#apps/mesinfos-moi")
@@ -96,7 +96,7 @@ html
             th(bgcolor="#8AC7C2", style="font-size: 30px;") &nbsp;
 
 
-        p(style="font-size: 11px;")
+        p
           | Ce message vous a été envoyer par 
           i
             a(href="#{miURL}/#apps/mesinfos-moi") moi
@@ -105,5 +105,12 @@ html
           | . Venez y découvrir les nouvelles applications.
 
         p
-          | Votre espace personnel MesInfos 
+          | (*) Votre 
+          a(href="#{miURL}") espace personnel MesInfos 
+          | a été créé dans le cadre de l'expérimentation MesInfos, à laquelle vous avez accepté de participer à partir du second semestre 2013, et vous permettant d'accéder à vos données personnelles ainsi qu'à des applications inédites, via un espace sécurisé :
           a(href="#{miURL}")= miURL
+        p
+          | Pour toutes questions, rendez-vous sur le 
+          a(href="http://mesinfos.edeninsight.net/") forum des testeurs MesInfos
+          | &nbsp;(animé par Eden) 
+          a(href="http://mesinfos.edeninsight.net/") http://mesinfos.edeninsight.net/
