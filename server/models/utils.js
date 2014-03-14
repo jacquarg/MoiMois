@@ -140,8 +140,8 @@ module.exports.months = function() {
         months.push("2014-0" + (i + 1));
     }
 
-    // if post 18 of this month, add previous month
-    if (now.getDate() > 18) {
+    // if after 22 of this month, add previous month
+    if (now.getDate() > 22) {
         months.push("2014-0" + now.getMonth()); // -1 + 1.
     }
     return months

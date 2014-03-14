@@ -9,32 +9,88 @@ module.exports = Mail = {
 
 mail : function(req, res) {
     EditionOfMoi.ofMonth("2013-12", function(err, mm) {
-            console.log(mm.toJSON());
-        Mail.compose(mm.toJSON(), function(err, html) {
-            console.log(err);
-            res.send(200, html);
+            //console.log(mm.toJSON());
+        Mail.compose(mm.toJSON(), function(err, data) {
+            console.log(data);
+            res.send(200, data.html);
         });
     });
 },
 
-compose : function(mm, callback) {
-  // if (!mms) { // stub
-  //  var mms = {
-  //  }
+sendReportReq : function(req, res) {
+    Mail.sendReport(req.params.month);
+    res.send(200);
+},
 
+_generateTextContent : function(mm) {
+    var txt = "";
+
+    //header
+    txt += "Bonjour " + mm.flName + ",\n\n";
+    txt += "Voici le numéro du mois de novembre 2013 de moi, le magazine qui vous raconte votre propre histoire.\n" ;
+    txt += "Le magazine virtuel moi est édité automatiquement par votre espace personnel MesInfos " + mm.miURL + ", et n'est consultable que par vous-même.\n\n\n";
+
+    //body
+    txt += "moi " + mm.displayDate + " : " + mm.miURL + "/#apps/mesinfos-moi " + "\n\n";
+    txt += "Exploits du mois \n";
+    mm.badges.forEach(function(item){ 
+        txt += "- " + item.label + " " + item.explanationLabel + ", \n" ;
+        });
+    txt += "\n" ;
+    txt += "Vous ce mois-ci\n";
+
+    mm.numbers.forEach(function(item) {
+        txt += "- " + item.label + " : " + item.count ;
+        if (item.type.indexOf("vv") != -1) {
+            txt += " " + item.count2 ;
+        }
+        if (item.type.indexOf("c") != -1) {
+            txt += " (" + item.compareLabel + ")" ;
+        }
+        txt += ".\n";
+      });
+    mm.cursors.forEach(function(item) {
+        txt += "- Ce mois-ci, vous avez été plutôt : " ;
+        txt += Math.round(100 - item.balance) + " % " + item.minLabel + ", " ;
+        txt += Math.round(item.balance) + " % " + item.maxLabel + ".";
+      });
+    mm.viz.forEach(function(item) {
+        txt += "- " +  item.title + " :\n";
+
+        item.bars.forEach(function(bar) { 
+            txt += "  * " + bar.label + " : " + bar.valueLabel + ",\n" ;
+        });
+      });
+    txt += "\n\n";
+    // footer
+    txt += "Ce message vous a été envoyer par moi, une application de votre espace personnel MesInfos. Venez y découvrir les nouvelles applications.\n";
+    txt += "Votre espace personnel MesInfos : " + mm.miURL  + "\n\n";
+
+    return txt;
+},
+
+compose : function(mm, callback) {
     var jade = require('jade');
     
-    async.parallel([
-        CozyInstance.one,
-        ],
-        function(err, results) {
-            if (err) throw err;
+    CozyInstance.one(function(err, results) {
+        if (err) {
+            callback(err, null);
+        }
 
-            mm.baseUrl = "https://" + results[0].domain + "/public/mesinfos-moi" ;
-            mm.miURL = "https://" + results[0].domain ;
-            mm.filename = __dirname + "/../views/templates/moimail.jade" ;
-            jade.renderFile(__dirname + '/../views/templates/moimail.jade', mm, callback);
-      });
+        mm.baseUrl = "https://" + results.domain + "/public/mesinfos-moi" ;
+        mm.miURL = "https://" + results.domain ;
+        mm.filename = __dirname + "/../views/templates/moimail.jade" ;
+        jade.renderFile(__dirname + '/../views/templates/moimail.jade', mm,
+            function(err, html) {
+                data = {
+                    from: "Le magazine moi<moi-noreply@cozycloud.cc>",
+                    subject: "Votre magazine moi " + mm.dispayDate,
+                    content: Mail._generateTextContent(mm),
+                    html: html,
+                }
+            callback(err, data);
+            });
+    });
 },
 
 testSend : function(req, res) {
@@ -45,37 +101,24 @@ testSend : function(req, res) {
     });
 },
 
-send : function(textContent, htmlContent) {
-    data = {
-            from: "Moi (Le mag) <moi-noreply@cozycloud.cc>",
-            subject: "Moi, des nouvelles fraiches sur vous", // Z : meilleur sujet.
-            content: textContent,
-            html: htmlContent,
-        }
-
-        var client = new Client("http://localhost:9101/");
-        if (["production", "test"].indexOf(process.env.NODE_ENV) != -1) {
-            client.setBasicAuth(process.env.NAME, process.env.TOKEN);
-        }
+send : function(err, data) {
+    var client = new Client("http://localhost:9101/");
+    if (["production", "test"].indexOf(process.env.NODE_ENV) != -1) {
+        client.setBasicAuth(process.env.NAME, process.env.TOKEN);
+    }
             
-
-        client.post("mail/to-user/", data, function(err, res, body) {
-            if (err) {
-                msg = "An error occurred while sending an email"
-                console.log("#{msg} -- #{err}");
-                if (res) { console.log(res.statusCode); }
-
-            } else {
-                console.log("Report sent.");
-            }
-        });
-        
+    client.post("mail/to-user/", data, function(err, res, body) {
+        if (err) {
+            msg = "An error occurred while sending an email"
+            console.log("#{msg} -- #{err}");
+            if (res) { console.log(res.statusCode); }
+         } else {
+            console.log("Report sent.");
+        }
+    });
 },
 
-sendReportReq : function(req, res) {
-    Mail.sendReport(req.params.month);
-    res.send(200);
-},
+
 
 sendReport: function(month) {
     EditionOfMoi.touch(function() {
@@ -120,11 +163,14 @@ setNextReport : function() {
     // Add some seconds to avoid inside loop.
     msBefore += 10;
     
+    // TODO Stub
+    msBefore = 10 * 60 * 1000 ;
+
     // which report ?
     var reportsMap = {
-        "2014-03-13": "2014-02",
-        "2014-03-20": "2014-02",
-        "2014-03-27": "2014-01",
+        "2014-03-14": "2014-01",
+        "2014-03-20": "2014-01",
+        "2014-03-27": "2014-02",
         "2014-04-03": "2013-12",
         "2014-04-10": "2013-11",
         "2014-04-17": "2013-10",
@@ -136,7 +182,7 @@ setNextReport : function() {
     };
     console.log("ms before mail: " + msBefore);
     setTimeout(function() {
-            Mail.sendReport(reportsMap[now.toISOString().slice(0, 11)]);
+            Mail.sendReport(reportsMap[now.toISOString().slice(0, 10)]);
             //console.log("send report: " + reportsMap[now.toISOString().slice(0, 10)]);
             //Mail.sendReport(reportsMap["2014-05-01"]);
             Mail.setNextReport();

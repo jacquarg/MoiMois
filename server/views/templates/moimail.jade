@@ -3,105 +3,107 @@ include numberviz
 include cursor
 include viz
 
-h2 Bonjour 
-  = flName
-  |,
+html
+  body
+    h2 Bonjour 
+      = flName
+      |,
 
-p(style="font-size: 14px;")
-  | Voici le numéro du mois de 
-  = displayDate
-  | &nbsp;de  
-  i 
-    a(href="#{miURL}/#apps/mesinfos-moi") moi
-  | , le magazine qui vous raconte votre propre histoire.
-
-p(style="font-size: 11px;")
-  | Le magazine virtuel 
-  i 
-    a(href="#{miURL}/#apps/mesinfos-moi") moi
-  | &nbsp;est édité automatiquement par votre 
-  a(href="#{miURL}") espace personnel MesInfos
-  |, et n'est consultable que par vous-même.
-
-a(href="#{miURL}/#apps/mesinfos-moi")
- table(align="center", bgcolor="#F4F4F4", cellpadding="5px", frame="void", width="640px")
-    
-  tr
-    th(align="center")
-      img(alt="moi",src="#{baseUrl}/img/logo_moi_64px.png")
-  tr
-    th(bgcolor="#246C7C")
-    //- tr
-    //- th(bgcolor="#8AC7C2", style="font-size: 30px;")
-
-  tr
-    th(align="center", style="line-height: 2; font-size: 40px; color: #2F6878;text-transform: uppercase;") 
-      |~
+    p(style="font-size: 14px;")
+      | Voici le numéro du mois de 
       = displayDate
-      |~
-  tr
-    th(align="center", style="line-height: 2; font-size: 40px; color: #969898;") EXPLOITS DU MOIS
-  tr
-    td
-      table(align="center")
-        tr
-          mixin badgeimg(badges[0])
-          mixin badgeimg(badges[1])
-          mixin badgeimg(badges[2])
-        tr
-          mixin badgelabel(badges[0])
-          mixin badgelabel(badges[1])
-          mixin badgelabel(badges[2])          
-  tr
-    th(align="center", style="line-height: 2; font-size: 40px; color: #969898;") VOUS CE MOIS-CI
-  tr
-    td
-      table
-        tr
-          td(valign="top")
-            table
-              tr
-                td
-                  mixin numberviz(numbers[0])
-              tr
-                td
-                  mixin cursor(cursors[0])
-              tr
-                td
-                  mixin numberviz(numbers[2])
-              tr
-                td
-                  mixin viz(viz[1])
-          td(valign="top")
-            table
-              tr
-                td 
-                  mixin viz(viz[0])
-              tr
-                td
-                  mixin numberviz(numbers[1])
-              tr
-                td 
-                  mixin cursor(cursors[1])                
-              tr
-                td
-                  mixin numberviz(numbers[3])
-              tr
-                td
-                  mixin numberviz(numbers[4])
+      | &nbsp;de  
+      i 
+        a(href="#{miURL}/#apps/mesinfos-moi") moi
+      | , le magazine qui vous raconte votre propre histoire.
 
-  tr
-    th(bgcolor="#8AC7C2", style="font-size: 30px;") &nbsp;
+    p(style="font-size: 11px;")
+      | Le magazine virtuel 
+      i 
+        a(href="#{miURL}/#apps/mesinfos-moi") moi
+      | &nbsp;est édité automatiquement par votre 
+      a(href="#{miURL}") espace personnel MesInfos
+      |, et n'est consultable que par vous-même.
+
+    a(href="#{miURL}/#apps/mesinfos-moi")
+        table(align="center", bgcolor="#F4F4F4", cellpadding="5px", frame="void", width="640px")
+            
+          tr
+            th(align="center")
+              img(alt="moi",src="#{baseUrl}/img/logo_moi_64px.png")
+          tr
+            th(bgcolor="#246C7C")
+            //- tr
+            //- th(bgcolor="#8AC7C2", style="font-size: 30px;")
+
+          tr
+            th(align="center", style="line-height: 2; font-size: 40px; color: #2F6878;text-transform: uppercase;") 
+              |~
+              = displayDate
+              |~
+          tr
+            th(align="center", style="line-height: 2; font-size: 40px; color: #969898;") EXPLOITS DU MOIS
+          tr
+            td
+              table(align="center")
+                tr
+                  mixin badgeimg(badges[0])
+                  mixin badgeimg(badges[1])
+                  mixin badgeimg(badges[2])
+                tr
+                  mixin badgelabel(badges[0])
+                  mixin badgelabel(badges[1])
+                  mixin badgelabel(badges[2])          
+          tr
+            th(align="center", style="line-height: 2; font-size: 40px; color: #969898;") VOUS CE MOIS-CI
+          tr
+            td
+              table
+                tr
+                  td(valign="top")
+                    table
+                      tr
+                        td
+                          mixin numberviz(numbers[0])
+                      tr
+                        td
+                          mixin cursor(cursors[0])
+                      tr
+                        td
+                          mixin numberviz(numbers[2])
+                      tr
+                        td
+                          mixin viz(viz[1])
+                  td(valign="top")
+                    table
+                      tr
+                        td 
+                          mixin viz(viz[0])
+                      tr
+                        td
+                          mixin numberviz(numbers[1])
+                      tr
+                        td 
+                          mixin cursor(cursors[1])                
+                      tr
+                        td
+                          mixin numberviz(numbers[3])
+                      tr
+                        td
+                          mixin numberviz(numbers[4])
+
+          tr
+            th(bgcolor="#8AC7C2", style="font-size: 30px;") &nbsp;
 
 
-p(style="font-size: 11px;")
-  | Ce message vous a été envoyer par 
-  i
-    a(href="#{miURL}/#apps/mesinfos-moi") moi
-  |, une application de votre 
-  a(href="#{miURL}") espace personnel MesInfos
-  | . Venez y découvrir les nouvelles applications.
+        p(style="font-size: 11px;")
+          | Ce message vous a été envoyer par 
+          i
+            a(href="#{miURL}/#apps/mesinfos-moi") moi
+          |, une application de votre 
+          a(href="#{miURL}") espace personnel MesInfos
+          | . Venez y découvrir les nouvelles applications.
 
-p
-  | Votre espace personnel MesInfos 
-  a(href="#{miURL}")= miURL
+        p
+          | Votre espace personnel MesInfos 
+          a(href="#{miURL}")= miURL

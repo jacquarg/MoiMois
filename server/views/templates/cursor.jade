@@ -10,7 +10,7 @@ mixin cursor(data)
       tr
         td(align="center")
           - var val = Math.round(data.balance / 16) * 30 ; 
-            img(alt="#{ 100 - data.balance} - #{data.balance}", src="#{baseUrl}/img/cursors/cursor_b_#{val}.png")
+            img(alt="#{ Math.round(100 - data.balance)} - #{Math.round(data.balance)}", src="#{baseUrl}/img/cursors/cursor_b_#{val}.png")
          
        tr
          td
