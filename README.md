@@ -1,6 +1,7 @@
-## MesConso
+## moi
 
-Application permettant une première visualisation simple de données MesInfos (sur la personnes, tickets de caisses, et journal d'appel (bientôt)).
+Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits rien de votre quotidien ...
+
 
 ## En développement !
 
@@ -16,8 +17,6 @@ cozy-fixtures load tests/fixtures/
 cd client
 npm install
 
-# Brunch n'a pas encore été convenablement configuré pour less sur ce projet.
-lessc app/styles/custom.less > public/stylesheets/app.css && brunch b
 ```
 
 ## À propos de MesInfos
