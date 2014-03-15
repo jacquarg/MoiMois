@@ -289,7 +289,7 @@ ofMonth : function(month, callback) {
                     type: "vc",
                     label: "L'argent que vous avez retiré",
                     count: counts.dab.toFixed(0) + " €",
-                    compareLabel: "l'équivalent de " + compareCount.toFixed(1) + " g d'or",
+                    compareLabel: "l'équivalent de " + compareCount.toFixed(1) + " grammes d'or",
                     });
 
                 var compareCount = counts.dab * 0.03 ; // 1E <-> 0.03 g d'or.
@@ -298,7 +298,7 @@ ofMonth : function(month, callback) {
                     type: "vc",
                     label: "Vous avez dépensé",
                     count: counts.cb.toFixed(0) + " €",
-                    compareLabel: "l'équivalent de " + compareCount.toFixed(1) + " g d'or",
+                    compareLabel: "l'équivalent de " + compareCount.toFixed(1) + " grammes d'or",
                 });
                 callback(null, numbers);
             });

@@ -290,7 +290,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="moiheader"><div class="moilogo"><img src="img/logo_moi_128px.png"/></div><div class="moisnippet"><h1>Des nouvelles fraîches sur vous ?</h1><p>Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits riens de votre quotidien.</p></div></div><div class="moimenu"><h2 class="moimtitle">vos unes<!--select.moimmonth(name="moimmonth")--></h2><div class="moimmonth"></div></div><div id="moi"></div>');
+buf.push('<div class="moiheader"><div class="moilogo"><img src="img/logo_moi_128px.png"/></div><div class="moisnippet"><h1>Des nouvelles fraîches sur vous ?</h1><p>Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits riens de votre quotidien.</p></div></div><div class="moimenu"><h2 class="moimtitle">vos unes<!--select.moimmonth(name="moimmonth")--></h2><div class="moimmonth"></div><div class="moimshare"> <a id="bymail">mail</a></div></div><div id="moi"></div>');
 }
 return buf.join("");
 };
@@ -305,7 +305,7 @@ var interp;
 buf.push('<div class="mm"><div class="mmheader"><div class="frame"><div class="mmhblue"></div><!--img.mmlogo(src="img/Logo_MoiMois_130px.png")--><img src="img/Logo_MesInfos_71px.png" class="mmmesinfoslogo"/><!-- - todo : parametre--><!--.mmname= mm.userName--><h1 class="mmdate">~&nbsp;');
 var __val__ = mm.displayDate
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;~</h1><!--.mmnum #1--></div></div><!-- - todo : header, avec nom ...--><div class="mmexploits"><h2>Exploits du mois</h2><div class="row"><div class="badge_0"></div><div class="badge_1"></div><div class="badge_2"></div></div></div><!--hr.mmdotted--><div class="mmmois"><h2>Vous ce mois-ci</h2><div class="mmcol"><div class="mmbloc number_0"></div><div class="mmbloc cursor_0"></div><div class="mmbloc number_2"></div><div class="mmbloc viz_1"></div></div><div class="mmcol"><div class="mmbloc viz_0"></div><div class="mmbloc number_1"></div><div class="mmbloc cursor_1"></div><div class="mmbloc number_3"></div><div class="mmbloc number_4"></div></div><div class="spider"><hr/></div></div><div class="mmfooter"><div class="frame"><div class="mmfblue"></div></div></div></div>');
+buf.push('&nbsp;~</h1><!--.mmnum #1--></div></div><!-- - todo : header, avec nom ...--><div class="mmexploits"><h2>Exploits du mois</h2><div class="row"><div class="badge_0"></div><div class="badge_1"></div><div class="badge_2"></div></div></div><!--hr.mmdotted--><div class="mmmois"><h2>Vous ce mois-ci</h2><div class="mmcol"><div class="mmbloc number_0"></div><div class="mmbloc cursor_0"></div><div class="mmbloc number_2"></div><div class="mmbloc viz_1"></div></div><div class="mmcol"><div class="mmbloc viz_0"></div><div class="mmbloc number_1"></div><div class="mmbloc cursor_1"></div><div class="mmbloc number_3"></div><div class="mmbloc number_4"></div></div><div class="spider"><hr/></div></div><div class="mmfooter"><div class="frame"><div class="mmfblue"><img src="img/logo_moi_inv_50px.png"/></div></div></div></div>');
 }
 return buf.join("");
 };
