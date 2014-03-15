@@ -4,45 +4,54 @@ include cursor
 include viz
 
 html
+ - var styleBdTitles = "font-size: 25px; text-decoration: underline;";
+ - var styleBdSubTitles = "font-size: 20px;";
+ - var styleBdTxt = "font-size: 15px;";
+ - var styleBdBigTxt = "font-size: 18px;";
   body
-    h2 Bonjour 
+    h3(style=styleBdSubTitles) Bonjour 
       = flName
       |,
+    
 
-    p(style="font-size: 14px;")
-      | Voici le numéro du mois de 
-      = displayDate
-      | &nbsp;de  
-      i 
+    h2(style=styleBdTitles) Des nouvelles fraîches sur vous ?
+    p(style=styleBdBigTxt)
+      | Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moments, les petits riens de votre quotidien.
+
+    p(style=styleBdTxt)
+      | En tant que testeur du projet MesInfos via le panel EDEN, nous vous proposons de découvrir la 1ère édition de 
+      i
         a(href="#{miURL}/#apps/mesinfos-moi") moi
-      | , le magazine qui vous raconte votre propre histoire.
-
-    p(style="font-size: 11px;")
-      | Le magazine virtuel 
-      i 
-        a(href="#{miURL}/#apps/mesinfos-moi") moi
-      | &nbsp;est édité automatiquement par votre 
-      a(href="#{miURL}") espace personnel MesInfos *
-      |, et n'est consultable que par vous-même.
-
-    a(href="#{miURL}/#apps/mesinfos-moi")
-        table(align="center", bgcolor="#F4F4F4", cellpadding="5px", frame="void", width="640px")
-            
+      | , votre magazine rien qu'à vous !
+    
+    br
+    br
+    
+    a(href="#{miURL}/#apps/mesinfos-moi", style="text-decoration: none;color: #010101;")
+        table(bgcolor="#F4F4F4", cellpadding="5px", frame="void", width="640px")
+          tr
+            th(style="font-size: 15px") &nbsp;
           tr
             th(align="center")
-              img(alt="moi",src="#{baseUrl}/img/logo_moi_64px.png")
+              img(alt="moi",src="#{baseUrl}/img/logo_moi_128px.png")
           tr
-            th(bgcolor="#246C7C")
+            th(style="font-size: 15px") &nbsp;
+          tr
+            th
+              hr(style="border: solid 1px #246C7C")
+            //- th(bgcolor="#246C7C")
             //- tr
             //- th(bgcolor="#8AC7C2", style="font-size: 30px;")
 
           tr
             th(align="center", style="line-height: 2; font-size: 40px; color: #2F6878;text-transform: uppercase;") 
-              |~
+              | ~&nbsp;
               = displayDate
-              |~
+              | &nbsp;~
           tr
-            th(align="center", style="line-height: 2; font-size: 40px; color: #969898;") EXPLOITS DU MOIS
+            th(style="font-size: 30px") &nbsp;
+          tr
+            th(align="center", style="line-height: 2; font-size: 30px; color: #969898;") EXPLOITS DU MOIS
           tr
             td
               table(align="center")
@@ -55,7 +64,9 @@ html
                   mixin badgelabel(badges[1])
                   mixin badgelabel(badges[2])          
           tr
-            th(align="center", style="line-height: 2; font-size: 40px; color: #969898;") VOUS CE MOIS-CI
+            th(style="font-size: 30px") &nbsp;
+          tr
+            th(align="center", style="line-height: 2; font-size: 30px; color: #969898;") VOUS CE MOIS-CI
           tr
             td
               table
@@ -93,24 +104,42 @@ html
                           mixin numberviz(numbers[4])
 
           tr
-            th(bgcolor="#8AC7C2", style="font-size: 30px;") &nbsp;
+            th(bgcolor="#8AC7C2") &nbsp;
+              img(alt="MesInfos",src="#{baseUrl}/img/Logo_mesinfos_71px.png")
 
+    br
+    br
 
-        p
-          | Ce message vous a été envoyer par 
-          i
-            a(href="#{miURL}/#apps/mesinfos-moi") moi
-          |, une application de votre 
-          a(href="#{miURL}") espace personnel MesInfos
-          | . Venez y découvrir les nouvelles applications.
+    h3(style=styleBdSubTitles) Envie d'aller plus loin et de gagner des points-cadeaux ?
+    ul(style=styleBdTxt)
+      li
+        | Vous pouvez consulter les anciennes éditions de votre Magazine 
+        i moi
+        | , via 
+        a(href="#{miURL}/#apps/mesinfos-moi") l'application 
+          i moi 
+        | dans votre 
+        a(href=miURL) espace personnel
+        | .
+      li
+        | Pour cela, il est nécessaire de vous connecter à votre 
+        a(href=miURL) espace personnel
+        | &nbsp;( 
+        a(href=miURL)= miURL
+        | , vous pouvez suivre les étapes de cette 
+        a(href="http://youtu.be/V6M3-BSeP2s") vidéo
+        | &nbsp;pour vous guider), vous seuls pouvez le faire car ces données ne concernent que vous !
+      li
+        | Un nouveau système de points-cadeaux est mis en place par Eden : en installant votre espace personnel, en installant les 4 autres applications disponibles, en partageant vos impressions... vous cumulerez des points !
 
-        p
-          | (*) Votre 
-          a(href="#{miURL}") espace personnel MesInfos 
-          | a été créé dans le cadre de l'expérimentation MesInfos, à laquelle vous avez accepté de participer à partir du second semestre 2013, et vous permettant d'accéder à vos données personnelles ainsi qu'à des applications inédites, via un espace sécurisé :
-          a(href="#{miURL}")= miURL
-        p
-          | Pour toutes questions, rendez-vous sur le 
-          a(href="http://mesinfos.edeninsight.net/") forum des testeurs MesInfos
-          | &nbsp;(animé par Eden) 
-          a(href="http://mesinfos.edeninsight.net/") http://mesinfos.edeninsight.net/
+    br 
+
+    h3(style=styleBdSubTitles) Vie privée
+    p(style=styleBdTxt)
+      | Rappel : comme tous les services proposés par MesInfos, vous seuls avez accès à ces données et pouvez les consulter. Ni les enseignes partenaires, ni les animateurs de MesInfos n'y ont accès !
+    p(style=styleBdTxt)
+      | Pour toutes questions, rendez-vous sur le 
+      a(href="http://mesinfos.edeninsight.net/") forum des testeurs MesInfos
+      | &nbsp;(animé par Eden) : 
+      a(href="http://mesinfos.edeninsight.net/") http://mesinfos.edeninsight.net/
+

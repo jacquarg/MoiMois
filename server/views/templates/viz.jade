@@ -2,7 +2,7 @@ mixin viz(viz)
  - if (viz)
   table(bgcolor="white", frame="void", width="300px", cellspacing="10px")
     tr
-      th(align="center", valign="middle", style='font-size: 12px;text-transform: uppercase;')= viz.title
+      th(align="center", valign="middle", style='font-size: 12px;text-transform: uppercase;text-decoration: none;color: #010101;')= viz.title
     tr
       td
         table(width="280px")
@@ -11,5 +11,5 @@ mixin viz(viz)
             - var s = "text-transform: capitalize; font-size: 12px;";
             - var colors = ["#F15048", "#F68470", "#2F6878", "#5AC8CC", "#BFE8DD", "#66AB9F", "#308462", "#4CC190"];
               tr
-                td(style=s)= bar.label
+                td(style=s + "color: #010101;")= bar.label
                 td(style=s + "color: #{colors[i]};")= bar.valueLabel

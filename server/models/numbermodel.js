@@ -33,7 +33,7 @@ ofMonth : function(month, callback) {
                     type: "vc",
                     label: "Votre temps d'appel",
                     count: hours + "h" + mins,
-                    compareLabel: "Équivalent à " + compare + " km parcourus à pleine vitesse par Usain Bolt, champion du monde de 100m." // try U+202F as space ?
+                    compareLabel: "l'équivalent de " + compare + " km parcourus à pleine vitesse par Usain Bolt, champion du monde de 100m." // try U+202F as space ?
                     });
                 
                 // Total data
@@ -44,7 +44,7 @@ ofMonth : function(month, callback) {
                     type: "vc",
                     label: "Votre consommation internet sur mobile",
                     count: mo + " Mo",
-                    compareLabel: "Équivalent à " + compare + " disquettes." // try U+202F as space ?
+                    compareLabel: "l'équivalent de " + compare + " disquettes." // try U+202F as space ?
                     });
 
                 // Most called contact
@@ -57,7 +57,7 @@ ofMonth : function(month, callback) {
                     label: "Le numéro le plus appelé",
                     count: contact,
                     count2: mins + " min",
-                    compareLabel: "Équivalent à la cuisson de " + compare + " oeufs coques." // try U+202F as space ?
+                    compareLabel: "l'équivalent de la cuisson de " + compare + " oeufs coques." // try U+202F as space ?
                 });
 
                 callback(null, numbers);
@@ -219,7 +219,7 @@ ofMonth : function(month, callback) {
                     type: "vc",
                     label: "La masse de nourriture que vous avez acheté",
                     count: count.toFixed(2) + ' kg',
-                    compareLabel: 'Équivalent à ' + eqCount + ' poulets',
+                    compareLabel: "l'équivalent de " + eqCount + ' poulets',
                     });
                 callback(null, numbers);
             });
@@ -289,7 +289,7 @@ ofMonth : function(month, callback) {
                     type: "vc",
                     label: "L'argent que vous avez retiré",
                     count: counts.dab.toFixed(0) + " €",
-                    compareLabel: "Équivalent à " + compareCount.toFixed(1) + " g d'or",
+                    compareLabel: "l'équivalent de " + compareCount.toFixed(1) + " g d'or",
                     });
 
                 var compareCount = counts.dab * 0.03 ; // 1E <-> 0.03 g d'or.
@@ -298,7 +298,7 @@ ofMonth : function(month, callback) {
                     type: "vc",
                     label: "Vous avez dépensé",
                     count: counts.cb.toFixed(0) + " €",
-                    compareLabel: "Équivalent à " + compareCount.toFixed(1) + " g d'or",
+                    compareLabel: "l'équivalent de " + compareCount.toFixed(1) + " g d'or",
                 });
                 callback(null, numbers);
             });

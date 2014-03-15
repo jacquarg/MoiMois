@@ -5,10 +5,10 @@ mixin cursor(data)
       tr
         td &nbsp;
       tr
-        td(align="center", valign="middle", style='font-size: 12px;text-transform: uppercase;') Ce mois-ci vous avez été plutôt
+        td(align="center", valign="middle", style='font-size: 12px;text-transform: uppercase;text-decoration: none;color:  #010101;') Ce mois-ci vous avez été plutôt
 
       tr
-        td(align="center")
+        td(align="center", style="text-decoration: none;color:  #010101;")
           - var val = Math.round(data.balance / 16) * 30 ; 
             img(alt="#{ Math.round(100 - data.balance)} - #{Math.round(data.balance)}", src="#{baseUrl}/img/cursors/cursor_b_#{val}.png")
          
@@ -16,7 +16,7 @@ mixin cursor(data)
          td
            table(width="300px")
              tr
-               -var labStyle = "text-transform: capitalize; font-size: 12px;";
+               -var labStyle = "text-transform: capitalize; font-size: 12px;text-decoration: none;color: #010101;";
                  td(align="left", style=labStyle)= data.minLabel
                  td(align="right", style=labStyle)= data.maxLabel
       tr

@@ -14,6 +14,7 @@ module.exports = EditionOfMoi = americano.getModel('editionofmoi', {
     'ofMonth': String, // YYYY-MM string format.
     'displayDate': String, // mois YYYY
     'flName': String,
+    'une': String,
     'number': String,
     'timestamp': Date,
     'badges': [Object],
@@ -104,7 +105,20 @@ EditionOfMoi.all = function(callback) {
                         mm.displayDate = utils.displayMonth(month);
                         //mm.number = idx;
                         mm.timestamp = new Date();
+                        // Une .
+                        var une = "...";
                         
+                        if (mm.cursors[0]) { 
+                          var c = mm.cursors[0];
+                          une = (c.balance < 50) ? c.minLabel : c.maxLabel;
+                        }
+                        if (mm.cursors[1]) { 
+                          var c = mm.cursors[1];
+                          une += " et ";
+                          une += (c.balance < 50) ? c.minLabel : c.maxLabel;
+                        }
+
+                        mm.une = une ;
                         mms.push(mm);
                         
                         EditionOfMoi.create(mm, function(err, moi) {

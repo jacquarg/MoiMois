@@ -27,8 +27,9 @@ _generateTextContent : function(mm) {
 
     //header
     txt += "Bonjour " + mm.flName + ",\n\n";
-    txt += "Voici le numéro du mois de novembre 2013 de moi, le magazine qui vous raconte votre propre histoire.\n" ;
-    txt += "Le magazine virtuel moi est édité automatiquement par votre espace personnel MesInfos *" + mm.miURL + ", et n'est consultable que par vous-même.\n\n\n";
+    txt += "Des nouvelles fraîches sur vous ?\n";
+    txt += "Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moments, les petits riens de votre quotidien.\n\n";
+    txt += 'En tant que testeur du projet MesInfos via le panel EDEN, nous vous proposons de découvrir la 1ère édition de "moi", votre magazine rien qu\'à vous !\n\n\n';
 
     //body
     txt += "moi " + mm.displayDate + " : " + mm.miURL + "/#apps/mesinfos-moi " + "\n\n";
@@ -61,12 +62,18 @@ _generateTextContent : function(mm) {
             txt += "  * " + bar.label + " : " + bar.valueLabel + ",\n" ;
         });
       });
-    txt += "\n\n";
+    txt += "\n\n\n";
     // footer
-    txt += "Ce message vous a été envoyer par moi, une application de votre espace personnel MesInfos. Venez y découvrir les nouvelles applications.\n";
-    //txt += "Votre espace personnel MesInfos : " + mm.miURL  + "\n\n";
-    txt += "* Votre espace personnel MesInfos a été créé dans le cadre de l'expérimentation MesInfos, à laquelle vous avez accepté de participer à partir du second semestre 2013, et vous permettant d'accéder à vos données personnelles ainsi qu'à des applications inédites, via un espace sécurisé : " +  mm.miURL + "\n";
-    txt += "Pour toutes questions, rendez-vous sur le forum des testeurs MesInfos (animé par Eden) http://mesinfos.edeninsight.net/ .";
+    txt += "Envie d'aller plus loin et de gagner des points-cadeaux ?\n";
+    txt += "- Vous pouvez consulter les anciennes éditions de votre Magazine \"moi\", via l'application \"moi\" dans votre espace personnel : " + mm.miURL + "/#apps/mesinfos-moi .\n";
+    txt += "- Pour cela, il est nécessaire de vous connecter à votre espace personnel : " + mm.miURL + " (en suivant les étapes de cette vidéo : http://youtu.be/V6M3-BSeP2s ), vous seuls pouvez le faire car ces données ne concernent que vous !\n";
+    txt += "- Un nouveau système de points-cadeaux est mis en place par Eden : en installant votre espace personnel, en installant les 4 autres applications disponibles, en partageant vos impressions... vous cumulerez des points !\n\n";
+
+    txt += "Vie privée\n";
+    txt += "Rappel : comme tous les services proposés par MesInfos, vous seuls avez accès à ces données et pouvez les consulter. Ni les enseignes partenaires, ni les animateurs de MesInfos n'y ont accès !\n\n";
+
+    txt += "Pour toutes questions, rendez-vous sur le forum des testeurs MesInfos (animé par Eden) http://mesinfos.edeninsight.net/ \n";
+
     return txt;
 },
 
@@ -85,7 +92,7 @@ compose : function(mm, callback) {
             function(err, html) {
                 data = {
                     from: "Le magazine moi<moi-noreply@cozycloud.cc>",
-                    subject: "Votre magazine moi de " + mm.displayDate,
+                    subject: "MesInfos - en " + mm.displayDate + " vous avez été plutôt " + mm.une,
                     content: Mail._generateTextContent(mm),
                     html: html,
                 }
