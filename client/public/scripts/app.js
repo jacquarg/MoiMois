@@ -290,7 +290,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="moiheader"><div class="moilogo"><img src="img/logo_moi_128px.png"/></div><div class="moisnippet"><h1>Des nouvelles fraîches sur vous ?</h1><p>Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits riens de votre quotidien.</p></div></div><div class="moimenu"><h2 class="moimtitle">vos unes<!--select.moimmonth(name="moimmonth")--></h2><div class="moimmonth"></div><div class="moimshare"> <a id="bymail">mail</a></div></div><div id="moi"></div>');
+buf.push('<div class="moiheader"><div class="moilogo"><img src="img/logo_moi_128px.png"/></div><div class="moisnippet"><h1>Des nouvelles fraîches sur vous ?</h1><p>Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits riens de votre quotidien.</p></div></div><div class="moimenu"><h2 class="moimtitle">vos unes<!--select.moimmonth(name="moimmonth")--></h2><div class="moimmonth"></div></div><div id="moi"></div>');
 }
 return buf.join("");
 };
