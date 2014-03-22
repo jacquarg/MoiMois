@@ -129,6 +129,35 @@ send : function(err, data) {
 
 
 sendReport: function(month) {
+    if (!month) {
+        // uggly spaggeti.
+        today = new Date().toISOString().slice(0,10);
+
+        if (today <= "2014-03-20") {
+            month = "2013-06";
+        } else if (today <= "2014-03-26") {
+            month = "2013-12";
+        } else if (today <= "2014-04-02") {
+            month = "2014-01";
+        } else if (today <= "2014-04-09") {
+            month = "2014-02";
+        } else if (today <= "2014-04-16") {
+            month = "2013-11";
+        } else if (today <= "2014-04-23") {
+            month = "2013-10";
+        } else if (today <= "2014-04-30") {
+            month = "2014-03";
+        } else if (today <= "2014-04-07") {
+            month = "2013-09";
+        } else if (today <= "2014-04-14") {
+            month = "2013-08";
+        } else if (today <= "2014-04-21") {
+            month = "2013-07";
+        }
+    }
+    //
+    
+    console.log(new Date() + " - SendReport of " + month);
     EditionOfMoi.touch(function() {
         EditionOfMoi.ofMonth(month, function(err, mm) {
             Mail.compose(mm.toJSON(),
@@ -149,7 +178,7 @@ setNextReport : function() {
     var now = new Date();
     
     var msBefore = null;
-    if (now.getDay()) {
+    if (now.getDay() == dt.day) {
         // si pour tout à l'heure
         if (dt.day && now.getHours() < dt.hour) {
             msBefore = 0;
@@ -171,26 +200,9 @@ setNextReport : function() {
     // Add some seconds to avoid inside loop.
     msBefore += 10;
     
-    // TODO Stub
-    //msBefore = 10 * 60 * 1000 ;
-
-    // which report ?
-    var reportsMap = {
-        "2014-03-14": "2014-01",
-        "2014-03-20": "2014-01",
-        "2014-03-27": "2014-02",
-        "2014-04-03": "2013-12",
-        "2014-04-10": "2013-11",
-        "2014-04-17": "2013-10",
-        "2014-04-24": "2014-03",
-        "2014-05-01": "2013-09",
-        "2014-05-08": "2013-08",
-        "2014-05-15": "2013-07",
-    
-    };
     console.log("ms before mail: " + msBefore);
     setTimeout(function() {
-            Mail.sendReport(reportsMap[now.toISOString().slice(0, 10)]);
+            Mail.sendReport();
             //console.log("send report: " + reportsMap[now.toISOString().slice(0, 10)]);
             //Mail.sendReport(reportsMap["2014-05-01"]);
             Mail.setNextReport();
@@ -200,4 +212,12 @@ setNextReport : function() {
 
 }
 
+
 Mail.setNextReport();
+
+// send reports, after initial touch ! (one hour to be sure.)
+setTimeout(Mail.sendReport, 
+    //1 * 3600 * 1000);
+    5 * 60 * 1000);
+
+
