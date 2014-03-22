@@ -172,7 +172,7 @@ sendReport: function(month) {
 
 setNextReport : function() {
     var dt = { 
-            day: 4, // Thursday ?
+            day: 0, //Test ! send on sunday !// Thursday ?
             hour: 12,  // between 12 and 14.
             };
     var now = new Date();
