@@ -198,7 +198,7 @@ setNextReport : function() {
 
 
     // Add some seconds to avoid inside loop.
-    msBefore += 10;
+    msBefore += 10000;
     
     console.log("ms before mail: " + msBefore);
     setTimeout(function() {
@@ -216,8 +216,9 @@ setNextReport : function() {
 Mail.setNextReport();
 
 // send reports, after initial touch ! (one hour to be sure.)
-setTimeout(Mail.sendReport, 
-    //1 * 3600 * 1000);
-    5 * 60 * 1000);
+// how to avoid flood ? --> if app restart/ flood ...
+//setTimeout(Mail.sendReport, 
+//    //1 * 3600 * 1000);
+//    5 * 60 * 1000);
 
 

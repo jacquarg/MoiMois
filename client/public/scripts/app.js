@@ -2491,7 +2491,7 @@ module.exports = MoiList = Backbone.View.extend({
 
 
     onItemAdded: function(instance) {
-        this.$el.find('.moimmonth').append('<a class="amonth" id="bbcid_' + instance.cid + '">' + instance.attributes.displayDate + '</a>  ~  ');
+        this.$el.find('.moimmonth').append('<a class="amonth" href="#moi" id="bbcid_' + instance.cid + '">' + instance.attributes.displayDate + '</a>  ~  ');
         //this.$el.find('.moimmonth').append('<option value="bbcid_' + instance.cid + '">' + instance.attributes.moimois.date + '</option>');
         //console.log(this.$el.find('.moimmonth').html());
         this.displayMoi(instance);
