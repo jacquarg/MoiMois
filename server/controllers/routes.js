@@ -45,7 +45,10 @@ module.exports = {
   'viz': {
     get: Viz.all        
   },
-
+    
+  'reset': {
+    post: Main.reset
+  },
 
 
   'test': {

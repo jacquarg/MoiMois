@@ -290,7 +290,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="moiheader"><div class="moilogo"><img src="img/logo_moi_128px.png"/></div><div class="moisnippet"><h1>Des nouvelles fraîches sur vous ?</h1><p>Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits riens de votre quotidien.</p></div></div><div class="moimenu"><h2 class="moimtitle">vos unes<!--select.moimmonth(name="moimmonth")--></h2><div class="moimmonth"></div></div><div id="moi"></div>');
+buf.push('<div class="moiheader"><div class="moilogo"><img src="img/logo_moi_128px.png"/></div><div class="moisnippet"><h1>Des nouvelles fraîches sur vous ?</h1><p>Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits riens de votre quotidien.</p></div></div><div class="moimenu"><h2 class="moimtitle">vos unes<!--select.moimmonth(name="moimmonth")--></h2><div class="moimmonth"></div></div><div id="moi"></div><div class="moireedition">En cliquant sur le bouton ci-dessous, vous pouvez ré-éditer tous vos <i>moi. </i>Les anciens <i>moi </i>seront définitivement perdus, mais les nouveaux créés utiliseront peut-être plus de données !<div class="text-center"><a id="reset" href="#" class="btn btn-danger btn-small">ré-éditer</a></div></div>');
 }
 return buf.join("");
 };
@@ -2450,6 +2450,7 @@ module.exports = MoiList = Backbone.View.extend({
     events: {
         "click .amonth": "onClickMonth",
         "click #bymail": "onClickShareMail",
+        "click #reset": "onClickReset",
         //"click #testmail": "sendTestMail",
     },
     initialize: function() {
@@ -2516,6 +2517,31 @@ module.exports = MoiList = Backbone.View.extend({
     onClickShareMail: function(ev) {
         $.get(this.month + "/sendmail/");
         console.log(this.month + "/sendmail/ sended.");
+    },
+
+    onClickReset: function(ev) {
+      if (confirm('Ré-éditer tous les "moi" ? Les nouvelles éditions écraseront les anciennes que vous connaissez.')) {
+        var self = this;
+        $.post("reset", function(data) {
+            console.log("reset done !");
+            // reset.
+            self.collection = new MoiMoisCollection(data),
+            //self.collection.fetch();
+            self.collection.forEach(function(model) {
+                self.onItemAdded(model);
+            });
+            console.log("update data done");
+        
+        });
+        // remove old views
+        this.$el.find('.moimmonth').html('');
+        this.$el.find('#moi').html('<div class="text-center"><img src="img/ajax-loader.gif" /></div>');
+        //show loader
+        console.log("reset");
+
+      }
+
+        
     },
     
     //sendTestMail: function(ev) {

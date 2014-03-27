@@ -13,6 +13,12 @@ main: function(req, res) {
     );
 },
 
+reset: function(req, res) {
+    EditionOfMoi.reset(function(err, l) {
+        res.send(l);
+    });
+},
+
 }
 
     /*async.parallel([ 

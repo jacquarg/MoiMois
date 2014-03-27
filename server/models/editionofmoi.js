@@ -215,3 +215,16 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
 
     callback(null, mm); 
 };
+
+EditionOfMoi.reset = function(callback) {
+
+    EditionOfMoi.requestDestroy(
+        "byMonth",
+        {},
+        function(err) {
+            console.log("All editions destroyed.");
+            EditionOfMoi.all(callback);
+            
+        
+        });
+};

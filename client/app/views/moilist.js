@@ -12,6 +12,7 @@ module.exports = MoiList = Backbone.View.extend({
     events: {
         "click .amonth": "onClickMonth",
         "click #bymail": "onClickShareMail",
+        "click #reset": "onClickReset",
         //"click #testmail": "sendTestMail",
     },
     initialize: function() {
@@ -78,6 +79,31 @@ module.exports = MoiList = Backbone.View.extend({
     onClickShareMail: function(ev) {
         $.get(this.month + "/sendmail/");
         console.log(this.month + "/sendmail/ sended.");
+    },
+
+    onClickReset: function(ev) {
+      if (confirm('Ré-éditer tous les "moi" ? Les nouvelles éditions écraseront les anciennes que vous connaissez.')) {
+        var self = this;
+        $.post("reset", function(data) {
+            console.log("reset done !");
+            // reset.
+            self.collection = new MoiMoisCollection(data),
+            //self.collection.fetch();
+            self.collection.forEach(function(model) {
+                self.onItemAdded(model);
+            });
+            console.log("update data done");
+        
+        });
+        // remove old views
+        this.$el.find('.moimmonth').html('');
+        this.$el.find('#moi').html('<div class="text-center"><img src="img/ajax-loader.gif" /></div>');
+        //show loader
+        console.log("reset");
+
+      }
+
+        
     },
     
     //sendTestMail: function(ev) {
