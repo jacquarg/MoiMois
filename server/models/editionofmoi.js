@@ -57,7 +57,7 @@ EditionOfMoi.ofMonth = function(month, callback) {
    EditionOfMoi.request(
         "byMonth",
         {
-            key: month    
+            key: month
         },
         function(err, instances) {
             if (err) {
@@ -68,7 +68,7 @@ EditionOfMoi.ofMonth = function(month, callback) {
                 callback(null, instances[0]);
             }
         }
-    ); 
+    );
 
 };
 
@@ -90,9 +90,9 @@ EditionOfMoi.all = function(callback) {
                 function(mms, month, cb) {
                     EditionOfMoi._generateAMoi(month, mms, function(err, mm) {
                         //Filter empty first months.
-                        if (mms.length == 0 && 
+                        if (mms.length == 0 &&
                           (
-                            mm.badges.length == 0 
+                            mm.badges.length == 0
                             || mm.cursors.length == 0
                             || mm.numbers.length == 0
                             || mm.viz.length == 0 )) {
@@ -107,12 +107,12 @@ EditionOfMoi.all = function(callback) {
                         mm.timestamp = new Date();
                         // Une .
                         var une = "...";
-                        
-                        if (mm.cursors[0]) { 
+
+                        if (mm.cursors[0]) {
                           var c = mm.cursors[0];
                           une = (c.balance < 50) ? c.minLabel : c.maxLabel;
                         }
-                        if (mm.cursors[1]) { 
+                        if (mm.cursors[1]) {
                           var c = mm.cursors[1];
                           une += " et ";
                           une += (c.balance < 50) ? c.minLabel : c.maxLabel;
@@ -120,15 +120,15 @@ EditionOfMoi.all = function(callback) {
 
                         mm.une = une ;
                         mms.push(mm);
-                        
+
                         EditionOfMoi.create(mm, function(err, moi) {
                             cb(null, mms);
-                        }); 
+                        });
                     });
                 },
                 callback
              );
-        }   
+        }
     });
 };
 
@@ -151,7 +151,7 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
         var res = -1 ;
         for (var i=1;i<=thingsX.length;i++) {
             var things = thingsX[i-1];
-            var present = things.some(function(prevThing) { 
+            var present = things.some(function(prevThing) {
                 return prevThing[tag] == thing[tag] ;
             });
 
@@ -160,7 +160,7 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
 
         return res;
     };
-        
+
     /*var cmpPreviouses = function(tag, idx, excludeList) {
         return function(o1, o2) {
         if (idx > 0) {
@@ -168,7 +168,7 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
             return notInPreviouses(o1, [olds, excludeList]) - sameType(o2, [olds, excludeList]);
         }
         return 0;
-        
+
     }}*/
 
     var filterViz = function(mm, tag, quantity, excludeList, cmpTag) {
@@ -184,13 +184,13 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
             }
             return 0;
         });
-        
+
         mm[tag] = items.slice(0, quantity);
-        
+
         // exclude list
         return mm[tag].map(function(item) { return item[cmpTag] });
     };
-    
+
     var mm = {};
     mm.flName = allOfMonth.flName;
         /*
@@ -210,10 +210,10 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
     filterViz(mm, "numbers", 5, cursorsTypes);
     // viz
     filterViz(mm, "viz", 2, []);
-    
+
     filterViz(mm, "badges", 3, [], 'type');
 
-    callback(null, mm); 
+    callback(null, mm);
 };
 
 EditionOfMoi.reset = function(callback) {
@@ -224,7 +224,7 @@ EditionOfMoi.reset = function(callback) {
         function(err) {
             console.log("All editions destroyed.");
             EditionOfMoi.all(callback);
-            
-        
+
+
         });
 };

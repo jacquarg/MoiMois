@@ -1,6 +1,6 @@
 GeolocationLog = require('./geolocationlog');
 InsuranceClaim = require('./insuranceclaim');
-BankOperation = require('./bankoperation'); 
+BankOperation = require('./bankoperation');
 PhoneCommunicationLog = require('./phonecommunicationlog');
 ReceiptDetail = require('./receiptdetail');
 async = require('async');
@@ -14,7 +14,9 @@ ofMonth: function(month, callback) {
         if (month in badges) {
             callback(null, badges[month]);
         } else {
-            callback("No badges this month.", null);
+            //TODO hack ?
+            // callback("No badges this month.", null);
+            callback("No badges this month.", []);
         }
     });
 },
@@ -45,7 +47,7 @@ byMonth: function(month, callback) {
                             }
                         });
                         if (donTKeep) {
-                            break;    
+                            break;
                         }
                     }
 
@@ -104,7 +106,7 @@ _upToMonth : function(month, callback) {
                         explanationLabel: "parcourus à vol d'oiseau",
                     });
                 //}
-                
+
                 callback(null, badges);
             });
         },
@@ -117,7 +119,7 @@ _upToMonth : function(month, callback) {
                     return
                 }
                 var badges = [];
-                
+
                 // Data
                 //var tens = Math.floor(data.callsDuration / (5 * 1000000000)); //(5 GB) TODO
                 var tens = Math.floor(data.data / (100000000)); //(100 MB)
@@ -157,7 +159,7 @@ _upToMonth : function(month, callback) {
                         explanationLabel: "contacts appelés",
                     });
                 //}
-                
+
                 callback(null, badges);
             });
         },
@@ -182,7 +184,7 @@ _upToMonth : function(month, callback) {
                 });
                 callback(null, badges);
             });
-            
+
         },
         function(callback) {
             Receipt.upToMonth(month, function(err, data) {
@@ -211,7 +213,7 @@ _upToMonth : function(month, callback) {
                 });
                 callback(null, badges);
             });
-            
+
         },
         function(callback) {
             InsuranceClaim.all(function(err, data) {
@@ -231,7 +233,7 @@ _upToMonth : function(month, callback) {
                     }
                 });
 
-                // 
+                //
                 badges.push({
                     type: "top_sinistres",
                     origin: "axa",
@@ -271,23 +273,23 @@ _upToMonth : function(month, callback) {
                         acc.topCb = bop.amount;
                     }
                     return acc;
-                }, 
+                },
                 { 'dabs': {}, 'topDab': 0, 'topCb': 0 });
-                
+
                 var topDabCount = 0;
                 var topDabCountTitle = '';
                 var topDabAmount = 0;
                 var topDabAmountTitle = '';
 
                 for (var k in counts.dabs) {
-                    
+
                     if (counts.dabs[k].count > topDabCount) {
                         topDabCount = counts.dabs[k].count;
-                        topDabCountTitle = k; 
+                        topDabCountTitle = k;
                     }
                     if (counts.dabs[k].amount > topDabAmount) {
                         topDabAmount = counts.dabs[k].amount;
-                        topDabAmountTitle = k; 
+                        topDabAmountTitle = k;
                     }
                 }
 
