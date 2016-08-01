@@ -4,6 +4,7 @@ RiskHome = require('./riskhome');
 BankOperation = require('./bankoperation');
 PhoneCommunicationLog = require('./phonecommunicationlog');
 ReceiptDetail = require('./receiptdetail');
+Receipt = require('./receipt');
 async = require('async');
 utils = require('./utils');
 
@@ -20,7 +21,7 @@ ofMonth: function(month, callback) {
                     return
                 }
                 var cursors = [];
-                
+
                 //Total calls duration.
                     //TODO find values !
                 var value = Math.min(Math.round(data.callsDuration / (20 * 60 * 60) * 50), 100); //20h ?
@@ -31,7 +32,7 @@ ofMonth: function(month, callback) {
                     balance: value,
                     color: "Red",
                 });
-                
+
                 // Direction balance
                 cursors.push({
                     origin: "orange",
@@ -61,7 +62,7 @@ ofMonth: function(month, callback) {
                     callback(null, []);
                     return
                 }
-                
+
                 var cursors = [];
 
                 //Total distance.
@@ -86,7 +87,7 @@ ofMonth: function(month, callback) {
                     balance: value,
                     color: "Red",
                 });
-        
+
                 //TODO
 
                 callback(null, cursors);
@@ -115,11 +116,11 @@ ofMonth: function(month, callback) {
                         && rdet.computedWeight) {
                         meat += rdet.computedWeight * rdet.amount ;
                     // Légumes
-                    } else if (['12', '10', '38', '30', '32', '34', 
+                    } else if (['12', '10', '38', '30', '32', '34',
                     //'46', // ? liquides
                     '40', '42'].indexOf(rdet.section) != -1
                         && rdet.computedWeight) {
-                            vegetables += rdet.computedWeight * rdet.amount ;    
+                            vegetables += rdet.computedWeight * rdet.amount ;
                     }
                 });
 
@@ -173,7 +174,7 @@ ofMonth: function(month, callback) {
                 }
 
                 var cursors = [];
-                
+
                 var powerMap = {
                     "Inc/ss permis/élec": 0,
                     "Faible": 25,
@@ -212,7 +213,7 @@ ofMonth: function(month, callback) {
                 }
 
                 var cursors = [];
-               
+
 
                 cursors.push({
                     origin: "axa",

@@ -1,6 +1,6 @@
-americano = require('americano');
+cozydb = require('cozydb');
 
-module.exports = ReceiptDetail = americano.getModel('receiptdetail', {
+module.exports = ReceiptDetail = cozydb.getModel('receiptdetail', {
  'origin': String,
  'order': Number,
  'barcode': String,
@@ -35,7 +35,7 @@ ReceiptDetail._ean13CheckSum = function(rdet) {
     if (rdet.barcode && rdet.barcode.length == 12) {
         // last checksum digit is needed
         // cf : http://fr.wikipedia.org/wiki/Code-barres_EAN#Cl.C3.A9_de_contr.C3.B4le
-        
+
         var even = 0 ;
         var odd = 0 ;
 
@@ -52,33 +52,33 @@ ReceiptDetail._ean13CheckSum = function(rdet) {
 ReceiptDetail._enrichReceiptDetail = function(rdet) {
                 // Parse quantity
                 // Match parterns : 3x20cl ; 8x1l ; 70cl ; 6x50 cl ; 180gx3
-                
+
                 // 3x : (\d+)x
                 // 3x or not : (?:(\d+)x|())
-                // 
+                //
                 // units : (cl|g|l|ml|m)
                 //
                 // x3 : (?:x(\d+)|())
-                
+
                 // g1 : mult
                 // g2 : quantity
                 // g3 : unit
                 // g4 : mult
 
     reg = /(?:(\d+)x|)(\d+)(cl|g|l|ml|m|kg)(?:x(\d+)|)/i ;
-    
+
     unitMap = {
         "CL": "cL",
         "ML": "mL",
         "M": "mL",
-        "L": "L", 
+        "L": "L",
         "G": "g",
         "KG": "kg",
     }
-    
+
     grs = reg.exec(rdet.label);
     if (grs) {
-        
+
         rdet.quantityUnit = (grs[3] in unitMap) ? unitMap[grs[3]] : grs[3] ;
         rdet.quantityAmount = parseInt(grs[1]?grs[1]:grs[4]);
         rdet.quantityWeight = parseInt(grs[2]);
@@ -89,11 +89,11 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
 
             rdet.quantityLabel = rdet.quantityAmount + "x" + rdet.quantityWeight + rdet.quantityUnit;
         } else {
-            rdet.quantityTotalWeight = rdet.quantityWeight;   
+            rdet.quantityTotalWeight = rdet.quantityWeight;
 
             rdet.quantityLabel = rdet.quantityWeight + rdet.quantityUnit;
         }
-        
+
         if (rdet.quantityUnit == 'cL') {
             rdet.computedWeight = rdet.quantityTotalWeight *  0.01 ;
             rdet.computedVolume = rdet.quantityTotalWeight * 0.01 ;
@@ -101,15 +101,15 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
             || rdet.quantityUnit == 'g' ) {
             rdet.computedWeight = rdet.quantityTotalWeight * 0.001 ;
             rdet.computedVolume = rdet.quantityTotalWeight * 0.001 ;
-        } else if (rdet.quantityUnit == 'L' 
+        } else if (rdet.quantityUnit == 'L'
             || rdet.quantityUnit == 'kg' ) {
             rdet.computedWeight = rdet.quantityTotalWeight ;
             rdet.computedVolume = rdet.quantityTotalWeight ;
         }
-        
-        
-       
-        // remove from label 
+
+
+
+        // remove from label
         //rdet.name = rdet.label.substring(grs['index'], grs[0].length);
         rdet.name = rdet.label.substring(0, grs['index']);
 
@@ -119,7 +119,7 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
     } else {
         rdet.name = rdet.label;
     }
-    
+
     // Vegetables !!
     if (rdet.section == '34') {
          rdet.computedWeight = rdet.price / 3.0 ; // prix moyen 3.0 E/kg.
@@ -127,7 +127,7 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
 
     }
 
-    
+
     // Clean name look.
     // to lower.
     // points -> spaces.
@@ -136,7 +136,7 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
     }
 
     rdet.aggregatedSection = ReceiptDetail.aggregateSections(rdet.section);
-    
+
     //console.log(rdet.label);
     //console.log(rdet.name);
     //console.log(rdet.quantityLabel);
@@ -209,7 +209,7 @@ ReceiptDetail.aggregateSections = function(sectionId) {
         //"BOUCHERIE LS": "BOUCHERIE",
         '20': '200',
         //"BOUCHERIE FRAIS EMB.": "BOUCHERIE",
-        '22': '200', 
+        '22': '200',
         //"BOUCHERIE / VOLAILLE TRAD": "BOUCHERIE",
         '2': '200',
 
@@ -238,7 +238,7 @@ ReceiptDetail.aggregateSections = function(sectionId) {
 
 ReceiptDetail.ofMonth = function(month, callback) {
     ReceiptDetail.request(
-        "byDate", 
+        "byDate",
         {
             startkey: [month, null, null],
             endkey: [month, {}, {}]
@@ -252,13 +252,13 @@ ReceiptDetail.ofMonth = function(month, callback) {
                 callback(null, instances);
             }
         }
-        
+
     );
 };
 
 ReceiptDetail.mostBoughtProductsOfMonth = function(month, callback) {
    ReceiptDetail.rawRequest(
-        "totalsByMonthByProduct", 
+        "totalsByMonthByProduct",
         {
          descending: false,
          group: true,
@@ -305,7 +305,7 @@ ReceiptDetail.sectionsTotals = function(month, sections, callback) {
             } else if (rdets.length == 0) {
                 callback("No receiptdetails", null);
             } else {
-                
+
                 var count = rdets.reduce(function(acc, item) {
                     if (sections.indexOf(item.section) != -1) {
                         return acc + item.amount;
@@ -354,16 +354,16 @@ ReceiptDetail.sectionsTotals = function(month, sections, callback) {
 
 /*ReceiptDetail.getOneByBarCode = function(barcode, callback) {
     ReceiptDetail.request(
-        "byBarcode", 
+        "byBarcode",
         { key: barcode, limit: 1 },
         callback
     );
-}; 
+};
 
 
 ReceiptDetail.withReceiptId = function(receiptId, callback) {
     ReceiptDetail.request(
-        "byReceiptId", 
+        "byReceiptId",
         { keys: [receiptId,  receiptId.slice(0, -1)] },
         function(err, instances) {
             callback(null, instances);
@@ -374,7 +374,7 @@ ReceiptDetail.withReceiptId = function(receiptId, callback) {
 
 /*ReceiptDetail.sectionsTotalsOfMonth = function(month, callback) {
    ReceiptDetail.rawRequest(
-        "totalsByMonthBySection", 
+        "totalsByMonthBySection",
         {
              group: true,
              startkey: [month, null],

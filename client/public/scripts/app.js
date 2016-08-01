@@ -101,7 +101,7 @@ module.exports = {
 };
 });
 
-;require.register("collections/badges", function(exports, require, module) {
+require.register("collections/badges", function(exports, require, module) {
 Badge = require('../models/badge');
 module.exports = Badges = Backbone.Collection.extend({
     model: Badge,
@@ -118,7 +118,7 @@ module.exports = Bargraphs = Backbone.Collection.extend({
 
 });
 
-;require.register("collections/cursors", function(exports, require, module) {
+require.register("collections/cursors", function(exports, require, module) {
 
 module.exports = Cursors = Backbone.Collection.extend({
     model: require('../models/cursor'),
@@ -127,7 +127,7 @@ module.exports = Cursors = Backbone.Collection.extend({
 
 });
 
-;require.register("collections/moimois", function(exports, require, module) {
+require.register("collections/moimois", function(exports, require, module) {
 
 module.exports = MoiMois = Backbone.Collection.extend({
     model: require('../models/moimois'),
@@ -136,7 +136,7 @@ module.exports = MoiMois = Backbone.Collection.extend({
 
 });
 
-;require.register("collections/numbers", function(exports, require, module) {
+require.register("collections/numbers", function(exports, require, module) {
 
 module.exports = Numbers = Backbone.Collection.extend({
     model: require('../models/numberviz'),
@@ -145,7 +145,7 @@ module.exports = Numbers = Backbone.Collection.extend({
 
 });
 
-;require.register("initialize", function(exports, require, module) {
+require.register("initialize", function(exports, require, module) {
 // The function called from index.html
 $(document).ready(function() {
     var app = require('application');
@@ -154,7 +154,7 @@ $(document).ready(function() {
 
 });
 
-;require.register("models/badge", function(exports, require, module) {
+require.register("models/badge", function(exports, require, module) {
 module.exports = Badge = Backbone.Model.extend({
 
 })
@@ -167,25 +167,25 @@ module.exports = Bargraph = Backbone.Model.extend({
 
 });
 
-;require.register("models/cursor", function(exports, require, module) {
+require.register("models/cursor", function(exports, require, module) {
 module.exports = Cursor = Backbone.Model.extend({
 });
 
 });
 
-;require.register("models/moimois", function(exports, require, module) {
+require.register("models/moimois", function(exports, require, module) {
 module.exports = MoiMois = Backbone.Model.extend({
 });
 
 });
 
-;require.register("models/numberviz", function(exports, require, module) {
+require.register("models/numberviz", function(exports, require, module) {
 module.exports = NumberViz = Backbone.Model.extend({
 });
 
 });
 
-;require.register("router", function(exports, require, module) {
+require.register("router", function(exports, require, module) {
 var AppView = require('views/app_view');
 //var ReceiptDetailCollection = require('collections/receiptdetails');
 
@@ -207,7 +207,7 @@ module.exports = Router = Backbone.Router.extend({
 
 });
 
-;require.register("templates/allbadges", function(exports, require, module) {
+require.register("templates/allbadges", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -219,7 +219,7 @@ return buf.join("");
 };
 });
 
-;require.register("templates/badge", function(exports, require, module) {
+require.register("templates/badge", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -239,7 +239,7 @@ return buf.join("");
 };
 });
 
-;require.register("templates/bargraphdays", function(exports, require, module) {
+require.register("templates/bargraphdays", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -254,7 +254,7 @@ return buf.join("");
 };
 });
 
-;require.register("templates/cursor", function(exports, require, module) {
+require.register("templates/cursor", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -272,7 +272,7 @@ return buf.join("");
 };
 });
 
-;require.register("templates/home", function(exports, require, module) {
+require.register("templates/home", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -284,7 +284,7 @@ return buf.join("");
 };
 });
 
-;require.register("templates/moilist", function(exports, require, module) {
+require.register("templates/moilist", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -296,7 +296,7 @@ return buf.join("");
 };
 });
 
-;require.register("templates/moimois", function(exports, require, module) {
+require.register("templates/moimois", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -311,7 +311,7 @@ return buf.join("");
 };
 });
 
-;require.register("templates/numberviz", function(exports, require, module) {
+require.register("templates/numberviz", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -368,7 +368,7 @@ return buf.join("");
 };
 });
 
-;require.register("templates/spider", function(exports, require, module) {
+require.register("templates/spider", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -383,7 +383,7 @@ return buf.join("");
 };
 });
 
-;require.register("templates/top3", function(exports, require, module) {
+require.register("templates/top3", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -398,7 +398,7 @@ return buf.join("");
 };
 });
 
-;require.register("templates/top5", function(exports, require, module) {
+require.register("templates/top5", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -413,7 +413,7 @@ return buf.join("");
 };
 });
 
-;require.register("views/all_things", function(exports, require, module) {
+require.register("views/all_things", function(exports, require, module) {
 MoiMoisCollection = require('../collections/moimois');
 /*BadgesCollection = require('../collections/badges');
 NumbersCollection = require('../collections/numbers');
@@ -2266,7 +2266,7 @@ module.exports = AllThingsView = Backbone.View.extend({
 
 });
 
-;require.register("views/allbadges", function(exports, require, module) {
+require.register("views/allbadges", function(exports, require, module) {
 BadgesCollection = require('../collections/badges');
 
 module.exports = AllBadgesView = Backbone.View.extend({
@@ -2309,7 +2309,7 @@ module.exports = AllBadgesView = Backbone.View.extend({
 
 });
 
-;require.register("views/app_view", function(exports, require, module) {
+require.register("views/app_view", function(exports, require, module) {
 //var AllThingsView = require('./all_things');
 var MoiList = require('./moilist');
 
@@ -2357,7 +2357,7 @@ module.exports = AppView = Backbone.View.extend({
 
 });
 
-;require.register("views/badge", function(exports, require, module) {
+require.register("views/badge", function(exports, require, module) {
 module.exports = Badge = Backbone.View.extend({
 
 //    tagName: 'div',
@@ -2373,7 +2373,7 @@ module.exports = Badge = Backbone.View.extend({
 
 });
 
-;require.register("views/bargraph", function(exports, require, module) {
+require.register("views/bargraph", function(exports, require, module) {
 module.exports = Bargraph = Backbone.View.extend({
 
 
@@ -2408,7 +2408,7 @@ module.exports = Bargraph = Backbone.View.extend({
 
 });
 
-;require.register("views/cursor", function(exports, require, module) {
+require.register("views/cursor", function(exports, require, module) {
 module.exports = Cursor = Backbone.View.extend({
 
 
@@ -2435,7 +2435,7 @@ module.exports = Cursor = Backbone.View.extend({
 
 });
 
-;require.register("views/moilist", function(exports, require, module) {
+require.register("views/moilist", function(exports, require, module) {
 MoiMoisCollection = require('../collections/moimois');
 MoiMois = require('./moimois');
 
@@ -2553,7 +2553,7 @@ module.exports = MoiList = Backbone.View.extend({
 
 });
 
-;require.register("views/moimois", function(exports, require, module) {
+require.register("views/moimois", function(exports, require, module) {
 BadgesCollection = require('../collections/badges');
 NumbersCollection = require('../collections/numbers');
 CursorsCollection = require('../collections/cursors');
@@ -2620,7 +2620,7 @@ module.exports = MoiMois = Backbone.View.extend({
 
 });
 
-;require.register("views/numberviz", function(exports, require, module) {
+require.register("views/numberviz", function(exports, require, module) {
 module.exports = NumberViz = Backbone.View.extend({
 
 //    tagName: 'div',
@@ -2636,7 +2636,7 @@ module.exports = NumberViz = Backbone.View.extend({
 
 });
 
-;require.register("views/spider", function(exports, require, module) {
+require.register("views/spider", function(exports, require, module) {
 module.exports = Bargraph = Backbone.View.extend({
 
 
@@ -2699,7 +2699,7 @@ module.exports = Bargraph = Backbone.View.extend({
 
 });
 
-;require.register("views/top3", function(exports, require, module) {
+require.register("views/top3", function(exports, require, module) {
 module.exports = Top3 = Backbone.View.extend({
     
     // Model
@@ -2762,7 +2762,7 @@ module.exports = Top3 = Backbone.View.extend({
 
 });
 
-;require.register("views/top5", function(exports, require, module) {
+require.register("views/top5", function(exports, require, module) {
 module.exports = Top5 = Backbone.View.extend({
 
 
@@ -2819,7 +2819,7 @@ module.exports = Top5 = Backbone.View.extend({
 
 });
 
-;require.register("views/viz", function(exports, require, module) {
+require.register("views/viz", function(exports, require, module) {
 Bargraph = require('./bargraph');
 Top3 = require('./top3');
 Top5 = require('./top5');
@@ -2850,5 +2850,5 @@ module.exports = Viz = Backbone.View.extend({
 
 });
 
-;
+
 //# sourceMappingURL=app.js.map

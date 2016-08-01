@@ -1,11 +1,11 @@
-americano = require('americano');
+cozydb = require('cozydb');
 
-module.exports = Vehicle = americano.getModel('vehicle', {
+module.exports = Vehicle = cozydb.getModel('vehicle', {
     'origin': String,
     'idMesInfos': String,
     'contractId' : String,
     'power': String,
-    'firstRegistrationDate': Date, 
+    'firstRegistrationDate': Date,
     'horsePower': Number,
     'registrationDate': Date,
     'owningDuration': Number,

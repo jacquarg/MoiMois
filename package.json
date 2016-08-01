@@ -8,12 +8,12 @@
   },
   "main": "server.js",
   "dependencies": {
-    "americano": "0.3.0",
-    "americano-cozy": "0.2.1",
+    "americano": "0.4.5",
     "async": "0.2.10",
+    "cozydb": "0.1.13",
     "jade": "0.35.0",
     "moment": "2.14.1",
-    "request-json": "0.4.13"
+    "request-json": "0.5.6"
   },
   "devDependencies": {},
   "engines": [

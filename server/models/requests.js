@@ -2,18 +2,18 @@
 * Put here the requests to the DataSystem.
 */
 
-americano = require('americano');
+cozydb = require('cozydb');
 
 module.exports = {
     geolocationlog : {
         deviceStateIsOn : function(doc) {
-                if (!doc.deviceState 
+                if (!doc.deviceState
                     && !isNaN(doc.latitude)
                     && !isNaN(doc.longitude)) {
 
                     emit(
-                    [doc.timestamp.slice(0, 7), 
-                        doc.timestamp.slice(8,10), 
+                    [doc.timestamp.slice(0, 7),
+                        doc.timestamp.slice(8,10),
                         doc.timestamp.slice(11, -1)]
 //                        doc.timestamp
                         , doc);
@@ -51,8 +51,8 @@ module.exports = {
                     sums.data += doc.chipCount;
                 }
 
-                emit([doc.timestamp.slice(0, 7), 
-                        doc.timestamp.slice(8,10), 
+                emit([doc.timestamp.slice(0, 7),
+                        doc.timestamp.slice(8,10),
                         doc.timestamp.slice(11, -1)], sums);
             },
 
@@ -91,12 +91,12 @@ module.exports = {
     receiptdetail: {
         byDate: function(doc) {
             emit(
-               [doc.timestamp.slice(0, 7), 
-                doc.timestamp.slice(8,10), 
+               [doc.timestamp.slice(0, 7),
+                doc.timestamp.slice(8,10),
                 doc.timestamp.slice(11, -1)]
                 , doc);
         },
-        
+
         totalsByMonthByProduct : {
             map: function(doc) {
                 emit([doc.timestamp.substring(0,7), doc.barcode],
@@ -114,7 +114,7 @@ module.exports = {
                     amount: 0,
                     price: 0,
                 };
-                
+
                 for (var idx=0; idx<values.length; idx++) {
                     var val = values[idx];
                     for (var k in val) {
@@ -148,7 +148,7 @@ module.exports = {
                     { count: doc.amount, total: doc.price }
                     );
             },
-            
+
             reduce: function(key, values, rereduce) {
                 var sums = {
                     count: 0,
@@ -168,11 +168,11 @@ module.exports = {
         totals : {
             map: function(doc) {
                 emit(
-                   [doc.timestamp.slice(0, 7), 
-                    doc.timestamp.slice(8,10), 
+                   [doc.timestamp.slice(0, 7),
+                    doc.timestamp.slice(8,10),
                     doc.timestamp.slice(11, -1)]
                     , {
-                        receipts: 1, 
+                        receipts: 1,
                         total: doc.total,
                     });
             },
@@ -191,8 +191,8 @@ module.exports = {
         },
         byDate: function(doc) {
             emit(
-               [doc.timestamp.slice(0, 7), 
-                doc.timestamp.slice(8,10), 
+               [doc.timestamp.slice(0, 7),
+                doc.timestamp.slice(8,10),
                 doc.timestamp.slice(11, -1)]
                 , doc);
         },
@@ -200,18 +200,18 @@ module.exports = {
     bankoperation: {
         byDate: function(doc) {
             emit(
-               [doc.date.slice(0, 7), 
-                doc.date.slice(8,10), 
+               [doc.date.slice(0, 7),
+                doc.date.slice(8,10),
                 doc.date.slice(11, -1)]
                 , doc);
         },
     },
-    
+
     cozyinstance: {
-        all: americano.defaultRequests.all
+        all: cozydb.defaultRequests.all
     },
     identity: {
-        all: americano.defaultRequests.all
+        all: cozydb.defaultRequests.all
     },
 
     editionofmoi: {

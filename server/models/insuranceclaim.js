@@ -1,6 +1,6 @@
-americano = require('americano');
+cozydb = require('cozydb');
 
-module.exports = InsuranceClaim = americano.getModel('insuranceclaim', {
+module.exports = InsuranceClaim = cozydb.getModel('insuranceclaim', {
     'origin': String,
     'idMesInfos': String,
     'contractId' : String,

@@ -1,6 +1,6 @@
-americano = require('americano');
+cozydb = require('cozydb');
 
-module.exports = CozyInstance = americano.getModel('cozyinstance', {
+module.exports = CozyInstance = cozydb.getModel('cozyinstance', {
     'domain': String,
     'locale': String,
     'helpUrl': String,

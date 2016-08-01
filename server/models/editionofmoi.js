@@ -1,16 +1,15 @@
-americano = require('americano');
+cozydb = require('cozydb');
 
 var utils = require('./utils');
 var async = require('async');
 
-var Identity = require('./identity');
 var Badge = require('./badge');
 var NumberModel = require('./numbermodel');
 var Cursor = require('./cursor');
 var VizModel = require('./vizmodel');
 var Spider = require('./spider');
 
-module.exports = EditionOfMoi = americano.getModel('editionofmoi', {
+module.exports = EditionOfMoi = cozydb.getModel('editionofmoi', {
     'ofMonth': String, // YYYY-MM string format.
     'displayDate': String, // mois YYYY
     'flName': String,
@@ -138,10 +137,13 @@ EditionOfMoi._generateAMoi = function(month, previouses, callback) {
         "cursors": utils.fGen1P(month, Cursor.ofMonth),
         //"spiders": utils.fGen1P(month, Spider.ofMonth),
         "viz": utils.fGen1P(month, VizModel.ofMonth),
+
         "badges": utils.fGen1P(month, Badge.ofMonth),
-        "flName": Identity.firstNLast,
+        "user": cozydb.api.getCozyUser,
         },
         function(err, allOfMonth) {
+            console.log(err);
+            console.log(JSON.stringify(allOfMonth));
             EditionOfMoi._selectAMoi(allOfMonth, previouses, callback);
     });
 };
@@ -175,6 +177,7 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
         if (!cmpTag) {
             cmpTag = 'origin';
         }
+        console.log(tag);
         var items = allOfMonth[tag].sort(function(o1, o2) {
 
             if (previouses.length > 0) {
@@ -192,7 +195,7 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
     };
 
     var mm = {};
-    mm.flName = allOfMonth.flName;
+    mm.flName = allOfMonth.user.public_name;
         /*
         // Spiders
         spiders = resultsByMonth[month].spiders.sort(
@@ -205,6 +208,7 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
         */
 
     // Cursors
+    // TODO: exception undefined ...
     var cursorsTypes = filterViz(mm, "cursors", 2, []);
     // Numbers
     filterViz(mm, "numbers", 5, cursorsTypes);

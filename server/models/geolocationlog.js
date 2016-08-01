@@ -1,6 +1,6 @@
-americano = require('americano');
+cozydb = require('cozydb');
 
-module.exports = GeolocationLog = americano.getModel('geolocationlog', {
+module.exports = GeolocationLog = cozydb.getModel('geolocationlog', {
     'origin': String,
     'idMesInfos': String,
     'timestamp': Date,
@@ -19,7 +19,7 @@ GeolocationLog.hasDocs = function(callback) {
         reduce: false
     };
 
-    GeolocationLog.rawRequest("deviceStateIsOn", params, 
+    GeolocationLog.rawRequest("deviceStateIsOn", params,
         function(err, data) {
             if (err || !data || data.length == 0) {
                 callback(null, false);
@@ -34,20 +34,20 @@ GeolocationLog.hasDocs = function(callback) {
 GeolocationLog.computeDistance = function(loc1, loc2) {
     // From http://integraledesmaths.free.fr/idm/PagePrincipale.htm#http://integraledesmaths.free.fr/idm/GeoAEDistSph.htm .
 
-    var R = 6374.892; // earth radius, kilometter. 
-    
-    var lat1 = loc1.latitude * Math.PI / 180 ;  // latitude delta, in radian. 
+    var R = 6374.892; // earth radius, kilometter.
+
+    var lat1 = loc1.latitude * Math.PI / 180 ;  // latitude delta, in radian.
     var lat2 = loc2.latitude * Math.PI / 180 ;
 
-    var dLon = (loc2.longitude - loc1.longitude) * Math.PI / 180;  // longitude delta, in radian. 
+    var dLon = (loc2.longitude - loc1.longitude) * Math.PI / 180;  // longitude delta, in radian.
 
-    var r1 = Math.sin(lat1) * Math.sin(lat2) 
+    var r1 = Math.sin(lat1) * Math.sin(lat2)
     + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLon) ;
     // Approximations may brake arccos definition's domain.
     r1 = Math.min(1, r1);
     r1 = Math.max(-1, r1);
 
-    var d = R * Math.acos(r1) 
+    var d = R * Math.acos(r1)
 
 
 /*    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -58,7 +58,7 @@ GeolocationLog.computeDistance = function(loc1, loc2) {
     //return Math.round(d);
 
     if (isNaN(d)) {
-        console.log(Math.sin(lat1) * Math.sin(lat2) 
+        console.log(Math.sin(lat1) * Math.sin(lat2)
     + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLon));
     }
     return d;
@@ -85,9 +85,9 @@ GeolocationLog._computeDistances = function(err, locs, callback) {
 
             var timeDelta = loc2.timestamp.getTime() - loc1.timestamp.getTime();
 
-            areSuccessivePoints = 
-                15 * 60 * 1000 * (1 - 0.1) < timeDelta 
-                && 
+            areSuccessivePoints =
+                15 * 60 * 1000 * (1 - 0.1) < timeDelta
+                &&
                 15 * 60 * 1000 * (1 + 0.1) > timeDelta ;
             // Compute distance between points.
             d = GeolocationLog.computeDistance(loc1, loc2);
@@ -137,7 +137,7 @@ function(err, locs) {
     //    topDistance: 0,
     //    topSpeed: 0,
     //    totalDistance: 0,
-   
+
     }
     if (err) {
         callback(err, res);
@@ -157,16 +157,16 @@ function(err, locs) {
 
             var timeDelta = loc2.timestamp.getTime() - loc1.timestamp.getTime();
 
-            areSuccessivePoints = 
-                15 * 60 * 1000 * (1 - 0.1) < timeDelta 
-                && 
+            areSuccessivePoints =
+                15 * 60 * 1000 * (1 - 0.1) < timeDelta
+                &&
                 15 * 60 * 1000 * (1 + 0.1) > timeDelta ;
-            
+
             if (areSuccessivePoints) {
                 //slice by 3 hours.
                 var hIdx = Math.floor(parseInt(loc1.timestamp.toISOString().slice(11, 13)) / 3) ;
                 d = GeolocationLog.computeDistance(loc1, loc2);
-                
+
                 slices[hIdx] += d;
             }
 
@@ -181,7 +181,7 @@ function(err, locs) {
             { rangeLabel: "15h-18h", sum: slices[5],  },
             { rangeLabel: "18h-21h", sum: slices[6],  },
             { rangeLabel: "21h-0h", sum: slices[7],  },
-            
+
         ]
 
         callback(null, res);

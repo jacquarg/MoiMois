@@ -1,6 +1,6 @@
-americano = require('americano');
+cozydb = require('cozydb');
 
-module.exports = BankOperation = americano.getModel('bankoperation', {
+module.exports = BankOperation = cozydb.getModel('bankoperation', {
     'bankAccount': String,
     'date': Date,
     'title': String,
@@ -13,7 +13,7 @@ module.exports = BankOperation = americano.getModel('bankoperation', {
 
 BankOperation._family = function(bop) {
     var types = {
-        withdrawals: [ 
+        withdrawals: [
          //TODO !
           // SG
           /^CARTE \w+ RETRAIT DAB.* (0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012]).*/g,
@@ -29,7 +29,7 @@ BankOperation._family = function(bop) {
         // '^CARTE \w+ RETRAIT DAB.* (?P<dd>\d{2})/(?P<mm>\d{2})( (?P<HH>\d+)H(?P<MM>\d+))? (?P<text>.*)'
         // '^CARTE \w+ (?P<dd>\d{2})/(?P<mm>\d{2})( A (?P<HH>\d+)H(?P<MM>\d+))? RETRAIT DAB (?P<text>.*)'
         // '^CARTE RETRAIT (?P<text>.*)'
-        //-------- Crédit coopératif / 
+        //-------- Crédit coopératif /
         // '^(?P<text>RETRAIT DAB) (?P<dd>\d{2})-(?P<mm>\d{2})-([\d\-]+)'
         // '^RETRAIT DAB (?P<dd>\d{2})-(?P<mm>\d{2})-([\d\-]+) (?P<text>.*)'
         // Banque postale
@@ -180,7 +180,7 @@ BankOperation.ofMonth = function(month, callback) {
         "byDate",
         {
             startkey: [month, null],
-            endkey: [month, {}] 
+            endkey: [month, {}]
         },
         function(err, instances) {
             if (err) {
@@ -200,7 +200,7 @@ BankOperation.upToMonth = function(month, callback) {
         "byDate",
         {
             startkey: [null, null],
-            endkey: [month, {}] 
+            endkey: [month, {}]
         },
         function(err, instances) {
             if (err) {

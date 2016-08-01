@@ -1,6 +1,6 @@
-americano = require('americano');
+cozydb = require('cozydb');
 
-module.exports = RiskVehicle = americano.getModel('riskvehicle', {
+module.exports = RiskVehicle = cozydb.getModel('riskvehicle', {
     'origin': String,
     'idMesInfos': String,
     'contractId' : String,

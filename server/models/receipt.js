@@ -1,6 +1,6 @@
-americano = require('americano');
+cozydb = require('cozydb');
 
-module.exports = Receipt = americano.getModel('receipt', {
+module.exports = Receipt = cozydb.getModel('receipt', {
     'receiptId': String,
     'transactionCode': String,
     'transaction': String,
@@ -23,8 +23,8 @@ module.exports = Receipt = americano.getModel('receipt', {
 
 Receipt.totalsOfMonth = function(month, callback) {
    Receipt.rawRequest(
-        "totals", 
-        { 
+        "totals",
+        {
           group_level: 1,
           startkey: [month, null, null],
           endkey: [month, {}, {}],
@@ -36,7 +36,7 @@ Receipt.totalsOfMonth = function(month, callback) {
             } else if (kv.length == 0) {
                 callback("No receipts this month.", null);
             } else {
-                callback(null, kv[0].value);    
+                callback(null, kv[0].value);
             }
         }
     );

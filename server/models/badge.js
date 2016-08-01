@@ -12,11 +12,15 @@ module.exports = Badge = {
 ofMonth: function(month, callback) {
     Badge.byMonth(month, function(err, badges) {
         if (month in badges) {
+            console.log('#######################""');
+            console.log(JSON.stringify(badges));
             callback(null, badges[month]);
         } else {
             //TODO hack ?
-            // callback("No badges this month.", null);
-            callback("No badges this month.", []);
+            console.log('hehre#######################""');
+
+            callback("No badges this month.", null);
+            // callback(null, []);
         }
     });
 },
@@ -24,7 +28,7 @@ ofMonth: function(month, callback) {
 byMonth: function(month, callback) {
     var months = utils.months();
     months = months.slice(0, months.indexOf(month) + 1);
-
+    console.log(months);
     async.map(months,
         Badge._upToMonth,
         function(err, results) {

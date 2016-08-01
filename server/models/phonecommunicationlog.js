@@ -1,6 +1,6 @@
-americano = require('americano');
+cozydb = require('cozydb');
 
-module.exports = PhoneCommunicationLog = americano.getModel('phonecommunicationlog', {
+module.exports = PhoneCommunicationLog = cozydb.getModel('phonecommunicationlog', {
     'origin': String,
     'idMesInfos': String,
     'direction': String,
@@ -22,12 +22,12 @@ PhoneCommunicationLog.totals = function(month, callback) {
         "totals",
         {
             startkey: [null, null, null],
-            endkey: [month, {}, {}]    
+            endkey: [month, {}, {}]
         },
         function(err, kv) {
             if (err) {
                 callback(err, null);
-                //TODO defensive ? 
+                //TODO defensive ?
 
             } else if (kv.length == 0) {
                 callback("No phonecommunication this month.", null);
@@ -44,7 +44,7 @@ PhoneCommunicationLog.monthStats = function(month, callback) {
     //var month = "2013-09";
     PhoneCommunicationLog.rawRequest(
         "totals",
-        {   
+        {
 //            group_level: 1,
             startkey: [month, null, null],
             endkey: [month, {}, {}]
@@ -79,7 +79,7 @@ PhoneCommunicationLog.dayStats = function(month, callback) {
     //var month = "2013-09";
     PhoneCommunicationLog.rawRequest(
         "totals",
-        {   
+        {
             group_level: 2,
             startkey: [month, null, null],
             endkey: [month, {}, {}]
@@ -108,7 +108,7 @@ PhoneCommunicationLog.weekDayStats = function(month, callback) {
     //var month = "2013-09";
     PhoneCommunicationLog.rawRequest(
         "totals",
-        {   
+        {
             group_level: 2,
             startkey: [month, "01", null],
             endkey: [month, "28", {}]
@@ -129,7 +129,7 @@ PhoneCommunicationLog.weekDayStats = function(month, callback) {
                 // week days calls durations.
                 var slices = [];
                 for (var i = 0; i < 7; i++) slices[i] = 0;
-                
+
 
                 //Most calledDuration day.
                 //var max = kv[0];
@@ -137,10 +137,10 @@ PhoneCommunicationLog.weekDayStats = function(month, callback) {
                     var k = kv[idx].key ;
                     var day = new Date(k[0] + "-" + k[1]).getDay();
                     var v = kv[idx].value ;
-                    
+
                     slices[day] += v.callsDuration ;
                 }
-                
+
                 res = [
                     { rangeLabel: "lundi", sum: slices[1], },
                     { rangeLabel: "mardi", sum: slices[2], },
