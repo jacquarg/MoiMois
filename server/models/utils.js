@@ -126,14 +126,19 @@ module.exports.groupByWeekDays = function(data, getDate, getValue) {
     return res ;
 };
 
-module.exports.months = function() {
-    var now = moment();
+module.exports.months = function(firstMonth) {
+    firstMonth = firstMonth || "2016-01";
 
+    var now = moment();
     var months = [];
-    for (var i=0;i<4;i++) {
-        months.push(now.subtract(1, 'month').format("YYYY-MM"));
+
+    for (month = moment(firstMonth);
+         month < now ;
+         month.add(1, 'month')) {
+        months.push(month.format("YYYY-MM"));
     }
-    return months.reverse();
+
+    return months;
 
     // TODO !
     // var now = new Date();

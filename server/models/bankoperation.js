@@ -1,4 +1,8 @@
+moment = require('moment');
+
 cozydb = require('cozydb');
+
+log = require('printit')({ prefix: 'BankOperation', date: true});
 
 module.exports = BankOperation = cozydb.getModel('bankoperation', {
     'bankAccount': String,
@@ -213,3 +217,14 @@ BankOperation.upToMonth = function(month, callback) {
         }
     );
 };
+
+BankOperation.firstMonth = function(cbNeverErr) {
+    BankOperation.request("byDate", { limit: 1 },
+        function(err, results) {
+            if (err || results.length === 0) {
+                log.info("No bank operations", err);
+                return cbNeverErr(null, moment().format('YYYY-MM'));
+            }
+            cbNeverErr(null, moment(results[0].date).format('YYYY-MM'));
+        });
+}

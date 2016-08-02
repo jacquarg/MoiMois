@@ -9,6 +9,13 @@ var Cursor = require('./cursor');
 var VizModel = require('./vizmodel');
 var Spider = require('./spider');
 
+var BankOperation = require('./bankoperation');
+
+log = require('printit')({
+    application: 'EditionOfMoi',
+    date: true
+});
+
 module.exports = EditionOfMoi = cozydb.getModel('editionofmoi', {
     'ofMonth': String, // YYYY-MM string format.
     'displayDate': String, // mois YYYY
@@ -29,7 +36,7 @@ EditionOfMoi.touch = function(callback) {
         var startTime = Date.now();
 
         return function() {
-            console.log("Touch " + reqName + " in " + (Date.now() - startTime) + "ms");
+            log.info("Touch " + reqName + " in " + (Date.now() - startTime) + "ms");
         };
     };
     var cb = callback ? callback : cbGen("editionofmoi.") ;
@@ -74,10 +81,11 @@ EditionOfMoi.ofMonth = function(month, callback) {
 
 EditionOfMoi.all = function(callback) {
     EditionOfMoi.allInDb(function(err, instances) {
-        if (err) {
-            callback(err);
-        } else {
-            var allMonths = utils.months();
+        if (err) { return callback(err); }
+
+        // TODO : don't rely only on bank !
+        BankOperation.firstMonth(function(nil, firstMonth) {
+            var allMonths = utils.months(firstMonth);
             if (instances.length == 0) {
                 var lastComputed = -1;
             } else {
@@ -88,17 +96,18 @@ EditionOfMoi.all = function(callback) {
                 instances,
                 function(mms, month, cb) {
                     EditionOfMoi._generateAMoi(month, mms, function(err, mm) {
-                        //Filter empty first months.
-                        if (mms.length == 0 &&
-                          (
-                            mm.badges.length == 0
-                            || mm.cursors.length == 0
-                            || mm.numbers.length == 0
-                            || mm.viz.length == 0 )) {
-                            // skip it.
-                            cb(null, mms);
-                            return;
-                        }
+                        // TODO : put this filter back !
+                        // //Filter empty first months.
+                        // if (mms.length == 0 &&
+                        //   (
+                        //     mm.badges.length == 0
+                        //     || mm.cursors.length == 0
+                        //     || mm.numbers.length == 0
+                        //     || mm.viz.length == 0 )) {
+                        //     // skip it.
+                        //     cb(null, mms);
+                        //     return;
+                        // }
 
                         mm.ofMonth = month;
                         mm.displayDate = utils.displayMonth(month);
@@ -127,7 +136,7 @@ EditionOfMoi.all = function(callback) {
                 },
                 callback
              );
-        }
+        });
     });
 };
 
@@ -142,8 +151,8 @@ EditionOfMoi._generateAMoi = function(month, previouses, callback) {
         "user": cozydb.api.getCozyUser,
         },
         function(err, allOfMonth) {
-            console.log(err);
-            console.log(JSON.stringify(allOfMonth));
+            if (err) { log.error(err) };
+
             EditionOfMoi._selectAMoi(allOfMonth, previouses, callback);
     });
 };
@@ -177,7 +186,6 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
         if (!cmpTag) {
             cmpTag = 'origin';
         }
-        console.log(tag);
         var items = allOfMonth[tag].sort(function(o1, o2) {
 
             if (previouses.length > 0) {
@@ -195,7 +203,11 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
     };
 
     var mm = {};
-    mm.flName = allOfMonth.user.public_name;
+    if (allOfMonth.user && allOfMonth.user.public_name) {
+        mm.flName = allOfMonth.user.public_name;
+    } else {
+        mm.flName = "";
+    }
         /*
         // Spiders
         spiders = resultsByMonth[month].spiders.sort(

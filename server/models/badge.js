@@ -12,56 +12,51 @@ module.exports = Badge = {
 ofMonth: function(month, callback) {
     Badge.byMonth(month, function(err, badges) {
         if (month in badges) {
-            console.log('#######################""');
-            console.log(JSON.stringify(badges));
             callback(null, badges[month]);
         } else {
-            //TODO hack ?
-            console.log('hehre#######################""');
-
             callback("No badges this month.", null);
-            // callback(null, []);
         }
     });
 },
 
 byMonth: function(month, callback) {
-    var months = utils.months();
-    months = months.slice(0, months.indexOf(month) + 1);
-    console.log(months);
-    async.map(months,
-        Badge._upToMonth,
-        function(err, results) {
-            // prepare result struct.
-            badgesByMonth = {};
-            months.forEach(function(month) {
-                badgesByMonth[month] = [];
-            });
-
-            // On each month, keep only new badges.
-            results.forEach(function(badges, monthIdx, allBadges) {
-                badges.forEach(function(badge) {
-                    var donTKeep = false;
-                    for (var i=monthIdx-1;i>-1;i--) {
-
-                        donTKeep = allBadges[i].some(function(oldBadge) {
-                            if (oldBadge.type == badge.type
-                                && oldBadge.value >= badge.value) {
-                                return true;
-                            }
-                        });
-                        if (donTKeep) {
-                            break;
-                        }
-                    }
-
-                    if (!donTKeep) {
-                        badgesByMonth[months[monthIdx]].push(badge);
-                    }
+    BankOperation.firstMonth(function(nil, firstMonth) {
+        var months = utils.months(firstMonth);
+        months = months.slice(0, months.indexOf(month) + 1);
+        async.map(months,
+            Badge._upToMonth,
+            function(err, results) {
+                // prepare result struct.
+                badgesByMonth = {};
+                months.forEach(function(month) {
+                    badgesByMonth[month] = [];
                 });
-            });
 
-            callback(null, badgesByMonth);
+                // On each month, keep only new badges.
+                results.forEach(function(badges, monthIdx, allBadges) {
+                    badges.forEach(function(badge) {
+                        var donTKeep = false;
+                        for (var i=monthIdx-1;i>-1;i--) {
+
+                            donTKeep = allBadges[i].some(function(oldBadge) {
+                                if (oldBadge.type == badge.type
+                                    && oldBadge.value >= badge.value) {
+                                    return true;
+                                }
+                            });
+                            if (donTKeep) {
+                                break;
+                            }
+                        }
+
+                        if (!donTKeep) {
+                            badgesByMonth[months[monthIdx]].push(badge);
+                        }
+                    });
+                });
+
+                callback(null, badgesByMonth);
+            });
         });
 },
 
