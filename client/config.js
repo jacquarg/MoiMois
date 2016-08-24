@@ -2,7 +2,6 @@ exports.config = {
   // See docs at http://brunch.readthedocs.org/en/latest/config.html.
     "files": {
         "javascripts": {
-            "defaultExtension": 'js',
             "joinTo": {
                 'scripts/app.js': /^app/,
                 'scripts/vendor.js': /^vendor/
@@ -16,7 +15,6 @@ exports.config = {
             }
         },
         "stylesheets": {
-            "defaultExtension": "less",
             "joinTo": {
                 "stylesheets/app.css": /app\/styles\/custom.less/
 //                "stylesheets/app.css": /^app\/styles\/bootsrap.less/
@@ -30,7 +28,6 @@ exports.config = {
 //            }
         },
         "templates": {
-            "defaultExtension": 'jade',
             "joinTo": 'scripts/app.js'
         }
     }

@@ -3,6 +3,7 @@ cozydb = require('cozydb');
 var utils = require('./utils');
 var async = require('async');
 
+var AdData = require('./addata');
 var Badge = require('./badge');
 var NumberModel = require('./numbermodel');
 var Cursor = require('./cursor');
@@ -26,6 +27,7 @@ module.exports = EditionOfMoi = cozydb.getModel('editionofmoi', {
     'badges': [Object],
     'numbers': [Object],
     'cursors': [Object],
+    'ads': [Object],
     'viz': [Object],
     'spider': Object,
 
@@ -81,68 +83,74 @@ EditionOfMoi.ofMonth = function(month, callback) {
 
 
 EditionOfMoi.all = function(callback) {
-    EditionOfMoi.allInDb(function(err, instances) {
+    async.parallel({
+        instances: EditionOfMoi.allInDb,
+        // TODO : don't rely only on bank !
+        firstMonth: BankOperation.firstMonth,
+        adData: AdData.all,
+    }, function(err, results) {
+        var instances = results.instances;
+        var firstMonth = results.firstMonth;
+        var adData = results.adData;
 
         if (err) { return callback(err); }
 
-        // TODO : don't rely only on bank !
-        BankOperation.firstMonth(function(nil, firstMonth) {
-            var allMonths = utils.months(firstMonth);
-            if (instances.length == 0) {
-                var lastComputed = -1;
-            } else {
-                var lastComputed = allMonths.indexOf(instances[instances.length - 1].ofMonth);
-            }
-            async.reduce(
-                allMonths.slice(lastComputed + 1),
-                instances,
-                function(mms, month, cb) {
-                    EditionOfMoi._generateAMoi(month, mms, function(err, mm) {
-                        // TODO : put this filter back !
-                        // //Filter empty first months.
-                        // if (mms.length == 0 &&
-                        //   (
-                        //     mm.badges.length == 0
-                        //     || mm.cursors.length == 0
-                        //     || mm.numbers.length == 0
-                        //     || mm.viz.length == 0 )) {
-                        //     // skip it.
-                        //     cb(null, mms);
-                        //     return;
-                        // }
+        
+        var allMonths = utils.months(firstMonth);
+        if (instances.length == 0) {
+            var lastComputed = -1;
+        } else {
+            var lastComputed = allMonths.indexOf(instances[instances.length - 1].ofMonth);
+        }
+        async.reduce(
+            allMonths.slice(lastComputed + 1),
+            instances,
+            function(mms, month, cb) {                
+                EditionOfMoi._generateAMoi(month, adData, mms, function(err, mm) {
+                    // TODO : put this filter back !
+                    // //Filter empty first months.
+                    // if (mms.length == 0 &&
+                    //   (
+                    //     mm.badges.length == 0
+                    //     || mm.cursors.length == 0
+                    //     || mm.numbers.length == 0
+                    //     || mm.viz.length == 0 )) {
+                    //     // skip it.
+                    //     cb(null, mms);
+                    //     return;
+                    // }
 
-                        mm.ofMonth = month;
-                        mm.displayDate = utils.displayMonth(month);
-                        //mm.number = idx;
-                        mm.timestamp = new Date();
-                        // Une .
-                        var une = "...";
+                    mm.ofMonth = month;
+                    mm.displayDate = utils.displayMonth(month);
+                    //mm.number = idx;
+                    mm.timestamp = new Date();
+                    // Une .
+                    var une = "...";
 
-                        if (mm.cursors[0]) {
-                          var c = mm.cursors[0];
-                          une = (c.balance < 50) ? c.minLabel : c.maxLabel;
-                        }
-                        if (mm.cursors[1]) {
-                          var c = mm.cursors[1];
-                          une += " et ";
-                          une += (c.balance < 50) ? c.minLabel : c.maxLabel;
-                        }
+                    if (mm.cursors[0]) {
+                      var c = mm.cursors[0];
+                      une = (c.balance < 50) ? c.minLabel : c.maxLabel;
+                    }
+                    if (mm.cursors[1]) {
+                      var c = mm.cursors[1];
+                      une += " et ";
+                      une += (c.balance < 50) ? c.minLabel : c.maxLabel;
+                    }
 
-                        mm.une = une ;
-                        mms.push(mm);
+                    mm.une = une ;
+                    mms.push(mm);
 
-                        EditionOfMoi.create(mm, function(err, moi) {
-                            cb(null, mms);
-                        });
+                    EditionOfMoi.create(mm, function(err, moi) {
+                        cb(null, mms);
                     });
-                },
-                callback
-             );
-        });
+                });
+            },
+            callback
+        );
     });
 };
 
-EditionOfMoi._generateAMoi = function(month, previouses, callback) {
+EditionOfMoi._generateAMoi = function(month, adData, previouses, callback) {
     async.parallel({
         "numbers": utils.fGen1P(month, NumberModel.ofMonth),
         "cursors": utils.fGen1P(month, Cursor.ofMonth),
@@ -154,7 +162,7 @@ EditionOfMoi._generateAMoi = function(month, previouses, callback) {
         },
         function(err, allOfMonth) {
             if (err) { log.error(err) };
-
+            allOfMonth.ads = adData;
             EditionOfMoi._selectAMoi(allOfMonth, previouses, callback);
     });
 };
@@ -231,18 +239,17 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
 
     filterViz(mm, "badges", 3, [], 'type');
 
+    filterViz(mm, "ads", 1, [], 'type');
+
     callback(null, mm);
 };
 
 EditionOfMoi.reset = function(callback) {
-
     EditionOfMoi.requestDestroy(
         "byMonth",
         {},
         function(err) {
-            console.log("All editions destroyed.");
+            log.info("All editions destroyed.");
             EditionOfMoi.all(callback);
-
-
         });
 };

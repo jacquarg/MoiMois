@@ -1,5 +1,10 @@
 cozydb = require('cozydb');
 
+log = require('printit')({
+    application: 'GeolocationLog',
+    date: true
+});
+
 module.exports = GeolocationLog = cozydb.getModel('geolocationlog', {
     'origin': String,
     'idMesInfos': String,
@@ -203,4 +208,15 @@ GeolocationLog.distanceStats = function(month, callback) {
             GeolocationLog._computeDistances(err, locs, callback);
             }
         );
+};
+
+GeolocationLog.hasDocuments = function(cbNoErr) {
+    GeolocationLog.request("deviceStateIsOn", { limit: 1 }, 
+        function(err, docs) {
+            if (err) { 
+                log.error(err);
+                docs = [];
+            }
+            cbNoErr(null, docs.length === 1);
+    });
 };

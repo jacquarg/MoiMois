@@ -6,6 +6,7 @@ Badge = require('./badge');
 NumberViz = require('./numberviz');
 Cursor = require('./cursor');
 Viz = require('./viz');
+Ad = require('./ad');
 
 
 module.exports = MoiMois = Backbone.View.extend({
@@ -56,6 +57,10 @@ module.exports = MoiMois = Backbone.View.extend({
             Viz,
             '.viz_',
             2); 
+        this._renderGroup(this.model.attributes.ads,
+            Ad,
+            '.ad_',
+            1); 
         // TODO : render spider.
 
     },

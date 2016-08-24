@@ -24,6 +24,7 @@ BankOperation.cast = function(attrs, target) {
   return target; 
 };
 
+
 BankOperation._family = function(bop) {
     var types = {
         withdrawals: [
@@ -236,4 +237,15 @@ BankOperation.firstMonth = function(cbNeverErr) {
             }
             cbNeverErr(null, moment(results[0].date).format('YYYY-MM'));
         });
-}
+};
+
+BankOperation.hasDocuments = function(cbNoErr) {
+    BankOperation.request("byDate", { limit: 1 }, 
+        function(err, docs) {
+            if (err) { 
+                log.error(err);
+                docs = [];
+            }
+            cbNoErr(null, docs.length === 1);
+    });
+};
