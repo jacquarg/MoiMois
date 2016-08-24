@@ -1,19 +1,28 @@
 moment = require('moment');
 
+OperationType = require('./operationtype');
+
 cozydb = require('cozydb');
 
 log = require('printit')({ prefix: 'BankOperation', date: true});
 
 module.exports = BankOperation = cozydb.getModel('bankoperation', {
+    'dateImport': Date,
+    'operationTypeID': String,
+    'operationType': String,
     'bankAccount': String,
     'date': Date,
     'title': String,
     'raw': String,
     'amount': Number,
-    'family': String, // withdrawals, payback, card, orders, transfer, check, bank, loan_payment, deposit
-
 });
 
+
+BankOperation.cast = function(attrs, target) {
+  target = cozydb.CozyModel.cast.call(this, attrs, target);
+  target.operationType = OperationType.byId[attrs.operationTypeID];
+  return target; 
+};
 
 BankOperation._family = function(bop) {
     var types = {
@@ -174,9 +183,9 @@ BankOperation._family = function(bop) {
 };
 
 
-BankOperation.afterInitialize = function() {
-    BankOperation._family(this);
-};
+// BankOperation.afterInitialize = function() {
+//     BankOperation._family(this);
+// };
 
 
 BankOperation.ofMonth = function(month, callback) {

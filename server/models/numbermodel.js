@@ -273,10 +273,11 @@ ofMonth : function(month, callback) {
                 var numbers = [];
                 
                 var counts = data.reduce(function(acc, bop) {
-                    if (bop.family == 'withdrawals') {
+                    console.log(bop);
+                    if (bop.operationType === 'type.withdrawal') {
                         acc.dab -= bop.amount;
 
-                    } else if (bop.family == 'card') {
+                    } else if (bop.operationType == 'type.card') {
                         acc.cb -= bop.amount;
                     }
                     return acc;

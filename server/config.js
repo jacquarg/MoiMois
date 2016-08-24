@@ -19,6 +19,6 @@ module.exports = {
         americano.logger('short')
     ],
     plugins: [
-        'americano-cozy'
+        'cozydb'
     ]
 };

@@ -16,7 +16,9 @@
     "printit": "0.1.20",
     "request-json": "0.5.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^3.5.0"
+  },
   "engines": [
     "node >= 0.10.x"
   ],
@@ -60,6 +62,9 @@
     },
     "User": {
       "description": "Lire votre nom et votre prénom, pour s'adresser à vous plus poliment"
+    },
+    "OperationType": {
+      "description": "DOnnées non personnelles, nom des différents types de mouvements bancaires."
     },
     "send mail to user": {
       "description": "Vous donner la possibilité de recevoir un rapport hebdomadaire par mail."

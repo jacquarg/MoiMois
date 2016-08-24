@@ -35,7 +35,8 @@ EditionOfMoi.touch = function(callback) {
     var cbGen = function(reqName) {
         var startTime = Date.now();
 
-        return function() {
+        return function(err) {
+        	if (err) { log.error(err); }
             log.info("Touch " + reqName + " in " + (Date.now() - startTime) + "ms");
         };
     };
@@ -81,6 +82,7 @@ EditionOfMoi.ofMonth = function(month, callback) {
 
 EditionOfMoi.all = function(callback) {
     EditionOfMoi.allInDb(function(err, instances) {
+
         if (err) { return callback(err); }
 
         // TODO : don't rely only on bank !

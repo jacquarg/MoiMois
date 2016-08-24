@@ -257,7 +257,7 @@ _upToMonth : function(month, callback) {
 
                 var badges = []
                 var counts = data.reduce(function(acc, bop) {
-                    if (bop.family == 'withdrawals') {
+                    if (bop.operationType == 'type.withdrawal') {
                         if (acc.topDab > bop.amount) { // amount is < 0 .
                             acc.topDab = bop.amount;
                         }
@@ -268,7 +268,7 @@ _upToMonth : function(month, callback) {
                         acc.dabs[bop.title].amount -= bop.amount ;
 
 
-                    } else if (bop.family == 'card' && acc.topCb > bop.amount) { // amount is < 0 .
+                    } else if (bop.operationType == 'type.card' && acc.topCb > bop.amount) { // amount is < 0 .
                         acc.topCb = bop.amount;
                     }
                     return acc;

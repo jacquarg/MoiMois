@@ -117,27 +117,7 @@ ofMonth: function(month, callback) {
                     return
                 }
 
-                var viz = [];
-                ;
-                var weekData = utils.groupByWeekDays(
-                    data.filter(function(item) { return item.amount < 0 ; }),
-                    function(item) { return new Date(item.date); },
-                    function(item) { return  - item.amount ; }
-                    );
-                                var bargraphs = [];
-                
-                // Week Day debts.
-                viz.push({
-                    type: "viz_bargraph",
-                    title: "Moyenne des dépenses par jour de la semaine.",
-                    bars : utils.barsToPercent(weekData, 'sum', function(item) { 
-                        return [
-                            item.rangeLabel,
-                            Math.round(item.sum) + " €"
-                               ];
-                        }),
-                });
-                callback(null, viz);
+                VizModel._computeBankOperations(data, callback);
             });
         },
     ],
@@ -149,6 +129,64 @@ ofMonth: function(month, callback) {
         
         callback(null, bargraphs);
     });
+},
+
+_computeBankOperations: function(data, callback) {
+    var viz = [];
+
+    var weekData = utils.groupByWeekDays(
+        data.filter(function(item) { return item.amount < 0 ; }),
+        function(item) { return new Date(item.date); },
+        function(item) { return  - item.amount ; }
+        );
+    var bargraphs = [];
+    
+    // Week Day debts.
+    viz.push({
+        type: "viz_bargraph",
+        title: "Moyenne des dépenses par jour de la semaine.",
+        bars : utils.barsToPercent(weekData, 'sum', function(item) { 
+            return [
+                item.rangeLabel,
+                Math.round(item.sum) + " €"
+                   ];
+            }),
+    });
+
+    // Top hour cash 
+    var byHours = data.reduce(function(agg, bop) {
+        if (bop.operationType === 'type.withdrawal') {
+            var hasHour = bop.raw.match(/(\d\d)H\d\d/);
+            if (hasHour) {
+                var hour = hasHour[1];
+                agg[hour] = bop.amount + (agg[hour] || 0);
+            }
+        }
+        return agg;
+    }, {})
+
+    var sortedHours = Object.keys(byHours).sort(function(a, b) {
+        return (byHours[a] < byHours[b]) ? 1 : -1 ;
+    });
+    var bars = [
+        { hour: sortedHours[0], amount: byHours[sortedHours[0]]},
+        { hour: sortedHours[1], amount: byHours[sortedHours[1]]},
+        { hour: sortedHours[2], amount: byHours[sortedHours[2]]},
+    ];
+
+    if (sortedHours.length >= 3) {
+        viz.push({
+            type: 'viz_top3',
+            title: 'Top 3 des créneaux horraires de retrait',
+            bars: utils.barsToPercent(bars, 'amount', function(item) {
+                return [
+                    item.hour + 'h - ' + (parseInt(item.hour) + 1) + 'h',
+                    item.amount + '€'
+                ];
+            })
+        });
+    }
+    callback(null, viz);
 },
 
 // end Viz

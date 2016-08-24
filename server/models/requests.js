@@ -210,9 +210,6 @@ module.exports = {
     cozyinstance: {
         all: cozydb.defaultRequests.all
     },
-    identity: {
-        all: cozydb.defaultRequests.all
-    },
 
     editionofmoi: {
         byMonth: function(doc) {
