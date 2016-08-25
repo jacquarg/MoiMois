@@ -187,3 +187,9 @@ module.exports.displayMonth = function(month) {
 
     return monthMap[y_m[1]] + " " + y_m[0] ;
 };
+
+module.exports.appNameNVersion = function() {
+    var pkg = require('../../package.json');
+    return pkg.name + '-' + pkg.version;
+};
+

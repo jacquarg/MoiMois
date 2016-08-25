@@ -30,7 +30,7 @@ module.exports = EditionOfMoi = cozydb.getModel('editionofmoi', {
     'ads': [Object],
     'viz': [Object],
     'spider': Object,
-
+    'docTypeVersion': { type: String, default: utils.appNameNVersion() },
 });
 
 EditionOfMoi.touch = function(callback) {

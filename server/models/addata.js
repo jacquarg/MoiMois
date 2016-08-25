@@ -18,21 +18,19 @@ all: function(cbNoErr) {
         }
 
         var ads = [];
-        // TODO: stub !
-        // if (!results.hasGeolocationLog) {
-        if (false) {
+        if (!results.hasGeolocationLog) {
             ads.push({
                 origin: 'orange',
                 type: 'top_distance',
-                label: 'Avec vos données Orange ...',
+                label: 'Vous y avez cru ! Récupérez vos données Orange pour en apprendre plus sur vous !',
                 instructions: 'Si vous êtes client Orange Mobile, activez le Konnecteur !',
                 link: '/apps/konnectors/orange',
                 viz: 'badge',
                 badge: {
                     type: "top_distance",
                     origin: "orange",
-                    label:  '3 km',
-                    value: 3.12,
+                    label:  '😲 2 m',
+                    value: 0.002,
                     //month: month,
                     explanationLabel: "votre distance max. en 15min.",
                 },
@@ -41,15 +39,15 @@ all: function(cbNoErr) {
             ads.push({
                 origin: 'orange',
                 type: 'top_speed',
-                label: 'Avec vos données Orange ...',
+                label: 'Vous y avez cru ! Récupérez vos données Orange pour en apprendre plus sur vous !',
                 instructions: 'Si vous êtes client Orange Mobile, activez le Konnecteur !',
                 link: '/apps/konnectors/orange',
                 viz: 'badge',
                 badge: {
                     type: "top_speed",
                     origin: "orange",
-                    label: '119 km/h',
-                    value: 119.3,
+                    label: '😲 2 312 km/h',
+                    value: 2312,
                     //month: month,
                     explanationLabel: "votre vitesse max.",
                 },
@@ -58,15 +56,15 @@ all: function(cbNoErr) {
             ads.push({
                 origin: 'orange',
                 type: 'traveled_distance',
-                label: 'Avec vos données Orange ...',
+                label: 'Vous y avez cru ! Récupérez vos données Orange pour en apprendre plus sur vous !',
                 instructions: 'Si vous êtes client Orange Mobile, activez le Konnecteur !',
                 link: '/apps/konnectors/orange',
                 viz: 'badge',
                 badge: {
                     type: "traveled_distance",
                     origin: "orange",
-                    label: '100 km',
-                    value: 1,
+                    label: '😲 2 000 000 km',
+                    value: 2000000,
                     //month: month,
                     explanationLabel: "parcourus à vol d'oiseau",
                 },
@@ -74,9 +72,7 @@ all: function(cbNoErr) {
 
         }
 
-        // TODO: stub !
-        //if (!results.hasBankOperation) {
-        if (true) {
+        if (!results.hasBankOperation) {
             ads.push({
                 origin: 'kresus',
                 type: 'top_dab_count',
