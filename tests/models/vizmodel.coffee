@@ -2,6 +2,7 @@ should = require('chai').Should()
 #Client = require('request-json').JsonClient
 
 VizModel = require('../../server/models/vizmodel')
+Event = require('../../server/models/event')
 
 #client = new Client "http://localhost:8888/"
 
@@ -20,18 +21,88 @@ describe "Test section", ->
 
 #    it "Then it succeeds", ->
 #        "ok".should.equal "ok"
-
+    
+    ###
     it "Compute bank operations", (done)->
         cb = (err, viz) ->
             should.not.exist err
             console.log viz
             done()
 
-        VizModel._computeBankOperations MockData, cb
+        VizModel._computeBankOperations MockData.bankOperations, cb
+
+    it "Compute Events", (done) ->
+        cb = (err, viz) ->
+            should.not.exist err
+            console.log viz
+            done()
+
+        VizModel._computeEvents MockData.events.map((attr) -> new Event(attr)), cb
+    ###
+
+    it "Raw test", (done) ->
+        cb = (err, viz) ->
+            should.not.exist err
+            console.log JSON.stringify viz
+            done()
+
+        VizModel.ofMonth '2016-09', cb
+
+MockData = {}
 
 
+MockData.events = [
+  {
+    "_id": "b24a4f14e7f1a2ee3b507b2ba9002956",
+    "alarms": [],
+    "attendees": [],
+    "description": "Réunion scopyleft 1",
+    "details": "",
+    "docType": "event",
+    "end": "2016-09-08T09:00:00.000Z",
+    "place": "",
+    "related": null,
+    "start": "2016-09-08T08:00:00.000Z",
+    "start": "2016-09-08T08:00:00.000Z",
+    "created": "2016-08-11T12:08:55.258Z",
+    "lastModification": "2016-08-11T12:08:55.265Z",
+    "tags": ["my-calendar"],
+    },
+    {
+    "_id": "b24a4f14e7f1a2ee3b507b2ba9002d66",
+    "alarms": [],
+    "attendees": [],
+    "description": "Réunion scopyleft 2",
+    "details": "",
+    "docType": "event",
+    "end": "2016-09-19T09:00:00.000Z",
+    "place": "",
+    "related": null,
+    "start": "2016-09-19T08:00:00.000Z",
+    "start": "2016-09-19T08:00:00.000Z",
+    "created": "2016-08-11T12:09:10.681Z",
+    "lastModification": "2016-08-11T12:09:10.681Z",
+    "tags": ["my-calendar"],
+    },
+    {
+    "_id": "b24a4f14e7f1a2ee3b507b2ba90031a3",
+    "alarms": [],
+    "attendees": [],
+    "description": "Réunion scopyleft",
+    "details": "",
+    "docType": "event",
+    "end": "2016-09-02T09:00:00.000Z",
+    "place": "",
+    "related": null,
+    "start": "2016-09-02T08:00:00.000Z",
+    "start": "2016-09-02T08:00:00.000Z",
+    "created": "2016-08-11T12:09:18.315Z",
+    "lastModification": "2016-08-11T12:09:18.316Z",
+    "tags": ["my-calendar"],
+    }
+];
 
-MockData = [
+MockData.bankOperations = [
     {
     "_id": "6856feaa86ba14300e550672e400e0b5",
     "amount": -21.18,

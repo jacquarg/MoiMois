@@ -111,7 +111,6 @@ module.exports.groupByWeekDays = function(data, getDate, getValue) {
 
         slices[day] += v ;
     });
-
     // TODO : balance days. ?
     res = [
         { rangeLabel: "lundi", sum: slices[1], },
@@ -129,7 +128,9 @@ module.exports.groupByWeekDays = function(data, getDate, getValue) {
 module.exports.months = function(firstMonth) {
     firstMonth = firstMonth || "2016-01";
 
-    var now = moment();
+    // TODO stub
+    // var now = moment();
+    var now = moment('2016-10');
     var months = [];
 
     for (month = moment(firstMonth);

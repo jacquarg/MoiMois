@@ -13,6 +13,7 @@
     "cozydb": "0.1.13",
     "jade": "0.35.0",
     "moment": "2.14.1",
+    "moment-timezone": "^0.5.5",
     "printit": "0.1.20",
     "request-json": "0.5.6"
   },
@@ -53,6 +54,9 @@
     },
     "InsuranceClaim": {
       "description": "Lire le détail de vos sinistres (assurance AXA) pour vous en présenter une synthèse visuelle."
+    },
+    "Event": {
+      "description": "Lire le détail de vos rendez-vous pour vous en présenter une synthèse visuelle."
     },
     "CozyInstance": {
       "description": "Lire l'URL de votre espace personnel, afin voir les images dans les rapports par mail, ou vous donner la possibilité de partager vos moi"

@@ -1,8 +1,12 @@
+async = require('async');
+moment = require('moment');
+
+utils = require('./utils');
 GeolocationLog = require('./geolocationlog');
 PhoneCommunicationLog = require('./phonecommunicationlog');
 ReceiptDetail = require('./receiptdetail');
-async = require('async');
-utils = require('./utils');
+Event = require('./event');
+BankOperation = require('./bankoperation');
 
 module.exports = VizModel = {
 
@@ -120,6 +124,18 @@ ofMonth: function(month, callback) {
                 VizModel._computeBankOperations(data, callback);
             });
         },
+        function(callback) {
+            Event.ofMonth(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    console.log(err);
+                    callback(null, []);
+                    return
+                }
+
+                VizModel._computeEvents(data, callback);
+            });
+        },
     ],
     function(err, results) {
         var bargraphs = [];
@@ -186,6 +202,28 @@ _computeBankOperations: function(data, callback) {
             })
         });
     }
+    callback(null, viz);
+},
+
+_computeEvents: function(data, callback) {
+    // Event.ofMonth
+    var weekData = utils.groupByWeekDays(data,
+        function(item) { return new Date(item.start); },
+        function(item) { 
+            if (item.isAllDayEvent()) { return 0; } // Omit allday events
+            return (moment(item.end) - moment(item.start)) / 60 / 1000; }
+        );
+    var viz = [];
+    viz.push({
+        type: "viz_bargraph",
+        title: "Total des rendez-vous par jour de la semaine.",
+        bars : utils.barsToPercent(weekData, 'sum', function(item) { 
+            return [
+                item.rangeLabel,
+                Math.round(item.sum) + " min."
+                   ];
+            }),
+    });
     callback(null, viz);
 },
 

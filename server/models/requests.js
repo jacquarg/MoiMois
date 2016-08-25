@@ -216,4 +216,18 @@ module.exports = {
             emit(doc.ofMonth, doc);
         },
     },
+
+    event: {
+        ponctualByStart: function(doc) {
+            if (!doc.rrule || doc.rrule === '') {
+                emit(doc.start, doc);
+            }
+        },
+        recurrentByStart: function(doc) {
+            if (doc.rrule && doc.rrule !== '') {
+                emit(doc.start);
+            }
+        }
+
+    }
 };
