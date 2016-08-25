@@ -270,13 +270,13 @@ var __templateData = function template(locals) {
 var buf = [];
 var jade_mixins = {};
 var jade_interp;
-;var locals_for_with = (locals || {});(function (badge, instructions, label, link, viz) {
-buf.push("<div class=\"mmad\"><a" + (jade.attr("href", link, true, false)) + (jade.attr("title", instructions, true, false)) + " class=\"frame\"><div class=\"mmtitle\">" + (jade.escape(null == (jade_interp = label) ? "" : jade_interp)) + "</div><div class=\"mmsubviz\">");
+;var locals_for_with = (locals || {});(function (badge, instructions, label, viz) {
+buf.push("<div class=\"mmad\"><div" + (jade.attr("title", instructions, true, false)) + " class=\"frame\"><div class=\"mmsubviz\">");
 if ( (viz === 'badge'))
 {
 buf.push("<div class=\"mmbadge\"><div class=\"frame\"><img title=\"\"" + (jade.attr("src", 'img/badges/' + (badge.type) + '_badge.png', true, false)) + "/><div class=\"score\">" + (jade.escape(null == (jade_interp = badge.label) ? "" : jade_interp)) + "</div><div class=\"explanation\">" + (jade.escape(null == (jade_interp = badge.explanationLabel) ? "" : jade_interp)) + "</div></div></div>");
 }
-buf.push("</div></a></div>");}.call(this,"badge" in locals_for_with?locals_for_with.badge:typeof badge!=="undefined"?badge:undefined,"instructions" in locals_for_with?locals_for_with.instructions:typeof instructions!=="undefined"?instructions:undefined,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined,"link" in locals_for_with?locals_for_with.link:typeof link!=="undefined"?link:undefined,"viz" in locals_for_with?locals_for_with.viz:typeof viz!=="undefined"?viz:undefined));;return buf.join("");
+buf.push("</div><div class=\"mmnext\">" + (jade.escape(null == (jade_interp = label) ? "" : jade_interp)) + "</div></div></div>");}.call(this,"badge" in locals_for_with?locals_for_with.badge:typeof badge!=="undefined"?badge:undefined,"instructions" in locals_for_with?locals_for_with.instructions:typeof instructions!=="undefined"?instructions:undefined,"label" in locals_for_with?locals_for_with.label:typeof label!=="undefined"?label:undefined,"viz" in locals_for_with?locals_for_with.viz:typeof viz!=="undefined"?viz:undefined));;return buf.join("");
 };
 if (typeof define === 'function' && define.amd) {
   define([], function() {
@@ -525,8 +525,18 @@ module.exports = Ad = Backbone.View.extend({
 //    tagName: 'div',
     template: require('../templates/ad'),
 
+    events: {
+        'click .frame': 'configureMoreData',
+    },
+
     render: function() {
         this.$el.html(this.template(this.model));
+    },
+
+    configureMoreData: function() {
+        if (window.confirm(this.model.instructions)) {
+            window.open(this.model.link);
+        }
     },
 
 });

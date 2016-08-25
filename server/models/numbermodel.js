@@ -273,7 +273,6 @@ ofMonth : function(month, callback) {
                 var numbers = [];
                 
                 var counts = data.reduce(function(acc, bop) {
-                    console.log(bop);
                     if (bop.operationType === 'type.withdrawal') {
                         acc.dab -= bop.amount;
 

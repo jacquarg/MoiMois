@@ -16,7 +16,7 @@ describe "Test section", ->
             hasDocuments: (cb) -> cb null, false
 
         mockery.registerMock './bankoperation', 
-            hasDocuments: (cb) -> cb null, true
+            hasDocuments: (cb) -> cb null, false
 
         AdData = require('../../server/models/addata')
         done()
@@ -34,7 +34,7 @@ describe "Test section", ->
         cb = (err, ads) ->
             should.not.exist err
             should.exist ads
-            ads.length.should.eq 1
+            ads.length.should.eq 7
             if ads[0]
                 ads[0].origin.should.equal 'orange'
 

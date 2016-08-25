@@ -4,9 +4,11 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 
 ## Roadmap
 
-[] Inviter à configurer des Konnectors.
+[v] Inviter à configurer des Konnectors.
 [] Ajouter la version de l'app dans le DocType version
 [] Ajouter des visualisations
+[] Préférences, masquer les ad pour certaines données
+[] Tester l'envois de mail, préférence pour stopper les mails
 
 ### Bugs
 

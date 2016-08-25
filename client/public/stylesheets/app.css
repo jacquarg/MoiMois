@@ -6189,8 +6189,25 @@ td.visible-print {
   height: 350px;
   bottom: 0px;
 }
-.mmad .mmsubviz {
-  opacity: 0.5;
+.mmad {
+  cursor: pointer;
+}
+.mmad > .frame {
+  width: 300px;
+}
+.mmad .mmnext {
+  font-size: 14px;
+  font-family: "LuxSansBook";
+  padding: 5px;
+  line-height: 1.2em;
+  text-align: center;
+}
+.mmad .mmbadge {
+  margin: 50px;
+  width: 200px;
+  height: 190px;
+  background: #F4F4F4;
+  position: relative;
 }
 .mmspider {
   text-align: center;
