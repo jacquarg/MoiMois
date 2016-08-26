@@ -180,7 +180,7 @@ _computeBankOperations: function(data, callback) {
             var hasHour = bop.raw.match(/(\d\d)H\d\d/);
             if (hasHour) {
                 var hour = hasHour[1];
-                agg[hour] = bop.amount + (agg[hour] || 0);
+                agg[hour] = - bop.amount - (agg[hour] || 0);
             }
         }
         return agg;

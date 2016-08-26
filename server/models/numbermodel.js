@@ -1,10 +1,19 @@
+async = require('async');
+
+utils = require('./utils');
+
 //GeolocationLog = require('./geolocationlog');
 Vehicle = require('./vehicle');
 BankOperation = require('./bankoperation');
 PhoneCommunicationLog = require('./phonecommunicationlog');
 ReceiptDetail = require('./receiptdetail');
-async = require('async');
-utils = require('./utils');
+Event = require('./event');
+
+log = require('printit')({
+    application: 'EditionOfMoi',
+    prefix: 'models:cursor',
+    date: true
+});
 
 module.exports = NumberModel = {
 
@@ -14,7 +23,7 @@ ofMonth : function(month, callback) {
             PhoneCommunicationLog.monthStats(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -67,7 +76,7 @@ ofMonth : function(month, callback) {
             PhoneCommunicationLog.dayStats(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -95,7 +104,7 @@ ofMonth : function(month, callback) {
             ReceiptDetail.ofMonth(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -265,7 +274,7 @@ ofMonth : function(month, callback) {
             BankOperation.ofMonth(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -283,27 +292,40 @@ ofMonth : function(month, callback) {
                 }, 
                 { 'dab': 0, 'cb': 0 });
 
-                var compareCount = counts.dab * 0.03 ; // 1E <-> 0.03 g d'or.
-                numbers.push({
-                    origin: "bank",
-                    type: "vc",
-                    label: "L'argent que vous avez retiré",
-                    count: counts.dab.toFixed(0) + " €",
-                    compareLabel: "l'équivalent de " + compareCount.toFixed(1) + " grammes d'or",
-                    });
+                if (counts.dab > 0) {
+                    var compareCount = counts.dab * 0.03 ; // 1E <-> 0.03 g d'or.
+                    numbers.push({
+                        origin: "bank",
+                        type: "vc",
+                        label: "L'argent que vous avez retiré",
+                        count: counts.dab.toFixed(0) + " €",
+                        compareLabel: "l'équivalent de " + compareCount.toFixed(1) + " grammes d'or",
+                        });
+                }
 
-                var compareCount = counts.dab * 0.03 ; // 1E <-> 0.03 g d'or.
-                numbers.push({
-                    origin: "bank",
-                    type: "vc",
-                    label: "Vous avez dépensé",
-                    count: counts.cb.toFixed(0) + " €",
-                    compareLabel: "l'équivalent de " + compareCount.toFixed(1) + " grammes d'or",
-                });
+                if (counts.cb > 0) {                
+                    var compareCount = counts.cb * 0.03 ; // 1E <-> 0.03 g d'or.
+                    numbers.push({
+                        origin: "bank",
+                        type: "vc",
+                        label: "Vous avez dépensé",
+                        count: counts.cb.toFixed(0) + " €",
+                        compareLabel: "l'équivalent de " + compareCount.toFixed(1) + " grammes d'or",
+                    });
+                }
                 callback(null, numbers);
             });
         },
-    ],
+        function(callback) {
+            Event.ofMonth(month, function(err, data) {
+                if (err) {
+                    log.error(err);
+                    return callback(null, []);     // Silent fail on error.
+                }
+                NumberModel._computeEvents(data, callback);
+            }) 
+        },
+    ],  
     function(err, results) {
         var numbers = [];
         for (var i=0;i<results.length;i++) {
@@ -314,4 +336,25 @@ ofMonth : function(month, callback) {
     });
 },
 
+_computeEvents: function(events, callback) {
+    var numbers = [];
+
+    var maxDuration = events.reduce(function(max, event) {
+        var duration = moment(event.end) - moment(event.start);
+        return Math.max(max, duration);
+    }, 0);
+
+    var maxDuration = Math.round(maxDuration / 1000 / 60) ; // --> as minutes.
+    var eqCount = Math.ceil(maxDuration / 30);
+
+    numbers.push({  
+        origin: "event",
+        type: "vc",
+        label: "La durée de votre plus long rendez-vous",
+        count: maxDuration + ' min',
+        compareLabel: "l'équivalent de votre quota de marche active pour " + eqCount + " jours",
+        });
+    callback(null, numbers);
+
+},
 }

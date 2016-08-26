@@ -6,8 +6,8 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 
 [v] Inviter à configurer des Konnectors.
 [v] Ajouter la version de l'app dans le DocType version
-[p] Ajouter des visualisations
-[] Préférences, masquer les ad pour certaines données
+[v] Ajouter des visualisations
+[p] Préférences, masquer les ad pour certaines données
 [] Tester l'envois de mail, préférence pour stopper les mails
 
 ### Bugs
@@ -18,11 +18,9 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 
 #### Données bancaires
 
-* Calcul "équivalent de x,x grammes d'or" ~~
-* argent que vous avez retiré '0'
-* '-', ordre inversé et titre de top 3 des crénaux horaires sur les valeurs.
-
-
+[v] Calcul "équivalent de x,x grammes d'or" ~~
+[v] argent que vous avez retiré '0'
+[v] '-', ordre inversé et titre de top 3 des crénaux horaires sur les valeurs.
 
 
 ## En développement !
@@ -34,8 +32,8 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 ** Évènement le plus long (en minutes ou secondes :)
 
 * Cursors (jauges) : 
-** Poule / Fétard : poule si + de rdv entre 7h et 19h / et inversement.
-** Routinier / Aventureux : si plus évènement récurrent que ponctuels
+** Poule / Fétard : poule si + de rdv entre 7h et 19h / et inversement. [2016-08-26](d7dc375e478879a3d86974af131352cdb3339104)
+** Routinier / Aventureux : si plus évènement récurrent que ponctuels. [2016-08-26](d7dc375e478879a3d86974af131352cdb3339104)
 
 * Viz :
 ** En bares : durée de RDV selon les jours de la semaines [2016-08-26](e266e0fee2a6b89272cd3ac8545541bd21e79aac)
