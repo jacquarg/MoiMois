@@ -1,9 +1,9 @@
 var cozydb = require('cozydb');
 var moment = require('moment-timezone');
 var async = require('async');
+var RRule = require('rrule').RRule;
 
-log = require('printit')
-    prefix: 'moi:models:event'
+log = require('printit')({ prefix: 'moi:models:event' });
 
 
 module.exports = Event = cozydb.getModel('Event', {
@@ -34,18 +34,113 @@ Event.utcDTFormat = 'YYYY-MM-DD[T]HH:mm:00.000[Z]';
 // Handle only unique units strings.
 Event.alarmTriggRegex = /(\+?|-)PT?(\d+)(W|D|H|M|S)/;
 
-Event.prototype.isAllDayEvent = function() {
-
+Event.prototype.isAllDay = function() {
     return this.start && this.start.length === 10;
 };
+
+Event.prototype.isRecurrent = function() {
+    return !this.rrule || this.rrule === '';
+};
+
+Event.prototype.generateRealEvents = function(start, end) {
+
+    // TODO : fetch it from the right cozy doc !
+    var cozyTimezone = 'Europe/Paris';
+    if (! this.isRecurrent()) { return [this]; } // TODO check this in bounds !
+
+    // Prepare datetimes.
+
+    // bounds.
+    var jsDateBoundS = start.toDate();
+    var jsDateBoundE = end.toDate();
+
+    // For allday event, we expect that event occur on the good day in
+    // local time.
+    // TODO : get the timezone ...
+    var eventTimezone = (this.isAllDay()) ? cozyTimezone : this.timezone;
+
+    var mDateEventS = moment.tz(this.start, eventTimezone);
+    var mDateEventE = moment.tz(this.end, eventTimezone);
+
+    var jsDateEventS = new Date(mDateEventS.toISOString());
+
+    var options = RRule.parseString(this.rrule);
+    options.dtstart = jsDateEventS;
+
+    var rrule = new RRule(options);
+
+    // RRule generate event with browser's timezone. But DST changing day
+    // may be different between browser's timezone, and eventTimezone, which
+    // may shift event from one hour. This function do that fix.
+    var fixDSTTroubles = function(jsDateRecurrentS) {
+        // jsDateRecurrentS.toISOString is the UTC start date of the event.
+        // unless, DST of browser's timezone is different from event's
+        // timezone.
+        var isoDate = jsDateRecurrentS.toISOString();
+        var mDateRecurrentS = moment.tz(isoDate, eventTimezone);
+
+        // Fix DST troubles :
+        // The hour of the recurring event is fixed in its timezone.
+        // So we use it as reference.
+        var diff = mDateEventS.hour() - mDateRecurrentS.hour();
+        // Correction is -1, 1 or 0.
+        if (diff === 23) {
+            diff = -1;
+        } else if (diff === -23) {
+            diff = 1;
+        }
+
+        mDateRecurrentS.add(diff, 'hour');
+
+        return mDateRecurrentS;
+    };
+
+    var realEvents = rrule.between(jsDateBoundS, jsDateBoundE)
+        .map(function(jsDateRecurrentS) {
+            var fixedDate = fixDSTTroubles(jsDateRecurrentS);
+            var mDateRecurrentS = moment(fixedDate);
+            mDateRecurrentS.tz(cozyTimezone);
+
+            // Compute event.end as event.start + event.duration.
+            mDateRecurrentE = mDateRecurrentS.clone()
+                .add(mDateEventE.diff(mDateEventS, 'seconds'), 'seconds');
+            var attrs = this.getAttributes();
+            attrs.start = mDateRecurrentS.toISOString();
+            attrs.end = mDateRecurrentE.toISOString();
+            return new Event(attrs);
+        }, this);
+
+    return realEvents;
+};
+
+
 
 Event.ofMonth = function(month, callback) {
     // TODO
     // return all realevents during this month 
     // (ie ponctual and all recurrent occurences)
+    var start = moment(month);
+    var end = moment(month).add(1, 'month');
 
-    Event.request('ponctualByStart', { startkey: month, endkey: month + 'Z' },
-     callback);
+    async.parallel({
+        ponctuals: function(cb) {
+            Event.request('ponctualByStart', 
+                { startkey: start.toISOString(), 
+                    endkey: end.toISOString() },
+                cb);
+        },
+        recurrents: function(cb) {
+            Event.request('recurrentByStart', { endkey: end.toISOString() }, cb); 
+        },
+    }, function(err, res) {
+        if (err) { return callback(err); }
+        var realEvents = res.recurrents.reduce(
+            function(agg, event) {
+                return agg.concat(event.generateRealEvents(start, end));
+        }, res.ponctuals);
+
+        callback(null, realEvents);
+    });
 };  
 
 // TODO.

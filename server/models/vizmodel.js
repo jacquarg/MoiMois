@@ -210,8 +210,18 @@ _computeEvents: function(data, callback) {
     var weekData = utils.groupByWeekDays(data,
         function(item) { return new Date(item.start); },
         function(item) { 
-            if (item.isAllDayEvent()) { return 0; } // Omit allday events
-            return (moment(item.end) - moment(item.start)) / 60 / 1000; }
+            if (item.isAllDay()) { return 0; } // Omit allday events
+
+            // Multiples days events, retain only on the first day.
+            var start = moment(item.start);
+            var end = moment(item.end);
+            if (!start.isSame(end, 'day')) {
+                end = moment(start);
+                end.add(1, 'day');
+                end.hours(0);
+                end.minutes(0);
+            }
+            return (end - start) / 60 / 1000; }
         );
     var viz = [];
     viz.push({

@@ -225,7 +225,7 @@ module.exports = {
         },
         recurrentByStart: function(doc) {
             if (doc.rrule && doc.rrule !== '') {
-                emit(doc.start);
+                emit(doc.start, doc);
             }
         }
 
