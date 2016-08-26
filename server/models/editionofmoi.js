@@ -95,7 +95,6 @@ EditionOfMoi.all = function(callback) {
 
         if (err) { return callback(err); }
 
-        
         var allMonths = utils.months(firstMonth);
         if (instances.length == 0) {
             var lastComputed = -1;
@@ -105,7 +104,8 @@ EditionOfMoi.all = function(callback) {
         async.reduce(
             allMonths.slice(lastComputed + 1),
             instances,
-            function(mms, month, cb) {                
+            function(mms, month, cb) {
+                log.info("Edit a Moi for month: " + month);
                 EditionOfMoi._generateAMoi(month, adData, mms, function(err, mm) {
                     // TODO : put this filter back !
                     // //Filter empty first months.

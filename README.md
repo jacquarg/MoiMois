@@ -35,10 +35,10 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 
 * Cursors (jauges) : 
 ** Poule / Fétard : poule si + de rdv entre 7h et 19h / et inversement.
-** Régulier / Ponctuel-sérendipité : si plus évènement récurrent que ponctuels
+** Routinier / Aventureux : si plus évènement récurrent que ponctuels
 
 * Viz :
-** En bares : durée de RDV selon les jours de la semaines
+** En bares : durée de RDV selon les jours de la semaines [2016-08-26](e266e0fee2a6b89272cd3ac8545541bd21e79aac)
 
 
 #### Contacts

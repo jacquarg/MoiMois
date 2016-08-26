@@ -6,6 +6,12 @@ ReceiptDetail = require('./receiptdetail');
 async = require('async');
 utils = require('./utils');
 
+log = require('printit')({
+    application: 'EditionOfMoi',
+    prefix: 'models:badge',
+    date: true
+});
+
 
 module.exports = Badge = {
 
@@ -68,7 +74,7 @@ _upToMonth : function(month, callback) {
             GeolocationLog.distanceStats(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -113,7 +119,7 @@ _upToMonth : function(month, callback) {
             PhoneCommunicationLog.totals(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -167,7 +173,7 @@ _upToMonth : function(month, callback) {
             ReceiptDetail.sectionsTotals(month, ['10', '30'], function(err, data) {
                 if (err || data == 0) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -189,7 +195,7 @@ _upToMonth : function(month, callback) {
             Receipt.upToMonth(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -218,7 +224,7 @@ _upToMonth : function(month, callback) {
             InsuranceClaim.all(function(err, data) {
                 if (err || data.length == 0) {
                     // Silent fail on error.
-                    console.log("Error (probably no data): %j", err);
+                    log.error("Error (probably no data): %j", err);
                     callback(null, []);
                     return
                 }
@@ -250,7 +256,7 @@ _upToMonth : function(month, callback) {
             BankOperation.upToMonth(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }

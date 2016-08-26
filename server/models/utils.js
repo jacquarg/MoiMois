@@ -126,7 +126,9 @@ module.exports.groupByWeekDays = function(data, getDate, getValue) {
 };
 
 module.exports.months = function(firstMonth) {
-    firstMonth = firstMonth || "2016-01";
+    // TODO : stub
+    // firstMonth = firstMonth || "2016-01";
+    firstMonth = '2016-01';
 
     // TODO stub
     // var now = moment();
@@ -194,3 +196,10 @@ module.exports.appNameNVersion = function() {
     return pkg.name + '-' + pkg.version;
 };
 
+module.exports.touch = function(callback) {
+    var cozydb = require('cozydb');
+    cozydb.api.getCozyTimezone(function(err, timezone) {
+        module.exports.cozyTimezone = timezone || 'UTC';
+        if (callback) { callback(); }
+    });
+};

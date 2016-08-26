@@ -3,8 +3,11 @@ var moment = require('moment-timezone');
 var async = require('async');
 var RRule = require('rrule').RRule;
 
-log = require('printit')({ prefix: 'moi:models:event' });
-
+log = require('printit')({
+    application: 'EditionOfMoi',
+    prefix: 'models:event',
+    date: true
+});
 
 module.exports = Event = cozydb.getModel('Event', {
     start: String,
@@ -45,7 +48,7 @@ Event.prototype.isRecurrent = function() {
 Event.prototype.generateRealEvents = function(start, end) {
 
     // TODO : fetch it from the right cozy doc !
-    var cozyTimezone = 'Europe/Paris';
+    var cozyTimezone = utils.cozyTimezone;
     if (! this.isRecurrent()) { return [this]; } // TODO check this in bounds !
 
     // Prepare datetimes.
@@ -116,9 +119,6 @@ Event.prototype.generateRealEvents = function(start, end) {
 
 
 Event.ofMonth = function(month, callback) {
-    // TODO
-    // return all realevents during this month 
-    // (ie ponctual and all recurrent occurences)
     var start = moment(month);
     var end = moment(month).add(1, 'month');
 
@@ -143,9 +143,6 @@ Event.ofMonth = function(month, callback) {
     });
 };  
 
-// TODO.
-// Event.recurrentOccurencesOfMonth = function(month, callback) {
-//     Event.request('recurrentByStart')
 // };
 
 /*

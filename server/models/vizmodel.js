@@ -8,8 +8,13 @@ ReceiptDetail = require('./receiptdetail');
 Event = require('./event');
 BankOperation = require('./bankoperation');
 
-module.exports = VizModel = {
+log = require('printit')({
+    application: 'EditionOfMoi',
+    prefix: 'models:vizmodel',
+    date: true
+});
 
+module.exports = VizModel = {
 
 ofMonth: function(month, callback) {
     async.parallel([
@@ -17,7 +22,7 @@ ofMonth: function(month, callback) {
             PhoneCommunicationLog.weekDayStats(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -45,7 +50,7 @@ ofMonth: function(month, callback) {
 
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -73,7 +78,7 @@ ofMonth: function(month, callback) {
 
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -116,7 +121,7 @@ ofMonth: function(month, callback) {
             BankOperation.ofMonth(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -128,7 +133,7 @@ ofMonth: function(month, callback) {
             Event.ofMonth(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }

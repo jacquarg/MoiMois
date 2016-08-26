@@ -1,3 +1,7 @@
+async = require('async');
+moement = require('moment-timezone');
+utils = require('./utils');
+
 GeolocationLog = require('./geolocationlog');
 RiskVehicle = require('./riskvehicle');
 RiskHome = require('./riskhome');
@@ -5,18 +9,25 @@ BankOperation = require('./bankoperation');
 PhoneCommunicationLog = require('./phonecommunicationlog');
 ReceiptDetail = require('./receiptdetail');
 Receipt = require('./receipt');
-async = require('async');
-utils = require('./utils');
+Event = require('./event');
+
+
+log = require('printit')({
+    application: 'EditionOfMoi',
+    prefix: 'models:cursor',
+    date: true
+});
+
 
 module.exports = Cursor = {
 
-ofMonth: function(month, callback) {
+ofMonth: function(month, cb) {
     async.parallel([
         function(callback) {
             PhoneCommunicationLog.monthStats(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -58,7 +69,7 @@ ofMonth: function(month, callback) {
             GeolocationLog.monthDistanceStats(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -98,7 +109,7 @@ ofMonth: function(month, callback) {
             ReceiptDetail.ofMonth(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -147,7 +158,7 @@ ofMonth: function(month, callback) {
             Receipt.totalsOfMonth(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -168,7 +179,7 @@ ofMonth: function(month, callback) {
             RiskVehicle.all(function(err, data) {
                 if (err || data.length == 0) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -207,7 +218,7 @@ ofMonth: function(month, callback) {
             RiskHome.all(function(err, data) {
                 if (err || data.length == 0) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -229,7 +240,7 @@ ofMonth: function(month, callback) {
             BankOperation.ofMonth(month, function(err, data) {
                 if (err) {
                     // Silent fail on error.
-                    console.log(err);
+                    log.error(err);
                     callback(null, []);
                     return
                 }
@@ -255,14 +266,71 @@ ofMonth: function(month, callback) {
                 callback(null, cursors);
             });
         },
+        function(callback) {
+            Event.ofMonth(month, function(err, data) {
+                if (err) {
+                    log.error(err);
+                    return callback(null, []);     // Silent fail on error.
+                }
+                Cursor._computeEvents(data, callback);
+            });
+        },
     ],
     function(err, results) {
         var cursors = [];
         for (var i=0;i<results.length;i++) {
             cursors = cursors.concat(results[i]);
         }
-        callback(null, cursors);
+        cb(null, cursors);
     });
+},
+
+_computeEvents: function(events, callback) {
+    var cursors = [];
+
+    // Routinier / Aventureux
+    var recurrentCount = 0, punctualCount = 0;
+    events.forEach(function(event) {
+        if (event.isRecurrent()) {
+            recurrentCount++;
+        } else {
+            punctualCount++;
+        }
+    });
+    cursors.push({
+        origin: "event",
+        minLabel: "routinier",
+        maxLabel: "aventureux",
+        balance: utils.balance(recurrentCount, punctualCount),
+        color: "Red",
+        explanation: "Selon la proportion d'évènements récurrent, par rapport aux évènement ponctuels."
+    });
+
+    // Poule Fétard
+    var earlyCount = 0;
+    var lateCount = 0;
+
+    events.forEach(function(event) {
+        
+        var start = moment(event.start);
+        start.tz(utils.cozyTimezone);
+
+        if (start.hours() > 7 && start.hours() < 18) {
+            earlyCount++;
+        } else {
+            lateCount++ ;
+        }
+    });
+    cursors.push({
+        origin: "event",
+        minLabel: "poule",
+        maxLabel: "fétard",
+        balance: utils.balance(earlyCount, lateCount),
+        color: "Red",
+        explanation: "poule si + de rdv entre 7h et 19h / et inversement."
+    });
+
+    callback(null, cursors);
 },
 
 }
