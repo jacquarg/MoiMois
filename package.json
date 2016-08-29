@@ -71,6 +71,9 @@
     "OperationType": {
       "description": "Dnnées non personnelles, nom des différents types de mouvements bancaires."
     },
+    "MoiParameters": {
+      "description": "Gérer les préférences et paramètre de l'application."
+    },
     "send mail to user": {
       "description": "Vous donner la possibilité de recevoir un rapport hebdomadaire par mail."
     }

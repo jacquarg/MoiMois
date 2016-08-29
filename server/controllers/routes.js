@@ -1,13 +1,34 @@
 /* 
 * Set the routes of your app here.
 */ 
+
 Main = require('./main');
+Parameters = require('./parameters');
 
 Badges = require('./badges');
 Numbers = require('./numbers');
 Cursors = require('./cursors');
 Viz = require('./viz');
 Mail = require('./mail');
+
+// properties = SimpleController.extend({
+//   getOrCreate: function(req, res, next) {
+//     this.model.getOrCreate(next);  
+//   },
+
+// });
+
+// // Properties = new SimpleController({
+// Properties = new properties({
+//   model: require('../models/MoiProperties'),
+//   reqProp: 'note',
+//   reqParamID: 'noteid',
+// });
+
+// Properties.prototype.getOrCreate = function(req, res, next) {
+//   this.model.getOrCreate(next);
+// };
+
 
 // Test
 //TestModel = require('../models/geolocationlog');
@@ -19,6 +40,11 @@ test = function(req, res) {
 
 
 module.exports = {
+  'parameters': {
+    get: Parameters.getOrCreate,
+    put: Parameters.update,
+  },
+
   'mail': {
     get: Mail.mail
   },
@@ -45,6 +71,7 @@ module.exports = {
   'viz': {
     get: Viz.all        
   },
+
     
   'reset': {
     post: Main.reset

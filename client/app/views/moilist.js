@@ -1,5 +1,6 @@
 MoiMoisCollection = require('../collections/moimois');
 MoiMois = require('./moimois');
+Parameters = require('./parameters');
 
 module.exports = MoiList = Backbone.View.extend({
     //el : $( "#allbadges" ),
@@ -13,6 +14,7 @@ module.exports = MoiList = Backbone.View.extend({
         "click .amonth": "onClickMonth",
         "click #bymail": "onClickShareMail",
         "click #reset": "onClickReset",
+        "click #parameters": "onToggleParameters",
         //"click #testmail": "sendTestMail",
     },
     initialize: function() {
@@ -102,10 +104,17 @@ module.exports = MoiList = Backbone.View.extend({
         console.log("reset");
 
       }
-
-        
     },
     
+    onToggleParameters: function(ev) {
+        if ($('#inputsendmail').length === 0) {
+            this.parameters = new Parameters();
+            this.parameters.render();
+            this.$el.find('#parameterscontainer').append(this.parameters.$el);
+        } else {
+            this.parameters.remove();
+        }
+    },
     //sendTestMail: function(ev) {
     //    $.get("test/");
     //    console.log("test mail sended ?");

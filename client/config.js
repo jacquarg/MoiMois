@@ -17,7 +17,6 @@ exports.config = {
         "stylesheets": {
             "joinTo": {
                 "stylesheets/app.css": /app\/styles\/custom.less/
-//                "stylesheets/app.css": /^app\/styles\/bootsrap.less/
             }
 //            "order": {
 //                "before": [

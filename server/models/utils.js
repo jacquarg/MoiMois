@@ -193,7 +193,7 @@ module.exports.displayMonth = function(month) {
 
 module.exports.appNameNVersion = function() {
     var pkg = require('../../package.json');
-    return pkg.name + '-' + pkg.version;
+    return pkg.name + ':' + pkg.version;
 };
 
 module.exports.touch = function(callback) {

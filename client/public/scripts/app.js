@@ -243,6 +243,26 @@ module.exports = NumberViz = Backbone.Model.extend({
 
 });
 
+require.register("models/parameters.js", function(exports, require, module) {
+module.exports = ParametersModel = Backbone.Model.extend({
+	url: 'parameters',
+  
+    parse: function(raw) {
+        raw.id = raw._id;
+        return raw;
+    },
+
+});
+
+ParametersModel.fetchSingleton = function(callback) {
+    $.get(ParametersModel.prototype.url, function(data) {
+        callback(null, new ParametersModel(data));
+    });
+};
+
+
+});
+
 require.register("router.js", function(exports, require, module) {
 var AppView = require('views/app_view');
 //var ReceiptDetailCollection = require('collections/receiptdetails');
@@ -390,7 +410,7 @@ var buf = [];
 var jade_mixins = {};
 var jade_interp;
 
-buf.push("<div class=\"moiheader\"><div class=\"moilogo\"><img src=\"img/logo_moi_128px.png\"/></div><div class=\"moisnippet\"><h1>Des nouvelles fraîches sur vous ?</h1><p>Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits riens de votre quotidien.</p></div></div><div class=\"moimenu\"><h2 class=\"moimtitle\">vos unes<!--select.moimmonth(name=\"moimmonth\")--></h2><div class=\"moimmonth\"></div></div><div id=\"moi\"></div><div class=\"moireedition\">En cliquant sur le bouton ci-dessous, vous pouvez ré-éditer tous vos <i>moi. </i>Les anciens <i>moi </i>seront définitivement perdus, mais les nouveaux créés utiliseront peut-être plus de données !<div class=\"text-center\"><a id=\"reset\" href=\"#\" class=\"btn btn-danger btn-small\">ré-éditer</a></div></div>");;return buf.join("");
+buf.push("<div class=\"moiheader\"><div class=\"moilogo\"><img src=\"img/logo_moi_128px.png\"/></div><div class=\"moisnippet\"><h1>Des nouvelles fraîches sur vous ?</h1><p>Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits riens de votre quotidien.</p></div></div><div class=\"moimenu\"><h2 class=\"moimtitle\">vos unes<!--select.moimmonth(name=\"moimmonth\")--></h2><div class=\"moimmonth\"></div></div><div id=\"moi\"></div><div class=\"moireedition\">En cliquant sur le bouton ci-dessous, vous pouvez ré-éditer tous vos <i>moi. </i>Les anciens <i>moi </i>seront définitivement perdus, mais les nouveaux créés utiliseront peut-être plus de données !<div class=\"text-center\"><a id=\"reset\" href=\"#\" class=\"btn btn-danger btn-small\">ré-éditer</a></div></div><div class=\"moiparameters\"><div id=\"parameters\" href=\"#\" class=\"btn btn-default btn-small\">Paramètres</div></div><div id=\"parameterscontainer\"></div>");;return buf.join("");
 };
 if (typeof define === 'function' && define.amd) {
   define([], function() {
@@ -450,6 +470,25 @@ if (numberViz.type.indexOf('c') != -1)
 buf.push("<hr/><div class=\"labcompare\">" + (jade.escape(null == (jade_interp = numberViz.compareLabel) ? "" : jade_interp)) + "</div>");
 }
 buf.push("</div></div>");}.call(this,"numberViz" in locals_for_with?locals_for_with.numberViz:typeof numberViz!=="undefined"?numberViz:undefined));;return buf.join("");
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
+});
+
+;require.register("templates/parameters.jade", function(exports, require, module) {
+var __templateData = function template(locals) {
+var buf = [];
+var jade_mixins = {};
+var jade_interp;
+;var locals_for_with = (locals || {});(function (sendMail) {
+buf.push("<label> \nEnvoyer l'édition mensuelle par email.<input id=\"inputsendmail\" type=\"checkbox\"" + (jade.attr("checked", sendMail, true, false)) + "/></label>");}.call(this,"sendMail" in locals_for_with?locals_for_with.sendMail:typeof sendMail!=="undefined"?sendMail:undefined));;return buf.join("");
 };
 if (typeof define === 'function' && define.amd) {
   define([], function() {
@@ -2569,6 +2608,7 @@ module.exports = Cursor = Backbone.View.extend({
 require.register("views/moilist.js", function(exports, require, module) {
 MoiMoisCollection = require('../collections/moimois');
 MoiMois = require('./moimois');
+Parameters = require('./parameters');
 
 module.exports = MoiList = Backbone.View.extend({
     //el : $( "#allbadges" ),
@@ -2582,6 +2622,7 @@ module.exports = MoiList = Backbone.View.extend({
         "click .amonth": "onClickMonth",
         "click #bymail": "onClickShareMail",
         "click #reset": "onClickReset",
+        "click #parameters": "onToggleParameters",
         //"click #testmail": "sendTestMail",
     },
     initialize: function() {
@@ -2671,10 +2712,17 @@ module.exports = MoiList = Backbone.View.extend({
         console.log("reset");
 
       }
-
-        
     },
     
+    onToggleParameters: function(ev) {
+        if ($('#inputsendmail').length === 0) {
+            this.parameters = new Parameters();
+            this.parameters.render();
+            this.$el.find('#parameterscontainer').append(this.parameters.$el);
+        } else {
+            this.parameters.remove();
+        }
+    },
     //sendTestMail: function(ev) {
     //    $.get("test/");
     //    console.log("test mail sended ?");
@@ -2770,6 +2818,54 @@ module.exports = NumberViz = Backbone.View.extend({
 
 });
 
+});
+
+require.register("views/parameters.js", function(exports, require, module) {
+var ParametersModel = require('../models/parameters');
+
+module.exports = Parameters = Backbone.View.extend({
+
+    template: require('../templates/parameters'),
+
+    model: null, 
+
+    events: {
+        'change input': 'save',
+    },
+
+    initialize: function() {
+        var self = this;
+        ParametersModel.fetchSingleton(function(err, model) {
+            console.log(model);
+            self.model = model;
+            self.render();
+            self.listenTo(self.model, 'all', self.render);
+        });
+    },
+
+    render: function() {
+        this.$el.html(this.template(this.model ? this.model.toJSON() : {}));        
+        return this.$el;
+    },
+
+    save: function() {
+        this.hold();
+        var self = this;
+        this.model.save({
+            sendMail: this.$el.find('input#inputsendmail').is(':checked'),
+        }, { success: this.unHold.bind(this), });
+    },
+
+    hold: function() {
+        this.$el.find('input').attr('readonly', 'readonly');
+    },
+
+    unHold: function() {
+        this.$el.find('input').attr('readonly', undefined);
+    },
+
+
+});
 });
 
 require.register("views/spider.js", function(exports, require, module) {

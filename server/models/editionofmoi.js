@@ -1,4 +1,4 @@
-cozydb = require('cozydb');
+var cozydb = require('cozydb');
 
 var utils = require('./utils');
 var async = require('async');
