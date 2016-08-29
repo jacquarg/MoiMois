@@ -5,7 +5,7 @@ mixin numberviz(numberViz)
     tr
       td(align="center", valign="middle", style='font-size: 12px;text-transform: uppercase;text-decoration: none;color: #010101;')= numberViz.label
         hr
-      
+
     - if (numberViz.type == "vc")
       tr
         td(align="center", style="#{countStyle} color: #F15048;")= numberViz.count
@@ -13,7 +13,7 @@ mixin numberviz(numberViz)
 
     - else if (numberViz.type == "vvc")
       tr
-        td(align="center", style="text-transform: uppercase;font-size: 25px;line-height: 0.9;color: #F15048;")= numberViz.count
+        td(align="center", style="text-transform: uppercase;font-size: 25px;color: #F15048;")= numberViz.count
       tr
         td(align="center", style="#{countStyle} color: #F68470;")= numberViz.count2
         //.vvcCount= numberViz.count

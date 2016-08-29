@@ -2623,7 +2623,7 @@ module.exports = MoiList = Backbone.View.extend({
         "click #bymail": "onClickShareMail",
         "click #reset": "onClickReset",
         "click #parameters": "onToggleParameters",
-        //"click #testmail": "sendTestMail",
+        // "click #testmail": "sendTestMail",
     },
     initialize: function() {
 
@@ -2723,10 +2723,11 @@ module.exports = MoiList = Backbone.View.extend({
             this.parameters.remove();
         }
     },
-    //sendTestMail: function(ev) {
+
+    // sendTestMail: function(ev) {
     //    $.get("test/");
     //    console.log("test mail sended ?");
-    //},
+    // },
 });
 
 

@@ -1,6 +1,6 @@
-/* 
+/*
 * Set the routes of your app here.
-*/ 
+*/
 
 Main = require('./main');
 Parameters = require('./parameters');
@@ -13,7 +13,7 @@ Mail = require('./mail');
 
 // properties = SimpleController.extend({
 //   getOrCreate: function(req, res, next) {
-//     this.model.getOrCreate(next);  
+//     this.model.getOrCreate(next);
 //   },
 
 // });
@@ -45,11 +45,11 @@ module.exports = {
     put: Parameters.update,
   },
 
-  'mail': {
+  'mail/:month': {
     get: Mail.mail
   },
   ':month/sendmail': {
-    get: Mail.sendReportReq   
+    get: Mail.sendReportReq
   },
   'mms': {
       get: Main.main
@@ -57,22 +57,22 @@ module.exports = {
 
   'badges': {
       get: Badges.all
-  
+
   },
 
   'numbers': {
-    get: Numbers.all        
+    get: Numbers.all
   },
 
   'cursors': {
-    get: Cursors.all        
+    get: Cursors.all
   },
 
   'viz': {
-    get: Viz.all        
+    get: Viz.all
   },
 
-    
+
   'reset': {
     post: Main.reset
   },

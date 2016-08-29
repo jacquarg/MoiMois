@@ -8,26 +8,26 @@ html
  - var styleBdSubTitles = "font-size: 20px;";
  - var styleBdTxt = "font-size: 15px;";
  - var styleBdBigTxt = "font-size: 18px;";
-  body
-    h3(style=styleBdSubTitles) Bonjour 
+  body(style="font-family: Helvetica,Arial,Verdana,sans-serif; color: #333;")
+    h3(style=styleBdSubTitles) Bonjour&nbsp;
       = flName
       |,
-    
+
 
     h2(style=styleBdTitles) Des nouvelles fraîches sur vous ?
     p(style=styleBdBigTxt)
       | Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moments, les petits riens de votre quotidien.
 
     p(style=styleBdTxt)
-      | En tant que testeur du projet MesInfos via le panel EDEN, nous vous proposons de découvrir la 1ère édition de 
+      | En tant que testeur dans le pilote MesInfos, nous vous proposons de découvrir la dernière édition de&nbsp;
       i
-        a(href="#{miURL}/#apps/mesinfos-moi") moi
+        a(href="#{miURL}#apps/moimois") moi
       | , votre magazine rien qu'à vous !
-    
+
     br
     br
-    
-    a(href="#{miURL}/#apps/mesinfos-moi", style="text-decoration: none;color: #010101;")
+
+    a(href="#{miURL}#apps/moimois", style="text-decoration: none;color: #010101;")
         table(bgcolor="#F4F4F4", cellpadding="5px", frame="void", width="640px")
           tr
             th(style="font-size: 15px") &nbsp;
@@ -44,7 +44,7 @@ html
             //- th(bgcolor="#8AC7C2", style="font-size: 30px;")
 
           tr
-            th(align="center", style="line-height: 2; font-size: 40px; color: #2F6878;text-transform: uppercase;") 
+            th(align="center", style="line-height: 2; font-size: 40px; color: #2F6878;text-transform: uppercase;")
               | ~&nbsp;
               = displayDate
               | &nbsp;~
@@ -62,7 +62,7 @@ html
                 tr
                   mixin badgelabel(badges[0])
                   mixin badgelabel(badges[1])
-                  mixin badgelabel(badges[2])          
+                  mixin badgelabel(badges[2])
           tr
             th(style="font-size: 30px") &nbsp;
           tr
@@ -88,14 +88,14 @@ html
                   td(valign="top")
                     table
                       tr
-                        td 
+                        td
                           mixin viz(viz[0])
                       tr
                         td
                           mixin numberviz(numbers[1])
                       tr
-                        td 
-                          mixin cursor(cursors[1])                
+                        td
+                          mixin cursor(cursors[1])
                       tr
                         td
                           mixin numberviz(numbers[3])
@@ -110,36 +110,25 @@ html
     br
     br
 
-    h3(style=styleBdSubTitles) Envie d'aller plus loin et de gagner des points-cadeaux ?
-    ul(style=styleBdTxt)
-      li
-        | Vous pouvez consulter les anciennes éditions de votre Magazine 
+    p Vous pouvez consulter les anciennes éditions de votre Magazine&nbsp;
+      i moi
+      | , via&nbsp;
+      a(href="#{miURL}#apps/moimois") l'application&nbsp;
         i moi
-        | , via 
-        a(href="#{miURL}/#apps/mesinfos-moi") l'application 
-          i moi 
-        | dans votre 
-        a(href=miURL) espace personnel
-        | .
-      li
-        | Pour cela, il est nécessaire de vous connecter à votre 
-        a(href=miURL) espace personnel
-        | &nbsp;( 
-        a(href=miURL)= miURL
-        | , vous pouvez suivre les étapes de cette 
-        a(href="http://youtu.be/V6M3-BSeP2s") vidéo
-        | &nbsp;pour vous guider), vous seuls pouvez le faire car ces données ne concernent que vous !
-      li
-        | Un nouveau système de points-cadeaux est mis en place par Eden : en installant votre espace personnel, en installant les 4 autres applications disponibles, en partageant vos impressions... vous cumulerez des points !
+      | &nbsp;dans votre&nbsp;
+      a(href=miURL) cozy
+      | . Rendez-vous le mois prochain pour une nouvelle édition de&nbsp;
+      i moi
+      |&nbsp;!
 
-    br 
+    br
 
     h3(style=styleBdSubTitles) Vie privée
     p(style=styleBdTxt)
-      | Rappel : comme tous les services proposés par MesInfos, vous seuls avez accès à ces données et pouvez les consulter. Ni les enseignes partenaires, ni les animateurs de MesInfos n'y ont accès !
+      | Rappel : comme tous les services proposés sur vore Cozy par MesInfos, vous seuls avez accès à ces données et pouvez les consulter. Ni les enseignes partenaires, ni l'équipe de MesInfos, ni les équipes Cozy Cloud n'y ont accès !
     p(style=styleBdTxt)
-      | Pour toutes questions, rendez-vous sur le 
-      a(href="http://mesinfos.edeninsight.net/") forum des testeurs MesInfos
-      | &nbsp;(animé par Eden) : 
-      a(href="http://mesinfos.edeninsight.net/") http://mesinfos.edeninsight.net/
-
+      | Pour toutes questions, rendez-vous sur le&nbsp;
+      a(href="http://mesinfos.fing.org/forum/") forum des testeurs MesInfos
+      | &nbsp;(
+      a(href="http://mesinfos.fing.org/forum") http://mesinfos.fing.org/forum
+      | ).

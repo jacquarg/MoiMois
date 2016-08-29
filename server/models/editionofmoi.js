@@ -30,6 +30,7 @@ module.exports = EditionOfMoi = cozydb.getModel('editionofmoi', {
     'ads': [Object],
     'viz': [Object],
     'spider': Object,
+    'sent': Boolean,
     'docTypeVersion': { type: String, default: utils.appNameNVersion() },
 });
 
@@ -71,8 +72,8 @@ EditionOfMoi.ofMonth = function(month, callback) {
         function(err, instances) {
             if (err) {
                 callback(err, null);
-            } else if (instances.length != 1) {
-                callback("Not the moi.", null);
+            // } else if (instances.length != 1) {
+            //     callback("Not the moi.", null);
             } else {
                 callback(null, instances[0]);
             }

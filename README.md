@@ -31,7 +31,7 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 * Numbers (chiffres) :
 ** Évènement le plus long (en minutes ou secondes :)
 
-* Cursors (jauges) : 
+* Cursors (jauges) :
 ** Poule / Fétard : poule si + de rdv entre 7h et 19h / et inversement. [2016-08-26](d7dc375e478879a3d86974af131352cdb3339104)
 ** Routinier / Aventureux : si plus évènement récurrent que ponctuels. [2016-08-26](d7dc375e478879a3d86974af131352cdb3339104)
 
@@ -41,14 +41,17 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 
 #### Contacts
 
-* Badge : 
+* Badge :
 ** Cosmopolite : si plusieurs indicatif téléphoniques différents dans les contacts.
 ** Réseauteur / Homme de réseau ... : tous les 50 contacts.
 
 * Numbers (chiffres) :
 ** + XX contacts ce mois-ci !
 
+#### ConsumptionStatement (Electricité EDF)
 
+* Viz :
+** Top 5 : l'année la moins consomatrice d'énergie
 
 Pour tester cette application :
 ```

@@ -207,10 +207,6 @@ module.exports = {
         },
     },
 
-    cozyinstance: {
-        all: cozydb.defaultRequests.all
-    },
-
     editionofmoi: {
         byMonth: function(doc) {
             emit(doc.ofMonth, doc);
