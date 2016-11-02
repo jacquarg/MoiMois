@@ -24,3 +24,13 @@ MoiParameters.getOrCreate = function(callback) {
         MoiParameters.create(new MoiParameters(), callback);
     });
 };
+
+MoiParameters.sendMailActivated = function(callback) {
+    MoiParameters.first(function(err, model) {
+        if (model) {
+            return callback(null, model.sendMail);
+        } else {
+            callback(null, false);
+        }
+    });
+};

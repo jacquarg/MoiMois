@@ -96,7 +96,15 @@ sendReport: function(month) {
     }
 
     log.info(new Date() + " - SendReport of " + month);
-    EditionOfMoi.touch(function() {
+    async.parallel({
+      touch: EditionOfMoi.touch,
+      sendMail: MoiParameters.sendMailActivated
+    }, function(err, results) {
+        if (err) { return log.error(err); }
+        if (!results.sendMail) {
+          return log.info('Email deactivate by user');
+        }
+
         EditionOfMoi.ofMonth(month, function(err, mm) {
             if (err) { return log.error(err); }
 
