@@ -211,9 +211,9 @@ GeolocationLog.distanceStats = function(month, callback) {
 };
 
 GeolocationLog.hasDocuments = function(cbNoErr) {
-    GeolocationLog.request("deviceStateIsOn", { limit: 1 }, 
+    GeolocationLog.request("deviceStateIsOn", { limit: 1 },
         function(err, docs) {
-            if (err) { 
+            if (err) {
                 log.error(err);
                 docs = [];
             }

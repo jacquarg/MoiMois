@@ -4,28 +4,20 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 
 ## Roadmap
 
-[v] Inviter à configurer des Konnectors.
-[v] Ajouter la version de l'app dans le DocType version
-[v] Ajouter des visualisations
-[p] Préférences, masquer les ad pour certaines données
-[] Tester l'envois de mail, préférence pour stopper les mails
+[p] Inviter à configurer des Konnectors.
+[] Ajouter des visualisations
+[] Préférences, masquer les ad pour certaines données
 
 ### Bugs
 
 * Éditions en doublons.
 * Lenteurs, manque de feedback à la création.
-
-
-#### Données bancaires
-
-[v] Calcul "équivalent de x,x grammes d'or" ~~
-[v] argent que vous avez retiré '0'
-[v] '-', ordre inversé et titre de top 3 des crénaux horaires sur les valeurs.
+* Vos exploits, parfois vide
 
 
 ## En développement !
 
-### Proposer de nouvelles inteerprétations de données !
+### Proposer de nouvelles interprétations de données !
 
 #### Events
 * Numbers (chiffres) :
@@ -53,14 +45,11 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 * Viz :
 ** Top 5 : l'année la moins consomatrice d'énergie
 
-Pour tester cette application :
+# Pour tester cette application :
 ```
 git clone ...
 npm install
 
-# Ajout des données de tests
-npm install -g cozy-fixtures
-cozy-fixtures load tests/fixtures/
 
 cd client
 npm install

@@ -12,13 +12,15 @@ all: function(cbNoErr) {
         hasGeolocationLog: GeolocationLog.hasDocuments,
         hasBankOperation: BankOperation.hasDocuments,
     }, function(err, results) {
-        if (err) { 
+        if (err) {
            log.error(err);
             results = {};
         }
 
         var ads = [];
-        if (!results.hasGeolocationLog) {
+        // TODO : deactivate, while geopoint aren't availables.
+        // if (!results.hasGeolocationLog) {
+        if (false) {
             ads.push({
                 origin: 'orange',
                 type: 'top_distance',
@@ -68,7 +70,7 @@ all: function(cbNoErr) {
                     //month: month,
                     explanationLabel: "parcourus à vol d'oiseau",
                 },
-            });            
+            });
 
         }
 
