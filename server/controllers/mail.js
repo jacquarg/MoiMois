@@ -95,7 +95,7 @@ sendReport: function(month) {
         month = moment().add(-1, 'month').format('YYYY-MM');
     }
 
-    console.log(new Date() + " - SendReport of " + month);
+    log.info(new Date() + " - SendReport of " + month);
     EditionOfMoi.touch(function() {
         EditionOfMoi.ofMonth(month, function(err, mm) {
             if (err) { return log.error(err); }
@@ -108,9 +108,9 @@ sendReport: function(month) {
 
                 cozydb.api.sendMailToUser(message, function(err) {
                   if (err) {
-                      console.log("An error occurred while sending an email : " +  err.msg);
+                      log.error("An error occurred while sending an email : " +  err.msg);
                   } else {
-                      console.log("Report sent.");
+                      log.info("Report sent.");
                       mm.updateAttributes({ sent: true }, function(err) {
                           if (err) {
                               log.error("Error while setting sent on the edition: " + err);
@@ -126,9 +126,9 @@ sendReport: function(month) {
 
 setNextReport : function() {
     var dt = {
-            day: 4, // Thursday ?
-            hour: 12,  // between 12 and 14.
-            };
+        day: 4, // Thursday ?
+        hour: 12,  // between 12 and 14.
+    };
     var now = new Date();
 
     var msBefore = null;
@@ -153,7 +153,7 @@ setNextReport : function() {
     // Add some seconds to avoid inside loop.
     msBefore += 10000;
 
-    console.log("ms before mail: " + msBefore);
+    log.info("ms before mail: " + msBefore);
     setTimeout(function() {
             Mail.sendReport();
             //console.log("send report: " + reportsMap[now.toISOString().slice(0, 10)]);
@@ -182,11 +182,4 @@ sendReportReq: function(req, res) {
 
 }
 
-
 Mail.setNextReport();
-
-// send reports, after initial touch ! (one hour to be sure.)
-// how to avoid flood ? --> if app restart/ flood ...
-setTimeout(Mail.sendReport,
-    //1 * 3600 * 1000);
-    5 * 60 * 1000);

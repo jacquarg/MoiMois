@@ -1,6 +1,6 @@
 {
   "name": "moimois",
-  "version": "0.2.0-dev",
+  "version": "2.0.0-beta-1",
   "description": "Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits rien de votre quotidien ...",
   "repository": {
     "type": "git",
@@ -31,30 +31,6 @@
   "cozy-permissions": {
     "BankOperation": {
       "description": "Lire vos opérations bancaires pour vous en présenter une synthèse visuelle."
-    },
-    "GeolocationLog": {
-      "description": "Lire vos point de géolocalisation pour vous en présenter une synthèse visuelle."
-    },
-    "PhoneCommunicationLog": {
-      "description": "Lire votre journal d'appel pour vous en présenter une synthèse visuelle."
-    },
-    "Receipt": {
-      "description": "Lire vos tickets de caisse pour vous en présenter une synthèse visuelle."
-    },
-    "ReceiptDetail": {
-      "description": "Lire le détail de vos tickets de caisse pour vous en présenter une synthèse visuelle."
-    },
-    "Vehicle": {
-      "description": "Lire les informations relative à votre véhicule (issue d'un contrat AXA) pour vous en présenter quelques caractéristiques."
-    },
-    "RiskVehicle": {
-      "description": "Lire les informations de risques relative à votre contrat auto AXA pour vous en présenter quelques caractéristiques."
-    },
-    "RiskHome": {
-      "description": "Lire les informations de risques relative à votre contrat habitation AXA pour vous en présenter quelques caractéristiques."
-    },
-    "InsuranceClaim": {
-      "description": "Lire le détail de vos sinistres (assurance AXA) pour vous en présenter une synthèse visuelle."
     },
     "Event": {
       "description": "Lire le détail de vos rendez-vous pour vous en présenter une synthèse visuelle."
