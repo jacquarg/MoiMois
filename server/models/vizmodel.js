@@ -2,9 +2,9 @@ async = require('async');
 moment = require('moment');
 
 utils = require('./utils');
-GeolocationLog = require('./geolocationlog');
-PhoneCommunicationLog = require('./phonecommunicationlog');
-ReceiptDetail = require('./receiptdetail');
+// GeolocationLog = require('./geolocationlog');
+// PhoneCommunicationLog = require('./phonecommunicationlog');
+// ReceiptDetail = require('./receiptdetail');
 Event = require('./event');
 BankOperation = require('./bankoperation');
 
@@ -18,105 +18,105 @@ module.exports = VizModel = {
 
 ofMonth: function(month, callback) {
     async.parallel([
-        function(callback) {
-            PhoneCommunicationLog.weekDayStats(month, function(err, data) {
-                if (err) {
-                    // Silent fail on error.
-                    log.error(err);
-                    callback(null, []);
-                    return
-                }
-                
-
-                var bargraphs = [];
-                
-                // Week Day call durations
-                bargraphs.push({
-                    type: "viz_bargraph",
-                    title: "Répartition de vos temps d'appel cumulés sur les jours de la semaine",
-                    bars : utils.barsToPercent(data, 'sum', function(item) { 
-                        return [
-                            item.rangeLabel,
-                            Math.round(item.sum / 60) + "'"
-                               ];
-                        }),
-                });
-
-                callback(null, bargraphs);
-            });
-        },
-        function(callback) {
-            GeolocationLog.monthDistanceSlices(month, function(err, data) {
-
-                if (err) {
-                    // Silent fail on error.
-                    log.error(err);
-                    callback(null, []);
-                    return
-                }
-
-                var bargraphs = [];
-
-                //Distance by week hours slices.
-                bargraphs.push({
-                    type: "viz_bargraph",
-                    title: "Moyenne des km parcourus en fonction des heures de la journée",
-                    bars : utils.barsToPercent(data, 'sum', function(item) {
-                        return [
-                            item.rangeLabel,
-                            Math.round(item.sum) + "km",
-                                ];
-                        }),
-                });
+        // function(callback) {
+        //     PhoneCommunicationLog.weekDayStats(month, function(err, data) {
+        //         if (err) {
+        //             // Silent fail on error.
+        //             log.error(err);
+        //             callback(null, []);
+        //             return
+        //         }
 
 
-                callback(null, bargraphs);
-            });
-        },
-         function(callback) {
-            ReceiptDetail.mostBoughtProductsOfMonth(month, function(err, data) {
+        //         var bargraphs = [];
 
-                if (err) {
-                    // Silent fail on error.
-                    log.error(err);
-                    callback(null, []);
-                    return
-                }
+        //         // Week Day call durations
+        //         bargraphs.push({
+        //             type: "viz_bargraph",
+        //             title: "Répartition de vos temps d'appel cumulés sur les jours de la semaine",
+        //             bars : utils.barsToPercent(data, 'sum', function(item) {
+        //                 return [
+        //                     item.rangeLabel,
+        //                     Math.round(item.sum / 60) + "'"
+        //                        ];
+        //                 }),
+        //         });
 
-                var viz = [];
+        //         callback(null, bargraphs);
+        //     });
+        // },
+        // function(callback) {
+        //     GeolocationLog.monthDistanceSlices(month, function(err, data) {
 
-                //Top 3.
-                if (data.length >= 3) {
-                  viz.push({
-                    type: "viz_top3",
-                    title: "Top 3 de vos courses",
-                    bars : utils.barsToPercent(data.slice(0, 3), 'amount', function(item) {
-                        return [
-                            item.name,
-                            "x" + item.amount,
-                                ]
-                        }),
-                  });
-                }
+        //         if (err) {
+        //             // Silent fail on error.
+        //             log.error(err);
+        //             callback(null, []);
+        //             return
+        //         }
+
+        //         var bargraphs = [];
+
+        //         //Distance by week hours slices.
+        //         bargraphs.push({
+        //             type: "viz_bargraph",
+        //             title: "Moyenne des km parcourus en fonction des heures de la journée",
+        //             bars : utils.barsToPercent(data, 'sum', function(item) {
+        //                 return [
+        //                     item.rangeLabel,
+        //                     Math.round(item.sum) + "km",
+        //                         ];
+        //                 }),
+        //         });
 
 
-                //Top 5.
-                if (data.length >= 5) {
-                  viz.push({
-                    type: "viz_top5",
-                    title: "Vos articles préférés",
-                    bars : utils.barsToPercent(data.slice(0, 10), 'amount', function(item) {
-                        return [
-                            item.name,
-                            "x" + item.amount,
-                                ]
-                        }),
-                  });
-                }
+        //         callback(null, bargraphs);
+        //     });
+        // },
+        //  function(callback) {
+        //     ReceiptDetail.mostBoughtProductsOfMonth(month, function(err, data) {
 
-                callback(null, viz);
-            });
-        },
+        //         if (err) {
+        //             // Silent fail on error.
+        //             log.error(err);
+        //             callback(null, []);
+        //             return
+        //         }
+
+        //         var viz = [];
+
+        //         //Top 3.
+        //         if (data.length >= 3) {
+        //           viz.push({
+        //             type: "viz_top3",
+        //             title: "Top 3 de vos courses",
+        //             bars : utils.barsToPercent(data.slice(0, 3), 'amount', function(item) {
+        //                 return [
+        //                     item.name,
+        //                     "x" + item.amount,
+        //                         ]
+        //                 }),
+        //           });
+        //         }
+
+
+        //         //Top 5.
+        //         if (data.length >= 5) {
+        //           viz.push({
+        //             type: "viz_top5",
+        //             title: "Vos articles préférés",
+        //             bars : utils.barsToPercent(data.slice(0, 10), 'amount', function(item) {
+        //                 return [
+        //                     item.name,
+        //                     "x" + item.amount,
+        //                         ]
+        //                 }),
+        //           });
+        //         }
+
+        //         callback(null, viz);
+        //     });
+        // },
         function(callback) {
             BankOperation.ofMonth(month, function(err, data) {
                 if (err) {
@@ -147,7 +147,7 @@ ofMonth: function(month, callback) {
         for (var i=0;i<results.length;i++) {
             bargraphs = bargraphs.concat(results[i]);
         }
-        
+
         callback(null, bargraphs);
     });
 },
@@ -161,12 +161,12 @@ _computeBankOperations: function(data, callback) {
         function(item) { return  - item.amount ; }
         );
     var bargraphs = [];
-    
+
     // Week Day debts.
     viz.push({
         type: "viz_bargraph",
         title: "Moyenne des dépenses par jour de la semaine.",
-        bars : utils.barsToPercent(weekData, 'sum', function(item) { 
+        bars : utils.barsToPercent(weekData, 'sum', function(item) {
             return [
                 item.rangeLabel,
                 Math.round(item.sum) + " €"
@@ -174,7 +174,7 @@ _computeBankOperations: function(data, callback) {
             }),
     });
 
-    // Top hour cash 
+    // Top hour cash
     var byHours = data.reduce(function(agg, bop) {
         if (bop.operationType === 'type.withdrawal') {
             var hasHour = bop.raw.match(/(\d\d)H\d\d/);
@@ -214,7 +214,7 @@ _computeEvents: function(data, callback) {
     // Event.ofMonth
     var weekData = utils.groupByWeekDays(data,
         function(item) { return new Date(item.start); },
-        function(item) { 
+        function(item) {
             if (item.isAllDay()) { return 0; } // Omit allday events
 
             // Multiples days events, retain only on the first day.
@@ -232,7 +232,7 @@ _computeEvents: function(data, callback) {
     viz.push({
         type: "viz_bargraph",
         title: "Total des rendez-vous par jour de la semaine.",
-        bars : utils.barsToPercent(weekData, 'sum', function(item) { 
+        bars : utils.barsToPercent(weekData, 'sum', function(item) {
             return [
                 item.rangeLabel,
                 Math.round(item.sum) + " min."

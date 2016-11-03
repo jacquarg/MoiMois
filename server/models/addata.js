@@ -1,4 +1,4 @@
-GeolocationLog = require('./geolocationlog');
+//GeolocationLog = require('./geolocationlog');
 // InsuranceClaim = require('./insuranceclaim');
 BankOperation = require('./bankoperation');
 // PhoneCommunicationLog = require('./phonecommunicationlog');
@@ -9,7 +9,7 @@ module.exports = AdData = {
 
 all: function(cbNoErr) {
     async.parallel({
-        hasGeolocationLog: GeolocationLog.hasDocuments,
+        //hasGeolocationLog: GeolocationLog.hasDocuments,
         hasBankOperation: BankOperation.hasDocuments,
     }, function(err, results) {
         if (err) {
@@ -20,59 +20,58 @@ all: function(cbNoErr) {
         var ads = [];
         // TODO : deactivate, while geopoint aren't availables.
         // if (!results.hasGeolocationLog) {
-        if (false) {
-            ads.push({
-                origin: 'orange',
-                type: 'top_distance',
-                label: 'Vous y avez cru ! Récupérez vos données Orange pour en apprendre plus sur vous !',
-                instructions: 'Si vous êtes client Orange Mobile, activez le Konnecteur !',
-                link: '/apps/konnectors/orange',
-                viz: 'badge',
-                badge: {
-                    type: "top_distance",
-                    origin: "orange",
-                    label:  '😲 2 m',
-                    value: 0.002,
-                    //month: month,
-                    explanationLabel: "votre distance max. en 15min.",
-                },
-            });
+        //     ads.push({
+        //         origin: 'orange',
+        //         type: 'top_distance',
+        //         label: 'Vous y avez cru ! Récupérez vos données Orange pour en apprendre plus sur vous !',
+        //         instructions: 'Si vous êtes client Orange Mobile, activez le Konnecteur !',
+        //         link: '/apps/konnectors/orange',
+        //         viz: 'badge',
+        //         badge: {
+        //             type: "top_distance",
+        //             origin: "orange",
+        //             label:  '😲 2 m',
+        //             value: 0.002,
+        //             //month: month,
+        //             explanationLabel: "votre distance max. en 15min.",
+        //         },
+        //     });
 
-            ads.push({
-                origin: 'orange',
-                type: 'top_speed',
-                label: 'Vous y avez cru ! Récupérez vos données Orange pour en apprendre plus sur vous !',
-                instructions: 'Si vous êtes client Orange Mobile, activez le Konnecteur !',
-                link: '/apps/konnectors/orange',
-                viz: 'badge',
-                badge: {
-                    type: "top_speed",
-                    origin: "orange",
-                    label: '😲 2 312 km/h',
-                    value: 2312,
-                    //month: month,
-                    explanationLabel: "votre vitesse max.",
-                },
-            });
+        //     ads.push({
+        //         origin: 'orange',
+        //         type: 'top_speed',
+        //         label: 'Vous y avez cru ! Récupérez vos données Orange pour en apprendre plus sur vous !',
+        //         instructions: 'Si vous êtes client Orange Mobile, activez le Konnecteur !',
+        //         link: '/apps/konnectors/orange',
+        //         viz: 'badge',
+        //         badge: {
+        //             type: "top_speed",
+        //             origin: "orange",
+        //             label: '😲 2 312 km/h',
+        //             value: 2312,
+        //             //month: month,
+        //             explanationLabel: "votre vitesse max.",
+        //         },
+        //     });
 
-            ads.push({
-                origin: 'orange',
-                type: 'traveled_distance',
-                label: 'Vous y avez cru ! Récupérez vos données Orange pour en apprendre plus sur vous !',
-                instructions: 'Si vous êtes client Orange Mobile, activez le Konnecteur !',
-                link: '/apps/konnectors/orange',
-                viz: 'badge',
-                badge: {
-                    type: "traveled_distance",
-                    origin: "orange",
-                    label: '😲 2 000 000 km',
-                    value: 2000000,
-                    //month: month,
-                    explanationLabel: "parcourus à vol d'oiseau",
-                },
-            });
+        //     ads.push({
+        //         origin: 'orange',
+        //         type: 'traveled_distance',
+        //         label: 'Vous y avez cru ! Récupérez vos données Orange pour en apprendre plus sur vous !',
+        //         instructions: 'Si vous êtes client Orange Mobile, activez le Konnecteur !',
+        //         link: '/apps/konnectors/orange',
+        //         viz: 'badge',
+        //         badge: {
+        //             type: "traveled_distance",
+        //             origin: "orange",
+        //             label: '😲 2 000 000 km',
+        //             value: 2000000,
+        //             //month: month,
+        //             explanationLabel: "parcourus à vol d'oiseau",
+        //         },
+        //     });
 
-        }
+        // }
 
         if (!results.hasBankOperation) {
             ads.push({

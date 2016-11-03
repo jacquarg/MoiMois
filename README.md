@@ -12,7 +12,8 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 
 * Éditions en doublons.
 * Lenteurs, manque de feedback à la création.
-* Vos exploits, parfois vide
+* Vos exploits, parfois vide.
+* Pas de message si pas de données (écran vide ...)
 
 
 ## En développement !

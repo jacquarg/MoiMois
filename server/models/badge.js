@@ -1,8 +1,8 @@
-GeolocationLog = require('./geolocationlog');
-InsuranceClaim = require('./insuranceclaim');
+// GeolocationLog = require('./geolocationlog');
+// InsuranceClaim = require('./insuranceclaim');
 BankOperation = require('./bankoperation');
-PhoneCommunicationLog = require('./phonecommunicationlog');
-ReceiptDetail = require('./receiptdetail');
+// PhoneCommunicationLog = require('./phonecommunicationlog');
+// ReceiptDetail = require('./receiptdetail');
 async = require('async');
 utils = require('./utils');
 
@@ -70,186 +70,186 @@ _upToMonth : function(month, callback) {
 
     // each function use différents part of the model, and create a badges list.
     async.parallel([
-        function(callback) {
-            GeolocationLog.distanceStats(month, function(err, data) {
-                if (err) {
-                    // Silent fail on error.
-                    log.error(err);
-                    callback(null, []);
-                    return
-                }
-                var badges = [];
-                // Top dist badge
-                badges.push({
-                    type: "top_distance",
-                    origin: "orange",
-                    label: Math.round(data.topDistance) + ' km',
-                    value: data.topDistance,
-                    month: month,
-                    explanationLabel: "votre distance max. en 15min.",
-                });
+        // function(callback) {
+        //     GeolocationLog.distanceStats(month, function(err, data) {
+        //         if (err) {
+        //             // Silent fail on error.
+        //             log.error(err);
+        //             callback(null, []);
+        //             return
+        //         }
+        //         var badges = [];
+        //         // Top dist badge
+        //         badges.push({
+        //             type: "top_distance",
+        //             origin: "orange",
+        //             label: Math.round(data.topDistance) + ' km',
+        //             value: data.topDistance,
+        //             month: month,
+        //             explanationLabel: "votre distance max. en 15min.",
+        //         });
 
-                // Top speed
-                badges.push({
-                    type: "top_speed",
-                    origin: "orange",
-                    label: Math.round(data.topSpeed) + ' km/h',
-                    value: data.topSpeed,
-                    month: month,
-                    explanationLabel: "votre vitesse max.",
-                });
+        //         // Top speed
+        //         badges.push({
+        //             type: "top_speed",
+        //             origin: "orange",
+        //             label: Math.round(data.topSpeed) + ' km/h',
+        //             value: data.topSpeed,
+        //             month: month,
+        //             explanationLabel: "votre vitesse max.",
+        //         });
 
-                // Traveled distances
-                var hundreds = Math.floor(data.totalDistance / 100);
-                //for (var h=1;h<=hundreds;h++) {
-                    badges.push({
-                        type: "traveled_distance",
-                        origin: "orange",
-                        label: hundreds + '00 km',
-                        value: hundreds,
-                        month: month,
-                        explanationLabel: "parcourus à vol d'oiseau",
-                    });
-                //}
+        //         // Traveled distances
+        //         var hundreds = Math.floor(data.totalDistance / 100);
+        //         //for (var h=1;h<=hundreds;h++) {
+        //             badges.push({
+        //                 type: "traveled_distance",
+        //                 origin: "orange",
+        //                 label: hundreds + '00 km',
+        //                 value: hundreds,
+        //                 month: month,
+        //                 explanationLabel: "parcourus à vol d'oiseau",
+        //             });
+        //         //}
 
-                callback(null, badges);
-            });
-        },
-        function(callback) {
-            PhoneCommunicationLog.totals(month, function(err, data) {
-                if (err) {
-                    // Silent fail on error.
-                    log.error(err);
-                    callback(null, []);
-                    return
-                }
-                var badges = [];
+        //         callback(null, badges);
+        //     });
+        // },
+        // function(callback) {
+        //     PhoneCommunicationLog.totals(month, function(err, data) {
+        //         if (err) {
+        //             // Silent fail on error.
+        //             log.error(err);
+        //             callback(null, []);
+        //             return
+        //         }
+        //         var badges = [];
 
-                // Data
-                //var tens = Math.floor(data.callsDuration / (5 * 1000000000)); //(5 GB) TODO
-                var tens = Math.floor(data.data / (100000000)); //(100 MB)
-                //for (var h=1;h<=tens;h++) {
-                    badges.push({
-                        type: "data",
-                        origin: "orange",
-                        label: tens + '00 Mo',
-                        value: tens,
-                        month: month,
-                        explanationLabel: "de data consommées",
-                    });
-                //}
+        //         // Data
+        //         //var tens = Math.floor(data.callsDuration / (5 * 1000000000)); //(5 GB) TODO
+        //         var tens = Math.floor(data.data / (100000000)); //(100 MB)
+        //         //for (var h=1;h<=tens;h++) {
+        //             badges.push({
+        //                 type: "data",
+        //                 origin: "orange",
+        //                 label: tens + '00 Mo',
+        //                 value: tens,
+        //                 month: month,
+        //                 explanationLabel: "de data consommées",
+        //             });
+        //         //}
 
-                // Calls duration.
-                var tens = Math.floor(data.callsDuration / (5 * 60 * 60)); //(5 hours)
-                //for (var h=1;h<=tens;h++) {
-                    badges.push({
-                        type: "calls_duration",
-                        origin: "orange",
-                        label: tens + ' H',
-                        value: tens,
-                        month: month,
-                        explanationLabel: "d'appels",
-                     });
-                //}
+        //         // Calls duration.
+        //         var tens = Math.floor(data.callsDuration / (5 * 60 * 60)); //(5 hours)
+        //         //for (var h=1;h<=tens;h++) {
+        //             badges.push({
+        //                 type: "calls_duration",
+        //                 origin: "orange",
+        //                 label: tens + ' H',
+        //                 value: tens,
+        //                 month: month,
+        //                 explanationLabel: "d'appels",
+        //              });
+        //         //}
 
-                // Contacts called/received.
-                var tens = Math.floor(data.callsContactsCount / 10);
-                //for (var h=1;h<=tens;h++) {
-                    badges.push({
-                        type: "contacts_count",
-                        origin: "orange",
-                        label: tens + '0',
-                        value: tens,
-                        month: month,
-                        explanationLabel: "contacts appelés",
-                    });
-                //}
+        //         // Contacts called/received.
+        //         var tens = Math.floor(data.callsContactsCount / 10);
+        //         //for (var h=1;h<=tens;h++) {
+        //             badges.push({
+        //                 type: "contacts_count",
+        //                 origin: "orange",
+        //                 label: tens + '0',
+        //                 value: tens,
+        //                 month: month,
+        //                 explanationLabel: "contacts appelés",
+        //             });
+        //         //}
 
-                callback(null, badges);
-            });
-        },
+        //         callback(null, badges);
+        //     });
+        // },
 
-        function(callback) {
-            ReceiptDetail.sectionsTotals(month, ['10', '30'], function(err, data) {
-                if (err || data == 0) {
-                    // Silent fail on error.
-                    log.error(err);
-                    callback(null, []);
-                    return
-                }
-                var badges = [];
-                // Top fromage count
-                badges.push({
-                    type: "top_fromage",
-                    origin: "intermarche",
-                    label: Math.round(data) +  ' ème',
-                    value: data,
-                    month: month,
-                    explanationLabel: "fromage",
-                });
-                callback(null, badges);
-            });
+        // function(callback) {
+        //     ReceiptDetail.sectionsTotals(month, ['10', '30'], function(err, data) {
+        //         if (err || data == 0) {
+        //             // Silent fail on error.
+        //             log.error(err);
+        //             callback(null, []);
+        //             return
+        //         }
+        //         var badges = [];
+        //         // Top fromage count
+        //         badges.push({
+        //             type: "top_fromage",
+        //             origin: "intermarche",
+        //             label: Math.round(data) +  ' ème',
+        //             value: data,
+        //             month: month,
+        //             explanationLabel: "fromage",
+        //         });
+        //         callback(null, badges);
+        //     });
 
-        },
-        function(callback) {
-            Receipt.upToMonth(month, function(err, data) {
-                if (err) {
-                    // Silent fail on error.
-                    log.error(err);
-                    callback(null, []);
-                    return
-                }
-                var badges = [];
+        // },
+        // function(callback) {
+        //     Receipt.upToMonth(month, function(err, data) {
+        //         if (err) {
+        //             // Silent fail on error.
+        //             log.error(err);
+        //             callback(null, []);
+        //             return
+        //         }
+        //         var badges = [];
 
-                // Get max articles count
-                var max = 0;
-                data.forEach(function(item) {
-                    max = Math.max(item.articlesCount, max);
-                });
+        //         // Get max articles count
+        //         var max = 0;
+        //         data.forEach(function(item) {
+        //             max = Math.max(item.articlesCount, max);
+        //         });
 
-                // Top fromage count
-                badges.push({
-                    type: "top_articles_count",
-                    origin: "intermarche",
-                    label: Math.round(max) +  ' articles',
-                    value: max,
-                    month: month,
-                    explanationLabel: "ticket de caisse le plus long",
-                });
-                callback(null, badges);
-            });
+        //         // Top fromage count
+        //         badges.push({
+        //             type: "top_articles_count",
+        //             origin: "intermarche",
+        //             label: Math.round(max) +  ' articles',
+        //             value: max,
+        //             month: month,
+        //             explanationLabel: "ticket de caisse le plus long",
+        //         });
+        //         callback(null, badges);
+        //     });
 
-        },
-        function(callback) {
-            InsuranceClaim.all(function(err, data) {
-                if (err || data.length == 0) {
-                    // Silent fail on error.
-                    log.error("Error (probably no data): %j", err);
-                    callback(null, []);
-                    return
-                }
-                var badges = [];
+        // },
+        // function(callback) {
+        //     InsuranceClaim.all(function(err, data) {
+        //         if (err || data.length == 0) {
+        //             // Silent fail on error.
+        //             log.error("Error (probably no data): %j", err);
+        //             callback(null, []);
+        //             return
+        //         }
+        //         var badges = [];
 
-                // Get max articles count
-                var count = 0;
-                data.forEach(function(item) {
-                    for (var i=0;i<5;i++) {
-                        count += item['axaNBSIN' + i];
-                    }
-                });
+        //         // Get max articles count
+        //         var count = 0;
+        //         data.forEach(function(item) {
+        //             for (var i=0;i<5;i++) {
+        //                 count += item['axaNBSIN' + i];
+        //             }
+        //         });
 
-                //
-                badges.push({
-                    type: "top_sinistres",
-                    origin: "axa",
-                    label: count,
-                    value: count,
-                    month: month,
-                    explanationLabel: "sinistres subits",
-                });
-                callback(null, badges);
-            });
-        },
+        //         //
+        //         badges.push({
+        //             type: "top_sinistres",
+        //             origin: "axa",
+        //             label: count,
+        //             value: count,
+        //             month: month,
+        //             explanationLabel: "sinistres subits",
+        //         });
+        //         callback(null, badges);
+        //     });
+        // },
         // TODO auto anniversary !
 
         function(callback) {
