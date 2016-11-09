@@ -4,9 +4,14 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 
 ## Roadmap
 
-[p] Inviter à configurer des Konnectors.
-[] Ajouter des visualisations
-[] Préférences, masquer les ad pour certaines données
+* Sortir l'édition du mois précédent "dès que possible"
+* Affichage des exploits du mois
+* Légende / explication du calcul pour chaque viz
+* Visualisation des détails du calcul : quelles données conduisent à ce résultat
+* Sélectionner les données à prendre en compte pour chaque visualisation.
+* Inviter à configurer des Konnectors.
+* Ajouter des visualisations
+* Préférences, masquer les ad pour certaines données
 
 ### Bugs
 

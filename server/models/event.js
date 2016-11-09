@@ -124,13 +124,13 @@ Event.ofMonth = function(month, callback) {
 
     async.parallel({
         ponctuals: function(cb) {
-            Event.request('ponctualByStart', 
-                { startkey: start.toISOString(), 
+            Event.request('ponctualByStart',
+                { startkey: start.toISOString(),
                     endkey: end.toISOString() },
                 cb);
         },
         recurrents: function(cb) {
-            Event.request('recurrentByStart', { endkey: end.toISOString() }, cb); 
+            Event.request('recurrentByStart', { endkey: end.toISOString() }, cb);
         },
     }, function(err, res) {
         if (err) { return callback(err); }
@@ -141,7 +141,37 @@ Event.ofMonth = function(month, callback) {
 
         callback(null, realEvents);
     });
-};  
+};
+
+
+Event.firstMonth = function(cbNeverErr) {
+    async.parallel({
+        ponctual: function(cb) {
+            Event.request('ponctualByStart',
+                { startkey: '1901-01-02', limit: 1 }, cb);
+        },
+        recurrent: function(cb) {
+            Event.request('recurrentByStart',
+                { startkey: '1901-01-02', limit: 1 }, cb);
+        },
+    }, function(err, res) {
+        if (err || (res.ponctual.length === 0 && res.recurrent.length === 0)) {
+            log.info("No event", err);
+            return cbNeverErr(null, moment().format('YYYY-MM'));
+        }
+        var first = null;
+        if (!res.ponctual[0]) {
+            first = res.recurrent[0].start;
+        } else if (!res.recurrent[0]) {
+            first = res.ponctual[0].start;
+        } else if (res.ponctual[0].start > res.recurrent[0].start) {
+            first = res.recurrent[0].start;
+        } else {
+            first = res.ponctual[0].start;
+        }
+        cbNeverErr(null, first.slice(0, 7));
+    });
+};
 
 // };
 

@@ -126,13 +126,10 @@ module.exports.groupByWeekDays = function(data, getDate, getValue) {
 };
 
 module.exports.months = function(firstMonth) {
-    // TODO : stub
-    // firstMonth = firstMonth || "2016-01";
-    firstMonth = '2016-01';
+    firstMonth = firstMonth || "2016-01";
+    // firstMonth = '2016-01';
 
-    // TODO stub
-    // var now = moment();
-    var now = moment('2016-10');
+    var now = moment();
     var months = [];
 
     for (month = moment(firstMonth);
@@ -142,18 +139,6 @@ module.exports.months = function(firstMonth) {
     }
 
     return months;
-
-    // TODO !
-    // var now = new Date();
-    // for (var i=0;i<now.getMonth() - 1;i++) { //exclude current month, and previous month, to wait Orange data.
-    //     months.push("2014-0" + (i + 1));
-    // }
-
-    // // if after 22 of this month, add previous month
-    // if (now.getDate() > 22) {
-    //     months.push("2014-0" + now.getMonth()); // -1 + 1.
-    // }
-    // return months
 }
 
 module.exports.toWeekDate = function(dateStr) {

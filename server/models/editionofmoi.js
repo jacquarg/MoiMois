@@ -82,12 +82,24 @@ EditionOfMoi.ofMonth = function(month, callback) {
 
 };
 
+EditionOfMoi.firstMonth = function(callback) {
+    async.parallel([
+        BankOperation.firstMonth,
+        Event.firstMonth,
+    ], function(err, res) {
+
+        var first = res.reduce(function(min, current) {
+            return (current < min) ? current : min ;
+        }, new Date().toISOString().slice(0, 7));
+        callback(null, first);
+    });
+};
 
 EditionOfMoi.all = function(callback) {
     async.parallel({
         instances: EditionOfMoi.allInDb,
         // TODO : don't rely only on bank !
-        firstMonth: BankOperation.firstMonth,
+        firstMonth: EditionOfMoi.firstMonth,
         adData: AdData.all,
     }, function(err, results) {
         var instances = results.instances;
@@ -108,18 +120,16 @@ EditionOfMoi.all = function(callback) {
             function(mms, month, cb) {
                 log.info("Edit a Moi for month: " + month);
                 EditionOfMoi._generateAMoi(month, adData, mms, function(err, mm) {
-                    // TODO : put this filter back !
-                    // //Filter empty first months.
-                    // if (mms.length == 0 &&
-                    //   (
-                    //     mm.badges.length == 0
-                    //     || mm.cursors.length == 0
-                    //     || mm.numbers.length == 0
-                    //     || mm.viz.length == 0 )) {
-                    //     // skip it.
-                    //     cb(null, mms);
-                    //     return;
-                    // }
+                    // Filter empty months. Add 'if (mms.length == 0 &&' to filter only first's ones
+                    if (
+                        mm.badges.length == 0
+                        && mm.cursors.length == 0
+                        && mm.numbers.length == 0
+                        && mm.viz.length == 0) {
+                        // skip it.
+                        cb(null, mms);
+                        return;
+                    }
 
                     mm.ofMonth = month;
                     mm.displayDate = utils.displayMonth(month);
@@ -194,6 +204,11 @@ EditionOfMoi._selectAMoi = function(allOfMonth, previouses, callback) {
     }}*/
 
     var filterViz = function(mm, tag, quantity, excludeList, cmpTag) {
+        if (!allOfMonth[tag]) {
+            mm[tag] = [];
+            return [];
+        }
+
         if (!cmpTag) {
             cmpTag = 'origin';
         }
