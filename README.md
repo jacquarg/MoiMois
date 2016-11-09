@@ -4,7 +4,6 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 
 ## Roadmap
 
-* Sortir l'édition du mois précédent "dès que possible"
 * Affichage des exploits du mois
 * Légende / explication du calcul pour chaque viz
 * Visualisation des détails du calcul : quelles données conduisent à ce résultat
