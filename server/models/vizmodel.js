@@ -165,13 +165,15 @@ _computeBankOperations: function(data, callback) {
     // Week Day debts.
     viz.push({
         type: "viz_bargraph",
-        title: "Moyenne des dépenses par jour de la semaine.",
+        title: "Total des dépenses par jour de la semaine.",
         bars : utils.barsToPercent(weekData, 'sum', function(item) {
             return [
                 item.rangeLabel,
                 Math.round(item.sum) + " €"
                    ];
             }),
+        explanation: "Somme des débits, par jours de la semaine, ce mois, "
+        + "sur l'ensemble des comptes bancaires configurés dans votre Cozy.",
     });
 
     // Top hour cash
@@ -203,8 +205,11 @@ _computeBankOperations: function(data, callback) {
                 return [
                     item.hour + 'h - ' + (parseInt(item.hour) + 1) + 'h',
                     item.amount + '€'
-                ];
-            })
+                    ];
+                }),
+            explanation: "L'heure de la journée ou vous avez retirer la plus grosse somme totale "
+            + "au distributeur automatique de billets, ce mois, "
+            + "sur l'ensemble des comptes bancaires configurés dans votre Cozy.",
         });
     }
     callback(null, viz);
@@ -238,6 +243,9 @@ _computeEvents: function(data, callback) {
                 Math.round(item.sum) + " min."
                    ];
             }),
+        explanation: "Durée totale des évènements de ce mois, "
+        + "dans l'ensemble des agendas de votre Cozy, classés par jour de la semaine. "
+        + "Les évènemnets sur plusieurs jours comptent pour 24h sur le jour de début. "
     });
     callback(null, viz);
 },

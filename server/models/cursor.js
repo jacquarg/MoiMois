@@ -261,6 +261,8 @@ ofMonth: function(month, cb) {
                     maxLabel: "dépensier",
                     balance: utils.balance(debcred.credits, debcred.debits),
                     color: "Red",
+                    explanation: "Rapport entre l'ensemble des crédits et débits du mois, "
+                        + "sur l'ensemble des comptes bancaires configurés dans votre Cozy.",
                 });
 
                 callback(null, cursors);
@@ -303,7 +305,8 @@ _computeEvents: function(events, callback) {
         maxLabel: "aventureux",
         balance: utils.balance(recurrentCount, punctualCount),
         color: "Red",
-        explanation: "Selon la proportion d'évènements récurrent, par rapport aux évènement ponctuels."
+        explanation: "Le rapport entre le nombre d'évènement récurrents et d'évènements ponctuels "
+        + "ce mois, dans l'ensemble des agendas de votre Cozy."
     });
 
     // Poule Fétard
@@ -327,7 +330,8 @@ _computeEvents: function(events, callback) {
         maxLabel: "fétard",
         balance: utils.balance(earlyCount, lateCount),
         color: "Red",
-        explanation: "poule si + de rdv entre 7h et 19h / et inversement."
+        explanation: "Rapport en le nombre de rendez-vous entre 7h et 19h (poule), et ceux plus "
+        + "nocturnes (fétard), ce mois, dans l'ensemble des agendas de votre Cozy."
     });
 
     callback(null, cursors);

@@ -300,6 +300,9 @@ ofMonth : function(month, callback) {
                         label: "L'argent que vous avez retiré",
                         count: counts.dab.toFixed(0) + " €",
                         compareLabel: "l'équivalent de " + compareCount.toFixed(1) + " grammes d'or",
+                        explanation: "La somme totale de retaits au distributeurs automatiques de "
+                        + "billets, ce mois, sur l'ensemble des comptes bancaires configurés dans "
+                        + "votre Cozy.",
                         });
                 }
 
@@ -311,6 +314,8 @@ ofMonth : function(month, callback) {
                         label: "Vous avez dépensé",
                         count: counts.cb.toFixed(0) + " €",
                         compareLabel: "l'équivalent de " + compareCount.toFixed(1) + " grammes d'or",
+                        explanation: "La somme totale des dépenses par carte bancaire, ce mois, "
+                        + "sur l'ensemble des comptes bancaires configurés dans votre Cozy.",
                     });
                 }
                 callback(null, numbers);
@@ -353,6 +358,7 @@ _computeEvents: function(events, callback) {
         label: "La durée de votre plus long rendez-vous",
         count: maxDuration + ' min',
         compareLabel: "l'équivalent de votre quota de marche active pour " + eqCount + " jours",
+        explanation: "La durée du plus long évènement dans les agendas de votre Cozy."
         });
     callback(null, numbers);
 

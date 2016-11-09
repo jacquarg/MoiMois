@@ -2,10 +2,9 @@
 
 Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits rien de votre quotidien ...
 
-## Roadmap
 
-* Affichage des exploits du mois
-* Légende / explication du calcul pour chaque viz
+## Roadmap
+* Améliorer l'affichage des paramêtres.
 * Visualisation des détails du calcul : quelles données conduisent à ce résultat
 * Sélectionner les données à prendre en compte pour chaque visualisation.
 * Inviter à configurer des Konnectors.
@@ -18,6 +17,13 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 * Lenteurs, manque de feedback à la création.
 * Vos exploits, parfois vide.
 * Pas de message si pas de données (écran vide ...)
+
+## Changelog
+
+### 2.0.1
+* Une édition dès qu'il y a des données pour un mois.
+* Affichage cohérent des exploits du mois.
+* Légende / explication du calcul pour chaque viz.
 
 
 ## En développement !
