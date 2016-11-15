@@ -4,16 +4,17 @@ module.exports = Parameters = Backbone.View.extend({
 
     template: require('../templates/parameters'),
 
-    model: null, 
+    model: null,
 
     events: {
         'change input': 'save',
+        'click #reset': 'onClickReset',
     },
 
-    initialize: function() {
+    initialize: function(options) {
+        this.moilistView = options.moilistView
         var self = this;
         ParametersModel.fetchSingleton(function(err, model) {
-            console.log(model);
             self.model = model;
             self.render();
             self.listenTo(self.model, 'all', self.render);
@@ -21,7 +22,7 @@ module.exports = Parameters = Backbone.View.extend({
     },
 
     render: function() {
-        this.$el.html(this.template(this.model ? this.model.toJSON() : {}));        
+        this.$el.html(this.template(this.model ? this.model.toJSON() : {}));
         return this.$el;
     },
 
@@ -39,6 +40,11 @@ module.exports = Parameters = Backbone.View.extend({
 
     unHold: function() {
         this.$el.find('input').attr('readonly', undefined);
+    },
+
+
+    onClickReset: function(ev) {
+        this.moilistView.onClickReset();
     },
 
 

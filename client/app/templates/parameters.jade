@@ -1,3 +1,13 @@
-label 
+label
   | Envoyer l'édition mensuelle par email.
   input#inputsendmail(type="checkbox", checked=sendMail)
+
+.moireedition
+  | En cliquant sur le bouton ci-dessous, vous pouvez ré-éditer tous vos
+  i moi.
+  | Les anciens
+  i moi
+  | seront définitivement perdus, mais les nouveaux créés utiliseront peut-être plus de données !
+
+  .text-center
+    a.btn.btn-danger.btn-small(id="reset", href='#') ré-éditer

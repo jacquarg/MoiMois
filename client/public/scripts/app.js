@@ -410,7 +410,7 @@ var buf = [];
 var jade_mixins = {};
 var jade_interp;
 
-buf.push("<div class=\"moiheader\"><div class=\"moilogo\"><img src=\"img/logo_moi_128px.png\"/></div><div class=\"moisnippet\"><h1>Des nouvelles fraîches sur vous ?</h1><p>Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits riens de votre quotidien.</p></div></div><div class=\"moimenu\"><h2 class=\"moimtitle\">vos unes<!--select.moimmonth(name=\"moimmonth\")--></h2><div class=\"moimmonth\"></div></div><div id=\"moi\"></div><div class=\"moireedition\">En cliquant sur le bouton ci-dessous, vous pouvez ré-éditer tous vos <i>moi. </i>Les anciens <i>moi </i>seront définitivement perdus, mais les nouveaux créés utiliseront peut-être plus de données !<div class=\"text-center\"><a id=\"reset\" href=\"#\" class=\"btn btn-danger btn-small\">ré-éditer</a></div></div><div class=\"moiparameters\"><div id=\"parameters\" href=\"#\" class=\"btn btn-default btn-small\">Paramètres</div></div><div id=\"parameterscontainer\"></div>");;return buf.join("");
+buf.push("<div class=\"moiheader\"><div class=\"moilogo\"><img src=\"img/logo_moi_128px.png\"/></div><div class=\"moisnippet\"><h1>Des nouvelles fraîches sur vous ?</h1><p>Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits riens de votre quotidien.</p></div></div><div class=\"moimenu\"><h2 class=\"moimtitle\">vos unes<!--select.moimmonth(name=\"moimmonth\")--></h2><div class=\"moimmonth\"></div></div><div id=\"moi\"></div><div class=\"moiparameters\"><div id=\"parameters\" href=\"#\" class=\"btn btn-default btn-small\">Paramètres</div></div><div id=\"parameterscontainer\"></div>");;return buf.join("");
 };
 if (typeof define === 'function' && define.amd) {
   define([], function() {
@@ -493,7 +493,7 @@ var buf = [];
 var jade_mixins = {};
 var jade_interp;
 ;var locals_for_with = (locals || {});(function (sendMail) {
-buf.push("<label> \nEnvoyer l'édition mensuelle par email.<input id=\"inputsendmail\" type=\"checkbox\"" + (jade.attr("checked", sendMail, true, false)) + "/></label>");}.call(this,"sendMail" in locals_for_with?locals_for_with.sendMail:typeof sendMail!=="undefined"?sendMail:undefined));;return buf.join("");
+buf.push("<label>Envoyer l'édition mensuelle par email.<input id=\"inputsendmail\" type=\"checkbox\"" + (jade.attr("checked", sendMail, true, false)) + "/></label><div class=\"moireedition\">En cliquant sur le bouton ci-dessous, vous pouvez ré-éditer tous vos<i>moi.</i>Les anciens<i>moi</i>seront définitivement perdus, mais les nouveaux créés utiliseront peut-être plus de données !<div class=\"text-center\"><a id=\"reset\" href=\"#\" class=\"btn btn-danger btn-small\">ré-éditer</a></div></div>");}.call(this,"sendMail" in locals_for_with?locals_for_with.sendMail:typeof sendMail!=="undefined"?sendMail:undefined));;return buf.join("");
 };
 if (typeof define === 'function' && define.amd) {
   define([], function() {
@@ -2621,12 +2621,12 @@ module.exports = MoiList = Backbone.View.extend({
 
     collection: new MoiMoisCollection(),
     template : require('../templates/moilist'),
-    
+
     currentMonth: null,
     events: {
         "click .amonth": "onClickMonth",
         "click #bymail": "onClickShareMail",
-        "click #reset": "onClickReset",
+        // "click #reset": "onClickReset",
         "click #parameters": "onToggleParameters",
         // "click #testmail": "sendTestMail",
     },
@@ -2642,13 +2642,13 @@ module.exports = MoiList = Backbone.View.extend({
 //            : this.model.toJSON()
         }));
 
-        /*var self = this;        
+        /*var self = this;
         this.collection.forEach(function(model) {
             self.onItemAdded(model);
             });
         */
     },
-    
+
     /*collectionFetch: function() {
         var that = this;
         //that.$el.find('.nodata').hide();
@@ -2656,7 +2656,7 @@ module.exports = MoiList = Backbone.View.extend({
         this.collection.fetch({
             success : function(collection, response, options) {
                 //that.showLoader(false);
-        
+
                 //if (collection.length == 0) {
                 //    that.$el.find('.nodata').show();
                 //}
@@ -2708,7 +2708,7 @@ module.exports = MoiList = Backbone.View.extend({
                 self.onItemAdded(model);
             });
             console.log("update data done");
-        
+
         });
         // remove old views
         this.$el.find('.moimmonth').html('');
@@ -2718,12 +2718,13 @@ module.exports = MoiList = Backbone.View.extend({
 
       }
     },
-    
+
     onToggleParameters: function(ev) {
         if ($('#inputsendmail').length === 0) {
-            this.parameters = new Parameters();
+            this.parameters = new Parameters({ moilistView: this });
             this.parameters.render();
             this.$el.find('#parameterscontainer').append(this.parameters.$el);
+            window.scrollTo(0, document.body.scrollHeight);
         } else {
             this.parameters.remove();
         }
@@ -2835,16 +2836,17 @@ module.exports = Parameters = Backbone.View.extend({
 
     template: require('../templates/parameters'),
 
-    model: null, 
+    model: null,
 
     events: {
         'change input': 'save',
+        'click #reset': 'onClickReset',
     },
 
-    initialize: function() {
+    initialize: function(options) {
+        this.moilistView = options.moilistView
         var self = this;
         ParametersModel.fetchSingleton(function(err, model) {
-            console.log(model);
             self.model = model;
             self.render();
             self.listenTo(self.model, 'all', self.render);
@@ -2852,7 +2854,7 @@ module.exports = Parameters = Backbone.View.extend({
     },
 
     render: function() {
-        this.$el.html(this.template(this.model ? this.model.toJSON() : {}));        
+        this.$el.html(this.template(this.model ? this.model.toJSON() : {}));
         return this.$el;
     },
 
@@ -2870,6 +2872,11 @@ module.exports = Parameters = Backbone.View.extend({
 
     unHold: function() {
         this.$el.find('input').attr('readonly', undefined);
+    },
+
+
+    onClickReset: function(ev) {
+        this.moilistView.onClickReset();
     },
 
 

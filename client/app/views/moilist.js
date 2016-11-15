@@ -8,12 +8,12 @@ module.exports = MoiList = Backbone.View.extend({
 
     collection: new MoiMoisCollection(),
     template : require('../templates/moilist'),
-    
+
     currentMonth: null,
     events: {
         "click .amonth": "onClickMonth",
         "click #bymail": "onClickShareMail",
-        "click #reset": "onClickReset",
+        // "click #reset": "onClickReset",
         "click #parameters": "onToggleParameters",
         // "click #testmail": "sendTestMail",
     },
@@ -29,13 +29,13 @@ module.exports = MoiList = Backbone.View.extend({
 //            : this.model.toJSON()
         }));
 
-        /*var self = this;        
+        /*var self = this;
         this.collection.forEach(function(model) {
             self.onItemAdded(model);
             });
         */
     },
-    
+
     /*collectionFetch: function() {
         var that = this;
         //that.$el.find('.nodata').hide();
@@ -43,7 +43,7 @@ module.exports = MoiList = Backbone.View.extend({
         this.collection.fetch({
             success : function(collection, response, options) {
                 //that.showLoader(false);
-        
+
                 //if (collection.length == 0) {
                 //    that.$el.find('.nodata').show();
                 //}
@@ -95,7 +95,7 @@ module.exports = MoiList = Backbone.View.extend({
                 self.onItemAdded(model);
             });
             console.log("update data done");
-        
+
         });
         // remove old views
         this.$el.find('.moimmonth').html('');
@@ -105,12 +105,13 @@ module.exports = MoiList = Backbone.View.extend({
 
       }
     },
-    
+
     onToggleParameters: function(ev) {
         if ($('#inputsendmail').length === 0) {
-            this.parameters = new Parameters();
+            this.parameters = new Parameters({ moilistView: this });
             this.parameters.render();
             this.$el.find('#parameterscontainer').append(this.parameters.$el);
+            window.scrollTo(0, document.body.scrollHeight);
         } else {
             this.parameters.remove();
         }

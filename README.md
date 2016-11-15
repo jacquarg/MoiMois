@@ -4,7 +4,6 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 
 
 ## Roadmap
-* Améliorer l'affichage des paramêtres.
 * Visualisation des détails du calcul : quelles données conduisent à ce résultat
 * Sélectionner les données à prendre en compte pour chaque visualisation.
 * Inviter à configurer des Konnectors.
@@ -24,6 +23,8 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 * Une édition dès qu'il y a des données pour un mois.
 * Affichage cohérent des exploits du mois.
 * Légende / explication du calcul pour chaque viz.
+* Améliorer l'affichage des paramètres.
+
 
 
 ## En développement !
