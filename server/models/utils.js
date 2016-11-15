@@ -129,7 +129,7 @@ module.exports.months = function(firstMonth) {
     firstMonth = firstMonth || "2016-01";
     // firstMonth = '2016-01';
 
-    var now = moment();
+    var now = moment().startOf('month');
     var months = [];
 
     for (month = moment(firstMonth);
