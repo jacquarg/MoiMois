@@ -2,7 +2,6 @@ async = require('async');
 
 utils = require('./utils');
 
-//GeolocationLog = require('./geolocationlog');
 // Vehicle = require('./vehicle');
 BankOperation = require('./bankoperation');
 // PhoneCommunicationLog = require('./phonecommunicationlog');

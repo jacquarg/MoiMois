@@ -1,4 +1,4 @@
-// GeolocationLog = require('./geolocationlog');
+GeoPoint = require('./geopoint');
 // InsuranceClaim = require('./insuranceclaim');
 BankOperation = require('./bankoperation');
 // PhoneCommunicationLog = require('./phonecommunicationlog');
@@ -70,51 +70,51 @@ _upToMonth : function(month, callback) {
 
     // each function use différents part of the model, and create a badges list.
     async.parallel([
-        // function(callback) {
-        //     GeolocationLog.distanceStats(month, function(err, data) {
-        //         if (err) {
-        //             // Silent fail on error.
-        //             log.error(err);
-        //             callback(null, []);
-        //             return
-        //         }
-        //         var badges = [];
-        //         // Top dist badge
-        //         badges.push({
-        //             type: "top_distance",
-        //             origin: "orange",
-        //             label: Math.round(data.topDistance) + ' km',
-        //             value: data.topDistance,
-        //             month: month,
-        //             explanationLabel: "votre distance max. en 15min.",
-        //         });
+        function(callback) {
+            GeoPoint.distanceStats(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    log.error(err);
+                    callback(null, []);
+                    return
+                }
+                var badges = [];
+                // Top dist badge
+                badges.push({
+                    type: "top_distance",
+                    origin: "orange",
+                    label: Math.round(data.topDistance) + ' km',
+                    value: data.topDistance,
+                    month: month,
+                    explanationLabel: "votre distance max. en 15min.",
+                });
 
-        //         // Top speed
-        //         badges.push({
-        //             type: "top_speed",
-        //             origin: "orange",
-        //             label: Math.round(data.topSpeed) + ' km/h',
-        //             value: data.topSpeed,
-        //             month: month,
-        //             explanationLabel: "votre vitesse max.",
-        //         });
+                // Top speed
+                badges.push({
+                    type: "top_speed",
+                    origin: "orange",
+                    label: Math.round(data.topSpeed) + ' km/h',
+                    value: data.topSpeed,
+                    month: month,
+                    explanationLabel: "votre vitesse max.",
+                });
 
-        //         // Traveled distances
-        //         var hundreds = Math.floor(data.totalDistance / 100);
-        //         //for (var h=1;h<=hundreds;h++) {
-        //             badges.push({
-        //                 type: "traveled_distance",
-        //                 origin: "orange",
-        //                 label: hundreds + '00 km',
-        //                 value: hundreds,
-        //                 month: month,
-        //                 explanationLabel: "parcourus à vol d'oiseau",
-        //             });
-        //         //}
+                // Traveled distances
+                var hundreds = Math.floor(data.totalDistance / 100);
+                //for (var h=1;h<=hundreds;h++) {
+                    badges.push({
+                        type: "traveled_distance",
+                        origin: "orange",
+                        label: hundreds + '00 km',
+                        value: hundreds,
+                        month: month,
+                        explanationLabel: "parcourus à vol d'oiseau",
+                    });
+                //}
 
-        //         callback(null, badges);
-        //     });
-        // },
+                callback(null, badges);
+            });
+        },
         // function(callback) {
         //     PhoneCommunicationLog.totals(month, function(err, data) {
         //         if (err) {

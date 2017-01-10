@@ -2,7 +2,7 @@ async = require('async');
 moment = require('moment-timezone');
 utils = require('./utils');
 
-//GeolocationLog = require('./geolocationlog');
+GeoPoint = require('./geopoint');
 //RiskVehicle = require('./riskvehicle');
 //RiskHome = require('./riskhome');
 BankOperation = require('./bankoperation');
@@ -65,45 +65,45 @@ ofMonth: function(month, cb) {
         //         callback(null, cursors);
         //     });
         // },
-        // function(callback) {
-        //     GeolocationLog.monthDistanceStats(month, function(err, data) {
-        //         if (err) {
-        //             // Silent fail on error.
-        //             log.error(err);
-        //             callback(null, []);
-        //             return
-        //         }
+        function(callback) {
+            GeoPoint.monthDistanceStats(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    log.error(err);
+                    callback(null, []);
+                    return
+                }
 
-        //         var cursors = [];
+                var cursors = [];
 
-        //         //Total distance.
-        //             //TODO find values !
-        //         var value = Math.min(Math.round(data.totalDistance / (100) * 50), 100) ; // 100km ?
+                //Total distance.
+                    //TODO find values !
+                var value = Math.min(Math.round(data.totalDistance / (100) * 50), 100) ; // 100km ?
 
-        //         cursors.push({
-        //             origin: "orange",
-        //             minLabel: "casanier",
-        //             maxLabel: "globetrotter",
-        //             balance: value,
-        //             color: "Blue",
-        //         });
+                cursors.push({
+                    origin: "orange",
+                    minLabel: "casanier",
+                    maxLabel: "globetrotter",
+                    balance: value,
+                    color: "Blue",
+                });
 
-        //         // Speed
-        //             //TODO find values !
-        //         var value = Math.min(Math.round(data.totalDistance / 50 * 50), 100) ; // 50km/h ?
-        //         cursors.push({
-        //             origin: "orange",
-        //             minLabel: "tortue",
-        //             maxLabel: "lièvre",
-        //             balance: value,
-        //             color: "Red",
-        //         });
+                // Speed
+                    //TODO find values !
+                var value = Math.min(Math.round(data.totalDistance / 50 * 50), 100) ; // 50km/h ?
+                cursors.push({
+                    origin: "orange",
+                    minLabel: "tortue",
+                    maxLabel: "lièvre",
+                    balance: value,
+                    color: "Red",
+                });
 
-        //         //TODO
+                //TODO
 
-        //         callback(null, cursors);
-        //     });
-        // },
+                callback(null, cursors);
+            });
+        },
 
         // function(callback) {
         //     ReceiptDetail.ofMonth(month, function(err, data) {

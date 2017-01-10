@@ -2,7 +2,7 @@ async = require('async');
 moment = require('moment');
 
 utils = require('./utils');
-// GeolocationLog = require('./geolocationlog');
+GeoPoint = require('./geopoint');
 // PhoneCommunicationLog = require('./phonecommunicationlog');
 // ReceiptDetail = require('./receiptdetail');
 Event = require('./event');
@@ -45,34 +45,34 @@ ofMonth: function(month, callback) {
         //         callback(null, bargraphs);
         //     });
         // },
-        // function(callback) {
-        //     GeolocationLog.monthDistanceSlices(month, function(err, data) {
+        function(callback) {
+            GeoPoint.monthDistanceSlices(month, function(err, data) {
 
-        //         if (err) {
-        //             // Silent fail on error.
-        //             log.error(err);
-        //             callback(null, []);
-        //             return
-        //         }
+                if (err) {
+                    // Silent fail on error.
+                    log.error(err);
+                    callback(null, []);
+                    return
+                }
 
-        //         var bargraphs = [];
+                var bargraphs = [];
 
-        //         //Distance by week hours slices.
-        //         bargraphs.push({
-        //             type: "viz_bargraph",
-        //             title: "Moyenne des km parcourus en fonction des heures de la journée",
-        //             bars : utils.barsToPercent(data, 'sum', function(item) {
-        //                 return [
-        //                     item.rangeLabel,
-        //                     Math.round(item.sum) + "km",
-        //                         ];
-        //                 }),
-        //         });
+                //Distance by week hours slices.
+                bargraphs.push({
+                    type: "viz_bargraph",
+                    title: "Moyenne des km parcourus en fonction des heures de la journée",
+                    bars : utils.barsToPercent(data, 'sum', function(item) {
+                        return [
+                            item.rangeLabel,
+                            Math.round(item.sum) + "km",
+                                ];
+                        }),
+                });
 
 
-        //         callback(null, bargraphs);
-        //     });
-        // },
+                callback(null, bargraphs);
+            });
+        },
         //  function(callback) {
         //     ReceiptDetail.mostBoughtProductsOfMonth(month, function(err, data) {
 

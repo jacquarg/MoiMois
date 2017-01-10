@@ -11,6 +11,7 @@ var VizModel = require('./vizmodel');
 var Spider = require('./spider');
 
 var BankOperation = require('./bankoperation');
+var GeoPoint = require('./geopoint');
 
 log = require('printit')({
     application: 'EditionOfMoi',
@@ -86,6 +87,7 @@ EditionOfMoi.firstMonth = function(callback) {
     async.parallel([
         BankOperation.firstMonth,
         Event.firstMonth,
+        GeoPoint.firstMonth,
     ], function(err, res) {
 
         var first = res.reduce(function(min, current) {

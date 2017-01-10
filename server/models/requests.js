@@ -3,21 +3,16 @@
 */
 
 module.exports = {
-//     geolocationlog : {
-//         deviceStateIsOn : function(doc) {
-//                 if (!doc.deviceState
-//                     && !isNaN(doc.latitude)
-//                     && !isNaN(doc.longitude)) {
-
-//                     emit(
-//                     [doc.timestamp.slice(0, 7),
-//                         doc.timestamp.slice(8,10),
-//                         doc.timestamp.slice(11, -1)]
-// //                        doc.timestamp
-//                         , doc);
-//                 }
-//             }
-//     },
+    geopoint : {
+        byTimestamp: function(doc) {
+            emit(
+            [doc.timestamp.slice(0, 7),
+                doc.timestamp.slice(8,10),
+                doc.timestamp.slice(11, -1)]
+    //                        doc.timestamp
+                , doc);
+        }
+    },
 
     // phonecommunicationlog: {
     //     totals: {

@@ -4,6 +4,8 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 
 
 ## Roadmap
+* visualisation géoloc
+* visualisation historique de communication
 * Visualisation des détails du calcul : quelles données conduisent à ce résultat
 * Sélectionner les données à prendre en compte pour chaque visualisation.
 * Inviter à configurer des Konnectors.
