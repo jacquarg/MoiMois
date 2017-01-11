@@ -23,21 +23,13 @@ module.exports = MoiMois = Backbone.View.extend({
         }
 
     },
+
     render: function() {
+        console.log(this.model);
+        console.log(this.model.toJSON());
         this.$el.html(this.template({ mm: this.model.toJSON()}));
 
         // badges
-       /* this._renderGroup(this.model.attributes.badges,
-            Badge,
-            '.badge_',
-            3); */
-
-//        for (var i=0;i<3;i++) {
-//           var badgeView = new Badge({ model: instance });
-//
-//            badgeView.render();
-//            this.$el.fing('.badge_' + i).html(badgeView.$el);
-//        }
         if (this.model.attributes.badges) {
             this._renderGroup(this.model.attributes.badges,
                 Badge,

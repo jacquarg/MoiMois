@@ -86,7 +86,7 @@ _upToMonth : function(month, callback) {
                     label: Math.round(data.topDistance) + ' km',
                     value: data.topDistance,
                     month: month,
-                    explanationLabel: "votre distance max. en 15min.",
+                    explanationLabel: "votre distance max. en 30min.",
                 });
 
                 // Top speed

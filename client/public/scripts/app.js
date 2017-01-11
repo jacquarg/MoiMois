@@ -428,13 +428,13 @@ var __templateData = function template(locals) {
 var buf = [];
 var jade_mixins = {};
 var jade_interp;
-;var locals_for_with = (locals || {});(function (badges, mm) {
+;var locals_for_with = (locals || {});(function (mm) {
 buf.push("<div class=\"mm\"><div class=\"mmheader\"><div class=\"frame\"><div class=\"mmhblue\"></div><!--img.mmlogo(src=\"img/Logo_MoiMois_130px.png\")--><img src=\"img/Logo_MesInfos_71px.png\" class=\"mmmesinfoslogo\"/><!-- - todo : parametre--><!--.mmname= mm.userName--><h1 class=\"mmdate\">~&nbsp;" + (jade.escape(null == (jade_interp = mm.displayDate) ? "" : jade_interp)) + "&nbsp;~</h1><!--.mmnum #1--></div></div><!-- - todo : header, avec nom ...-->");
-if ( badges)
+if ( mm.badges && mm.badges.length > 0)
 {
 buf.push("<div class=\"mmexploits\"><h2>Exploits du mois</h2><div class=\"row\"><div class=\"badge_0\"></div><div class=\"badge_1\"></div><div class=\"badge_2\"></div></div></div>");
 }
-buf.push("<!--hr.mmdotted--><div class=\"mmmois\"><h2>Vous ce mois-ci</h2><div class=\"mmcol\"><div class=\"mmbloc number_0\"></div><div class=\"mmbloc cursor_0\"></div><div class=\"mmbloc number_2\"></div><div class=\"mmbloc viz_1\"></div><div class=\"mmbloc ad_0\"></div></div><div class=\"mmcol\"><div class=\"mmbloc viz_0\"></div><div class=\"mmbloc number_1\"></div><div class=\"mmbloc cursor_1\"></div><div class=\"mmbloc number_3\"></div><div class=\"mmbloc ad_1\"></div><div class=\"mmbloc number_4\"></div></div><div class=\"spider\"><hr/></div></div><div class=\"mmfooter\"><div class=\"frame\"><div class=\"mmfblue\"><img src=\"img/logo_moi_inv_50px.png\"/></div></div></div></div>");}.call(this,"badges" in locals_for_with?locals_for_with.badges:typeof badges!=="undefined"?badges:undefined,"mm" in locals_for_with?locals_for_with.mm:typeof mm!=="undefined"?mm:undefined));;return buf.join("");
+buf.push("<!--hr.mmdotted--><div class=\"mmmois\"><h2>Vous ce mois-ci</h2><div class=\"mmcol\"><div class=\"mmbloc number_0\"></div><div class=\"mmbloc cursor_0\"></div><div class=\"mmbloc number_2\"></div><div class=\"mmbloc viz_1\"></div><div class=\"mmbloc ad_0\"></div></div><div class=\"mmcol\"><div class=\"mmbloc viz_0\"></div><div class=\"mmbloc number_1\"></div><div class=\"mmbloc cursor_1\"></div><div class=\"mmbloc number_3\"></div><div class=\"mmbloc ad_1\"></div><div class=\"mmbloc number_4\"></div></div><div class=\"spider\"><hr/></div></div><div class=\"mmfooter\"><div class=\"frame\"><div class=\"mmfblue\"><img src=\"img/logo_moi_inv_50px.png\"/></div></div></div></div>");}.call(this,"mm" in locals_for_with?locals_for_with.mm:typeof mm!=="undefined"?mm:undefined));;return buf.join("");
 };
 if (typeof define === 'function' && define.amd) {
   define([], function() {
@@ -2765,21 +2765,13 @@ module.exports = MoiMois = Backbone.View.extend({
         }
 
     },
+
     render: function() {
+        console.log(this.model);
+        console.log(this.model.toJSON());
         this.$el.html(this.template({ mm: this.model.toJSON()}));
 
         // badges
-       /* this._renderGroup(this.model.attributes.badges,
-            Badge,
-            '.badge_',
-            3); */
-
-//        for (var i=0;i<3;i++) {
-//           var badgeView = new Badge({ model: instance });
-//
-//            badgeView.render();
-//            this.$el.fing('.badge_' + i).html(badgeView.$el);
-//        }
         if (this.model.attributes.badges) {
             this._renderGroup(this.model.attributes.badges,
                 Badge,
