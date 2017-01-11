@@ -5,7 +5,7 @@ log = require('printit')({
     date: true
 });
 
-module.exports = GeoPoint = cozydb.getModel('GeoPoint', {
+module.exports = GeoPoint = cozydb.getModel('geopoint', {
   docTypeVersion: String,
   msisdn: String,
   timestamp: Date,

@@ -6,7 +6,7 @@ GeoPoint = require('./geopoint');
 //RiskVehicle = require('./riskvehicle');
 //RiskHome = require('./riskhome');
 BankOperation = require('./bankoperation');
-//PhoneCommunicationLog = require('./phonecommunicationlog');
+PhoneCommunicationLog = require('./phonecommunicationlog');
 //ReceiptDetail = require('./receiptdetail');
 //Receipt = require('./receipt');
 Event = require('./event');
@@ -23,48 +23,48 @@ module.exports = Cursor = {
 
 ofMonth: function(month, cb) {
     async.parallel([
-        // function(callback) {
-        //     PhoneCommunicationLog.monthStats(month, function(err, data) {
-        //         if (err) {
-        //             // Silent fail on error.
-        //             log.error(err);
-        //             callback(null, []);
-        //             return
-        //         }
-        //         var cursors = [];
+        function(callback) {
+            PhoneCommunicationLog.monthStats(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    log.error(err);
+                    callback(null, []);
+                    return
+                }
+                var cursors = [];
 
-        //         //Total calls duration.
-        //             //TODO find values !
-        //         var value = Math.min(Math.round(data.callsDuration / (20 * 60 * 60) * 50), 100); //20h ?
-        //         cursors.push({
-        //             origin: "orange",
-        //             minLabel: "muet",
-        //             maxLabel: "pipelette",
-        //             balance: value,
-        //             color: "Red",
-        //         });
+                //Total calls duration.
+                    //TODO find values !
+                var value = Math.min(Math.round(data.callsDuration / (20 * 60 * 60) * 50), 100); //20h ?
+                cursors.push({
+                    origin: "orange",
+                    minLabel: "muet",
+                    maxLabel: "pipelette",
+                    balance: value,
+                    color: "Red",
+                });
 
-        //         // Direction balance
-        //         cursors.push({
-        //             origin: "orange",
-        //             minLabel: "récepteur",
-        //             maxLabel: "émetteur",
-        //             balance: utils.balance(data.callsIncoming, data.callsOutgoing),
-        //             color: "Blue",
-        //         });
+                // Direction balance
+                cursors.push({
+                    origin: "orange",
+                    minLabel: "récepteur",
+                    maxLabel: "émetteur",
+                    balance: utils.balance(data.callsIncoming, data.callsOutgoing),
+                    color: "Blue",
+                });
 
-        //         // SMS / calls balance ...
-        //         cursors.push({
-        //             origin: "orange",
-        //             minLabel: "scribe",
-        //             maxLabel: "Orateur",
-        //             balance: utils.balance(data.sms, data.calls),
-        //             color: "Blue",
-        //         });
+                // SMS / calls balance ...
+                cursors.push({
+                    origin: "orange",
+                    minLabel: "scribe",
+                    maxLabel: "Orateur",
+                    balance: utils.balance(data.sms, data.calls),
+                    color: "Blue",
+                });
 
-        //         callback(null, cursors);
-        //     });
-        // },
+                callback(null, cursors);
+            });
+        },
         function(callback) {
             GeoPoint.monthDistanceStats(month, function(err, data) {
                 if (err) {

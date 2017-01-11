@@ -4,7 +4,7 @@ utils = require('./utils');
 
 // Vehicle = require('./vehicle');
 BankOperation = require('./bankoperation');
-// PhoneCommunicationLog = require('./phonecommunicationlog');
+PhoneCommunicationLog = require('./phonecommunicationlog');
 // ReceiptDetail = require('./receiptdetail');
 Event = require('./event');
 
@@ -18,87 +18,87 @@ module.exports = NumberModel = {
 
 ofMonth : function(month, callback) {
     async.parallel([
-        // function(callback) {
-        //     PhoneCommunicationLog.monthStats(month, function(err, data) {
-        //         if (err) {
-        //             // Silent fail on error.
-        //             log.error(err);
-        //             callback(null, []);
-        //             return
-        //         }
+        function(callback) {
+            PhoneCommunicationLog.monthStats(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    log.error(err);
+                    callback(null, []);
+                    return
+                }
 
-        //         var numbers = [];
+                var numbers = [];
 
-        //         // Data
-        //         //Total calls duration.
-        //         var hours =  Math.floor(data.callsDuration / 3600);
-        //         var mins = Math.round((data.callsDuration / 60) % 60);
-        //         var mins = (mins < 10) ? "0" + mins : "" + mins;
-        //         // each 10',  + 0.1 , ie / 100 .
-        //         var compare = Math.round(data.callsDuration / 100);
-        //         numbers.push({
-        //             origin: "orange",
-        //             type: "vc",
-        //             label: "Votre temps d'appel",
-        //             count: hours + "h" + mins,
-        //             compareLabel: "l'équivalent de " + compare + " km parcourus à pleine vitesse par Usain Bolt, champion du monde de 100m." // try U+202F as space ?
-        //             });
+                // // Data
+                // //Total calls duration.
+                // var hours =  Math.floor(data.callsDuration / 3600);
+                // var mins = Math.round((data.callsDuration / 60) % 60);
+                // var mins = (mins < 10) ? "0" + mins : "" + mins;
+                // // each 10',  + 0.1 , ie / 100 .
+                // var compare = Math.round(data.callsDuration / 100);
+                // numbers.push({
+                //     origin: "orange",
+                //     type: "vc",
+                //     label: "Votre temps d'appel",
+                //     count: hours + "h" + mins,
+                //     compareLabel: "l'équivalent de " + compare + " km parcourus à pleine vitesse par Usain Bolt, champion du monde de 100m." // try U+202F as space ?
+                //     });
 
-        //         // Total data
-        //         var mo = Math.floor(data.data / 1000000); //(1 MB)
-        //         var compare = Math.round(data.data / 1440000); // (1.44 MB
-        //         numbers.push({
-        //             origin: "orange",
-        //             type: "vc",
-        //             label: "Votre consommation internet sur mobile",
-        //             count: mo + " Mo",
-        //             compareLabel: "l'équivalent de " + compare + " disquettes." // try U+202F as space ?
-        //             });
+                // // Total data
+                // var mo = Math.floor(data.data / 1000000); //(1 MB)
+                // var compare = Math.round(data.data / 1440000); // (1.44 MB
+                // numbers.push({
+                //     origin: "orange",
+                //     type: "vc",
+                //     label: "Votre consommation internet sur mobile",
+                //     count: mo + " Mo",
+                //     compareLabel: "l'équivalent de " + compare + " disquettes." // try U+202F as space ?
+                //     });
 
-        //         // Most called contact
-        //         var mins = Math.round(data.mostCalledContactDuration / 60);
-        //         var compare =  Math.round(mins / 4);// each 4'.
-        //         var contact = utils.formatPhoneNumber(data.mostCalledContact);
-        //         numbers.push({
-        //             origin: "orange",
-        //             type: "vvc",
-        //             label: "Le numéro le plus appelé",
-        //             count: contact,
-        //             count2: mins + " min",
-        //             compareLabel: "l'équivalent de la cuisson de " + compare + " oeufs coques." // try U+202F as space ?
-        //         });
+                // Most called contact
+                var mins = Math.round(data.mostCalledContactDuration / 60);
+                var compare =  Math.round(mins / 4);// each 4'.
+                var contact = utils.formatPhoneNumber(data.mostCalledContact);
+                numbers.push({
+                    origin: "orange",
+                    type: "vvc",
+                    label: "Le numéro le plus appelé",
+                    count: contact,
+                    count2: mins + " min",
+                    compareLabel: "l'équivalent de la cuisson de " + compare + " oeufs coques." // try U+202F as space ?
+                });
 
-        //         callback(null, numbers);
-        //     });
-        // },
-        // function(callback) {
-        //     PhoneCommunicationLog.dayStats(month, function(err, data) {
-        //         if (err) {
-        //             // Silent fail on error.
-        //             log.error(err);
-        //             callback(null, []);
-        //             return
-        //         }
+                callback(null, numbers);
+            });
+        },
+        function(callback) {
+            PhoneCommunicationLog.dayStats(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    log.error(err);
+                    callback(null, []);
+                    return
+                }
 
-        //         var numbers = [];
+                var numbers = [];
 
-        //         // Data
-        //         //Top callsDuration day
-        //         //var day =
+                // Data
+                //Top callsDuration day
+                //var day =
 
-        //         var mins = Math.round(data.value.callsDuration / 60);
-        //         var day = utils.toWeekDate(data.key.join('-'));
-        //         numbers.push({
-        //             origin: "orange",
-        //             type: "vv",
-        //             label: "Votre jour le plus bavard",
-        //             count: day,
-        //             count2: mins + " min" ,
-        //             });
+                var mins = Math.round(data.value.callsDuration / 60);
+                var day = utils.toWeekDate(data.key.join('-'));
+                numbers.push({
+                    origin: "orange",
+                    type: "vv",
+                    label: "Votre jour le plus bavard",
+                    count: day,
+                    count2: mins + " min" ,
+                    });
 
-        //         callback(null, numbers);
-        //     });
-        // },
+                callback(null, numbers);
+            });
+        },
         // function(callback) {
         //     ReceiptDetail.ofMonth(month, function(err, data) {
         //         if (err) {

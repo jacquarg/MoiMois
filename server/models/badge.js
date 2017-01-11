@@ -1,7 +1,7 @@
 GeoPoint = require('./geopoint');
 // InsuranceClaim = require('./insuranceclaim');
 BankOperation = require('./bankoperation');
-// PhoneCommunicationLog = require('./phonecommunicationlog');
+PhoneCommunicationLog = require('./phonecommunicationlog');
 // ReceiptDetail = require('./receiptdetail');
 async = require('async');
 utils = require('./utils');
@@ -115,59 +115,59 @@ _upToMonth : function(month, callback) {
                 callback(null, badges);
             });
         },
-        // function(callback) {
-        //     PhoneCommunicationLog.totals(month, function(err, data) {
-        //         if (err) {
-        //             // Silent fail on error.
-        //             log.error(err);
-        //             callback(null, []);
-        //             return
-        //         }
-        //         var badges = [];
+        function(callback) {
+            PhoneCommunicationLog.totals(month, function(err, data) {
+                if (err) {
+                    // Silent fail on error.
+                    log.error(err);
+                    callback(null, []);
+                    return
+                }
+                var badges = [];
 
-        //         // Data
-        //         //var tens = Math.floor(data.callsDuration / (5 * 1000000000)); //(5 GB) TODO
-        //         var tens = Math.floor(data.data / (100000000)); //(100 MB)
-        //         //for (var h=1;h<=tens;h++) {
-        //             badges.push({
-        //                 type: "data",
-        //                 origin: "orange",
-        //                 label: tens + '00 Mo',
-        //                 value: tens,
-        //                 month: month,
-        //                 explanationLabel: "de data consommées",
-        //             });
-        //         //}
+                // // Data
+                // //var tens = Math.floor(data.callsDuration / (5 * 1000000000)); //(5 GB) TODO
+                // var tens = Math.floor(data.data / (100000000)); //(100 MB)
+                // //for (var h=1;h<=tens;h++) {
+                //     badges.push({
+                //         type: "data",
+                //         origin: "orange",
+                //         label: tens + '00 Mo',
+                //         value: tens,
+                //         month: month,
+                //         explanationLabel: "de data consommées",
+                //     });
+                // //}
 
-        //         // Calls duration.
-        //         var tens = Math.floor(data.callsDuration / (5 * 60 * 60)); //(5 hours)
-        //         //for (var h=1;h<=tens;h++) {
-        //             badges.push({
-        //                 type: "calls_duration",
-        //                 origin: "orange",
-        //                 label: tens + ' H',
-        //                 value: tens,
-        //                 month: month,
-        //                 explanationLabel: "d'appels",
-        //              });
-        //         //}
+                // Calls duration.
+                var tens = Math.floor(data.callsDuration / (5 * 60 * 60)); //(5 hours)
+                //for (var h=1;h<=tens;h++) {
+                    badges.push({
+                        type: "calls_duration",
+                        origin: "orange",
+                        label: tens + ' H',
+                        value: tens,
+                        month: month,
+                        explanationLabel: "d'appels",
+                     });
+                //}
 
-        //         // Contacts called/received.
-        //         var tens = Math.floor(data.callsContactsCount / 10);
-        //         //for (var h=1;h<=tens;h++) {
-        //             badges.push({
-        //                 type: "contacts_count",
-        //                 origin: "orange",
-        //                 label: tens + '0',
-        //                 value: tens,
-        //                 month: month,
-        //                 explanationLabel: "contacts appelés",
-        //             });
-        //         //}
+                // Contacts called/received.
+                var tens = Math.floor(data.callsContactsCount / 10);
+                //for (var h=1;h<=tens;h++) {
+                    badges.push({
+                        type: "contacts_count",
+                        origin: "orange",
+                        label: tens + '0',
+                        value: tens,
+                        month: month,
+                        explanationLabel: "contacts appelés",
+                    });
+                //}
 
-        //         callback(null, badges);
-        //     });
-        // },
+                callback(null, badges);
+            });
+        },
 
         // function(callback) {
         //     ReceiptDetail.sectionsTotals(month, ['10', '30'], function(err, data) {

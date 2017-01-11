@@ -1,25 +1,22 @@
 cozydb = require('cozydb');
 
 module.exports = PhoneCommunicationLog = cozydb.getModel('phonecommunicationlog', {
-    'origin': String,
-    'idMesInfos': String,
-    'direction': String,
-    'timestamp': Date,
-    'subscriberNumber': String,
-    'correspondantNumber': String,
-    'chipCount': Number,
-    'chipType': String,
-    'type': String,
-    'imsi': { 'type': String, 'default': null },
-    'imei': { 'type': String, 'default': null },
-    'latitude': Number,
-    'longitude': Number,
-    'snippet': String
+    docTypeVersion: String,
+    timestamp: Date,
+    msisdn: String,
+    partner: String,
+    length: Number,
+    chipType: String,
+    type: String,
+    latitude: Number,
+    longitude: Number,
+    networkType: String,
+    endCause: String,
 });
 
 PhoneCommunicationLog.totals = function(month, callback) {
     PhoneCommunicationLog.rawRequest(
-        "totals",
+        'totals',
         {
             startkey: [null, null, null],
             endkey: [month, {}, {}]
