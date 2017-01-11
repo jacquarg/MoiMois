@@ -42,6 +42,7 @@ ofMonth: function(month, cb) {
                     maxLabel: "pipelette",
                     balance: value,
                     color: "Red",
+                    explanation: "Si vous avez eu plus ou moins de 20 heures de communication téléphonique sur votre mobile Orange.",
                 });
 
                 // Direction balance
@@ -51,6 +52,7 @@ ofMonth: function(month, cb) {
                     maxLabel: "émetteur",
                     balance: utils.balance(data.callsIncoming, data.callsOutgoing),
                     color: "Blue",
+                    explanation: "Rapport entre le nombre d'appels reçu, et le nombre d'appels émis.",
                 });
 
                 // SMS / calls balance ...
@@ -60,6 +62,7 @@ ofMonth: function(month, cb) {
                     maxLabel: "Orateur",
                     balance: utils.balance(data.sms, data.calls),
                     color: "Blue",
+                    explanation: "Rapport entre le nombre de SMS et le nombre d'appels.",
                 });
 
                 callback(null, cursors);
@@ -86,6 +89,8 @@ ofMonth: function(month, cb) {
                     maxLabel: "globetrotter",
                     balance: value,
                     color: "Blue",
+                    explanation: "Si vous avez parcourus plus ou moins de 100km à vol d'oiseau ce mois (d'après la géolocalisation de votre mobile Orange).",
+
                 });
 
                 // Speed
@@ -97,6 +102,7 @@ ofMonth: function(month, cb) {
                     maxLabel: "lièvre",
                     balance: value,
                     color: "Red",
+                    explanation: "Si vous avez êtes déplacé en moyenne à plus ou moins de 50km/h (d'après la géolocalisation de votre mobile Orange).",
                 });
 
                 //TODO

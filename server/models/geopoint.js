@@ -107,7 +107,7 @@ GeoPoint._computeDistances = function(err, locs, callback) {
                 if (res.topDistance < d) {
                     res.topDistance = d;
 
-                    res.topSpeed = d * 4 ; //  km/(1/4h) --> km/h .
+                    res.topSpeed = d * (60 * 60 * 1000 / NORMAL_TIME_DELTA) ;
                 }
             }
 

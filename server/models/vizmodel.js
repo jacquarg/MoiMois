@@ -40,6 +40,7 @@ ofMonth: function(month, callback) {
                             Math.round(item.sum / 60) + "'"
                                ];
                         }),
+                    explanation: "Le totale par jour de la semaine, des durées de communications de mois sur votre mobile Orange.",
                 });
 
                 callback(null, bargraphs);
@@ -67,6 +68,7 @@ ofMonth: function(month, callback) {
                             Math.round(item.sum) + "km",
                                 ];
                         }),
+                    explanation: "La moyenne des distance parcourues par jour de la semaine, ce mois sur votre mobile Orange.",
                 });
 
 

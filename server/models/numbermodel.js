@@ -65,7 +65,8 @@ ofMonth : function(month, callback) {
                     label: "Le numéro le plus appelé",
                     count: contact,
                     count2: mins + " min",
-                    compareLabel: "l'équivalent de la cuisson de " + compare + " oeufs coques." // try U+202F as space ?
+                    compareLabel: "l'équivalent de la cuisson de " + compare + " oeufs coques.", // try U+202F as space ?
+                    explanation: "Le contact et la durée totale de communication la plus longue ce mois, avec votre mobile Orange.",
                 });
 
                 callback(null, numbers);
@@ -94,6 +95,7 @@ ofMonth : function(month, callback) {
                     label: "Votre jour le plus bavard",
                     count: day,
                     count2: mins + " min" ,
+                    explanation: "Le jour ce mois où vous avez eu la plus grande durée totale de communication, sur votre mobile Orange.",
                     });
 
                 callback(null, numbers);
