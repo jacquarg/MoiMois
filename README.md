@@ -4,8 +4,6 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 
 
 ## Roadmap
-* visualisation géoloc
-* visualisation historique de communication
 * Visualisation des détails du calcul : quelles données conduisent à ce résultat
 * Sélectionner les données à prendre en compte pour chaque visualisation.
 * Inviter à configurer des Konnectors.
@@ -20,6 +18,11 @@ Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre
 * Pas de message si pas de données (écran vide ...)
 
 ## Changelog
+
+### 2.1.0
+* visualisation géoloc
+* visualisation historique de communication
+* Réparation de l'affichage des badges.
 
 ### 2.0.1
 * Une édition dès qu'il y a des données pour un mois.
