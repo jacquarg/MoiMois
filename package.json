@@ -1,6 +1,6 @@
 {
   "name": "moimois",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Des nouvelles fraîches sur vous ? Feuilletez le magazine qui vous raconte votre propre histoire. Découvrez les gros titres du moment, les petits rien de votre quotidien ...",
   "repository": {
     "type": "git",
@@ -30,10 +30,16 @@
   "cozy-displayName": "moi",
   "cozy-permissions": {
     "BankOperation": {
-      "description": "Lire vos opérations bancaires pour vous en présenter une synthèse visuelle."
+      "description": "Lire vos opérations bancaires pour vous en présenter une synthèse ludique."
     },
     "Event": {
-      "description": "Lire le détail de vos rendez-vous pour vous en présenter une synthèse visuelle."
+      "description": "Lire le détail de vos rendez-vous pour vous en présenter une synthèse ludique."
+    },
+    "GeoPoint": {
+      "description": "Consulter l'historique de votre géolocalisation, pour vous en présenter une synthèse ludique."
+    },
+    "PhoneCommunicationLog": {
+      "description": "Lire le journal de vos appels téléphonique, pour vous en présenter une synthèse ludique."
     },
     "CozyInstance": {
       "description": "Lire l'URL de votre espace personnel, afin voir les images dans les rapports par mail, ou vous donner la possibilité de partager vos moi"
